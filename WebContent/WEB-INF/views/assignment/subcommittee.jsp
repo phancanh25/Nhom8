@@ -90,14 +90,15 @@
 		</div>
 	<div class="div-subcommittee-add", id="div-subcommittee-add">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'div-subcommittee-add');">&times</a>
-            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Thêm tiểu ban (giờ chọn CH bị lỗi)</p>
+            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Thêm tiểu ban</p>
             <form action="scmt-add.htm" method="POST">
-	            <input name="tenTB" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
+            	<input type="checkbox" name="select" value="" checked hidden>
+	            <input name="tenTB" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <!-- step = 2 o duoi la gi??  -->
-	            <input name="gio" type="time" step="2" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
-	            <input name="ngay" type="date" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
-	            <input name="diaDiem" type="text" placeholder="Địa điểm" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
-	            <input name="khoa" type="number" placeholder="Khóa" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
+	            <input name="gio" type="time" step="2" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+	            <input name="ngay" type="date" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+	            <input name="diaDiem" type="text" placeholder="Địa điểm" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+	            <input name="khoa" type="number" placeholder="Khóa" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <select name="chuyenNganh" class="form-control" style="width: 300px; margin-left: 50px; display: inline;">
 	                <option value="ATTT">An toàn thông tin</option>
 	                <option value="CNTT">Công nghệ thông tin</option>
@@ -126,7 +127,7 @@
 	                    
 	                </table>
 	            </div>
-            	<button type="submit" class="finish-btn btn btn-success" id="btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Thêm tiểu ban</button>
+            	<button type="submit" class="finish-btn btn btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Thêm tiểu ban</button>
             </form>
                 
         </div>
@@ -172,7 +173,7 @@
 	                    <a ${lock=='have'?'hidden':''} href="javascript:void(0)" onclick="showDeleteSubcommittee('${tieuBanATTT.getMaTB()}');" id="delete-subcommittee1">Xóa</a>
                 	</li>
                 	<div class="div-subcommittee-show"  id="show${tieuBanATTT.getMaTB()}">
-			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'show${tieuBanATTT.getMaTB()}');">&times</a>
+			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideSubcommitte('show${tieuBanATTT.getMaTB()}');">&times</a>
 			            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">${tieuBanATTT.getTenTB()}</p>
 			            <div class="div-subcommittee-wrapper">
 			                <table class="table table-striped table-bordered table-subcommittee">
@@ -195,7 +196,7 @@
 			                    
 			                </table>
             			</div>
-           				 <button onclick="hideSubcommitte();" class="finish-btn btn btn-success" id="btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+           				 <button onclick="hideSubcommitte('show${tieuBanATTT.getMaTB()}');" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
         			</div>
         			<div class="div-subcommittee-edit" id="edit${tieuBanATTT.getMaTB()}">
 			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'edit${tieuBanATTT.getMaTB()}');">&times</a>
@@ -231,7 +232,7 @@
 					                 </c:forEach>
 				                </table>
 				            </div>
-				            <button onclick="location.reload();" class="finish-btn btn btn-success" id="btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Cập nhật</button>
+				            <button onclick="location.reload();" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Cập nhật</button>
 			            </form>    
 			        </div>
 			        <div class="div-subcommittee-delete" id="delete${tieuBanATTT.getMaTB()}">
@@ -274,7 +275,7 @@
 			                    
 			                </table>
             			</div>
-           				 <button onclick="hideSubcommitte();" class="finish-btn btn btn-success" id="btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+           				 <button onclick="hideSubcommitte();" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
         			</div>
         			<div class="div-subcommittee-edit" id="edit${tieuBanCNTT.getMaTB()}">
 			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'edit${tieuBanCNTT.getMaTB()}');">&times</a>
@@ -310,7 +311,7 @@
 					                 </c:forEach>
 				                </table>
 				            </div>
-				            <button onclick="location.reload();" class="finish-btn btn btn-success" id="btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Cập nhật</button>
+				            <button onclick="location.reload();" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Cập nhật</button>
 			            </form>    
 			        </div>
 			        <div class="div-subcommittee-delete" id="delete${tieuBanCNTT.getMaTB()}">
@@ -353,7 +354,7 @@
 			                    
 			                </table>
             			</div>
-           				 <button onclick="hideSubcommitte();" class="finish-btn btn btn-success" id="btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+           				 <button onclick="hideSubcommitte();" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
         			</div>
         			<div class="div-subcommittee-edit" id="edit${tieuBanCNDPT.getMaTB()}">
 			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'edit${tieuBanCNDPT.getMaTB()}');">&times</a>
@@ -389,7 +390,7 @@
 					                 </c:forEach>
 				                </table>
 				            </div>
-				            <button onclick="location.reload();" class="finish-btn btn btn-success" id="btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Cập nhật</button>
+				            <button onclick="location.reload();" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Cập nhật</button>
 			            </form>    
 			        </div>
 			        <div class="div-subcommittee-delete" id="delete${tieuBanCNDPT.getMaTB()}">

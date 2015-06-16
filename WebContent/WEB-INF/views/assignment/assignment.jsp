@@ -151,7 +151,7 @@
        			<c:otherwise>
        				<ul class="ul-assignment">
 			            <li>
-			                <p style="margin-right: 20px; color: blue;" id="current-exam">&#10095; Kỳ bảo vệ năm 2021 </p>
+			                <p style="margin-right: 20px; color: blue;" id="current-exam">&#10095; Kỳ bảo vệ năm ${year} </p>
 			                <div class="div-assignment-roadmap">
 			                	<form action="subcommittee.htm" method="POST" style="display: inline;">
 			                		<button ${release =='done'?'hidden':''} class="btn btn-primary" ${role==1?'':'hidden'} type="submit">Bổ sung tiểu ban</button>

@@ -175,24 +175,16 @@ function expandAssignmentRoadmap(){
 }
 
 function showSubcommittee(id){
-    id = "table-"+id;
-    check = document.getElementsByClassName(id)[0].style.display;
-    if(check == "block"){
-        document.getElementsByClassName(id)[0].style.display = "none";
-    }
-    else document.getElementsByClassName(id)[0].style.display = "block";
+	id = "show"+id;
+	document.getElementById(id).classList.remove("fadeOut");
+	document.getElementById(id).style.display = "block";
+	document.getElementById(id).classList.add("fadeIn");
 }
-
-function showSubcommittee(id){
-    document.getElementsByClassName("div-subcommittee-show")[0].classList.remove("fadeOut");
-    document.getElementsByClassName("div-subcommittee-show")[0].style.display = "block";
-    document.getElementsByClassName("div-subcommittee-show")[0].classList.add("fadeIn");
-}
-function hideSubcommitte(){
-    document.getElementsByClassName("div-subcommittee-show")[0].classList.remove("fadeIn");
-    document.getElementsByClassName("div-subcommittee-show")[0].classList.add("fadeOut");
+function hideSubcommitte(id){
+	document.getElementById(id).classList.remove("fadeIn");
+    document.getElementById(id).classList.add("fadeOut");
     setTimeout(function(){
-        document.getElementsByClassName("div-subcommittee-show")[0].style.display = "none";
+        document.getElementById(id).style.display = "none";
     }, 500)   
 }
 

@@ -85,11 +85,15 @@ public class Subcommittee {
 		Transaction transaction = session.beginTransaction();
 		List<DoAn> doAns = null;
 		
+		for(int i = 0; i<select.length; i++) {
+			System.out.println("Select "+i+": "+select[i]);
+		}
+		
 		//Tao danh sach giang vien cua tieu ban
 		List<GiangVien> giangViens = new ArrayList<>();
 		for(String i: select) {
 			GiangVien giangVien = (GiangVien)(session.get(GiangVien.class, i));
-			giangViens.add(giangVien);
+			if(giangVien != null) giangViens.add(giangVien);
 		}
 		TieuBan tieuBan = new TieuBan<>(tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
 		try {
@@ -179,7 +183,6 @@ public class Subcommittee {
 			model.addAttribute("message", "Thêm kỳ bảo vệ thất bại "+ e.getMessage());
 			return "error/error";
 		}
-		model.addAttribute("message", "Thêm kỳ bảo vệ thất bại ");
 		return "redirect:assignment.htm";
 	}
 	

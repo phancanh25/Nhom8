@@ -41,6 +41,7 @@ public class Assignment {
 		//Kiem tra xem ton tai tieu ban nam hien tai chua
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		model.addAttribute("year", year);
+		System.out.println("YeaR: "+year);
 		
 		Session session = factory.getCurrentSession();
 		//Kiem tra xem nam nay co lock chua, tuc la kiem tra xem co ky bao ve nam nay chua
