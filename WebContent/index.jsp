@@ -7,6 +7,7 @@
 <title>Index</title>
 </head>
 <body>
-	<h1>Nhóm 8</h1>
+	<h1>Nhóm 8 </h1>
+	<p>welcome</p>
 </body>
 </html>
