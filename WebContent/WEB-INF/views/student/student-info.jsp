@@ -5,18 +5,14 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <!-- <link rel="stylesheet" type="text/css" href="css.css">
-        <link rel="stylesheet" type="text/css" href="student-css.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css.css"/>">
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/student-css.css"/>">
         <link rel="stylesheet" type="text/css" href="<c:url value="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>">
-        <base href= "${pageContext.servletContext.contextPath}/">
     </head>
     <body>
         <div class="div-login" id="div-login">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
-            <img src="resources/img/logo-lite.png">
+            <img src="/resources/img/logo-lite.png">
             <form>
                 <input type="text" placeholder="Tên đăng nhập"><br>
                 <input type="password" placeholder="Mật khẩu"><br>
@@ -38,7 +34,7 @@
         <div class="div-menu">
             <div class="div-top-wrapper"> 
                 <a href="index.htm">
-                    <img src="resources/img/logo.png" class="img-logo">
+                    <img src="/resources/img/logo.png" class="img-logo">
                 </a>
                 <a href="event.htm">DS kỳ bảo vệ</a>
                 <a href="student.htm">DSSV</a>
@@ -46,28 +42,21 @@
                 <a href="index.htm">Trang chủ</a>
             </div>
         </div>
-        <div class="div-event">
-            <a href="event-add.htm" style="margin-left: 103px; text-decoration: underline;">Tạo kỳ bảo vệ đồ án</a>
-            <table style="width: 80%; margin: 20px auto" border="1">
-                <tr>
-                    <th style="background: #3f8eae; color: white;">Danh sách các kỳ bảo vệ đồ án</th>
-                </tr>
-                <tr>
-                    <td><a href="event-info.htm">Kỳ bảo vệ năm 2021</a></td>
-                </tr>
-                <tr>
-                    <td><a href="event-info.htm">Kỳ bảo vệ năm 2020</a></td>
-                </tr>
-
-                <tr>
-                    <td><a href="event-info.htm">Kỳ bảo vệ năm 2019</a></td>
-                </tr>
-                <tr>
-                    <td><a href="event-info.htm">Kỳ bảo vệ năm 2018</a></td>
-                </tr>
-            </table>
+        <div class="div-student-info">
+            <div class="div-project-info">
+                <p>Thông tin đồ án</p>
+                <p class="project-title p-first">Phần mềm nhận diện mệnh giá tiền giấy</p>
+                <p class="project-user p-second">Sinh viên thực hiện: Lệnh Hồ Xung</p>
+                <p class="project-teacher p-third">Giảng viên hướng dẫn: Trương Tam Phong</p>
+                <p class="p-fourth">Điểm hướng dẫn: 10</p>
+                <p class="p-fifth">Điểm phản biện: 9.5</p>
+                <p class="p-sixth">Điểm tiểu ban: 9.5</p>
+                <p class="p-seventh">Xếp loại tốt nghiệp: Giỏi</p>
+            </div>
+            <div class="div-project-info" style="margin-top: 20px;">
+                <p>Sinh viên này chưa có đồ án</p>
+                <img src="/resources/img/no-project.png" style="width: 220px; height: 200px; margin-top: 100px;">
+            </div>
         </div>
-</body>
+    </body>
 </html>
-<!-- <script src="script.js"></script> -->
-<script src="<c:url value="resources/script.js"/>"></script>

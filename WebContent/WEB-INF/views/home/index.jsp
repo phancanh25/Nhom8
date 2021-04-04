@@ -35,7 +35,7 @@
         </div>
         <div class="div-menu">
             <div class="div-top-wrapper"> 
-                <a href="index.html">
+                <a href="index.htm">
                 
                      <img src="<c:url value="/resources/img/logo.png"/>" class="img-logo">
                 </a>

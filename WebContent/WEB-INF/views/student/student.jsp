@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
         
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="student-css.css"/>">
+        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/student-css.css"/>">
         <link rel="stylesheet" type="text/css" href="<c:url value="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>">
     </head>
     <body>

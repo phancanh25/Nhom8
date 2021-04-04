@@ -67,10 +67,10 @@
                     <!-- <img src="img/logo.png" class="img-logo"> -->
                     <img src="<c:url value="/resources/img/logo.png"/>" class="img-logo" >
                 </a>
-                <a href="event.html">DS kỳ bảo vệ</a>
-                <a href="student.html">DSSV</a>
-                <a href="teacher.html">DSGV</a>
-                <a href="index.html">Trang chủ</a>
+                <a href="event.htm">DS kỳ bảo vệ</a>
+                <a href="student.htm">DSSV</a>
+                <a href="teacher.htm">DSGV</a>
+                <a href="index.htm">Trang chủ</a>
             </div>
         </div>
         <div class="div-teacher-content">

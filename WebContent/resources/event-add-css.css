@@ -30,7 +30,7 @@ body{
     text-transform: uppercase;
     color: white;
     font-weight: bold;
-    position: fixed;
+    position: sticky;
 }
 
 @keyframes toUp{

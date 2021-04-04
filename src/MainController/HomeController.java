@@ -22,5 +22,17 @@ public class HomeController {
 	public String event() {
 		return "event/event";	
 	}
+	@RequestMapping("event-add")
+	public String eventadd() {
+		return "event/event-add";	
+	}
+	@RequestMapping("event-info")
+	public String eventinfo() {
+		return "event/event-info";	
+	}
+	@RequestMapping("student-info")
+	public String studentinfo() {
+		return "student/student-info";	
+	}
 	
 }
