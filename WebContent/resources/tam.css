@@ -1,0 +1,34 @@
+.wrapper{
+    background-color: pink;
+    width: 20%;
+    height: 200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.wrapper2{
+    margin: 10px auto;
+    width: 90%;
+    border: 1px blue solid;
+}
+.content{
+    margin: 20px auto;
+    width: 80%;
+    height: 30%;
+    background: green;
+    color: white;
+    overflow: scroll;
+}
+@keyframes down{
+    0%{
+        transform: translate(0,0);
+    }
+    100%{
+        transform: translate(0,-22%);
+    }
+}
+
+.down{
+    animation-name: down;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}

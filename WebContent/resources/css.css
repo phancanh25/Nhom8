@@ -1,0 +1,508 @@
+body{
+    font-family: Helvetica, sans-serif;
+    overflow: scroll;
+}
+.div-top{
+    width: 100%;
+    /* background: #c2e0ec; */
+    background: linear-gradient(180deg,#c2e0ec, white);
+    height: 50px;    
+}
+.div-top-wrapper{
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+}
+.div-top a{
+    text-decoration: none;
+    color: #5d8595;
+    font-size: 15px;
+    line-height: 50px;
+}
+.div-top a:nth-child(2){
+    margin-left: 15px;
+}
+.div-top a:nth-child(3), .div-top a:nth-child(4), .div-top a:nth-child(5){
+    float: right;
+}
+.div-top a:nth-child(4){
+    margin-left: -2px;
+    margin-right: 10px;
+    width: 2px;
+    height: 70%;
+    background: #7f9da9;
+    margin-top: 8px;
+    cursor: default;
+}
+.div-top a:nth-child(5){
+    margin-right: 15px;
+    /* border-right: 3px white solid; */
+}
+.div-top a:hover{
+    color: gray;
+}
+.div-menu{
+    width: 100%;
+    height: 100px;
+    /* background-color: pink; */
+}
+.div-menu a{
+    text-decoration: none;
+    color: #5d8595;
+    margin-left: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 35px;
+    float: right;
+}
+.div-menu a:hover{
+    color: #9dc8c6;
+}
+.div-menu a:nth-child(1){
+    float: left;
+    margin-top: 0;
+    margin-left: 0;
+}
+.img-logo{
+    clear: right;
+    width: 400px;
+    height: 60px;
+    margin-top: 20px;
+}
+.div-home{
+    margin: 0 auto;
+    box-shadow: 0px 10px 20px 0px black;
+    width: 70%;
+    /* background: pink; */
+}
+.ul-home{
+    margin-top: 0;
+    padding: 10px;
+}
+.ul-home li{
+    list-style: none;
+    border: 2px #993333 solid;
+    padding: 30px;
+    padding-top: 10px;
+    padding-bottom: 40px;
+    box-shadow: 0px 2px 5px 0px black;
+    margin-bottom: 30px;
+    overflow-y: hidden;
+}
+.ul-home li a{
+    color: #993333;
+    text-decoration: none;
+}
+.ul-home li a:hover{
+    text-decoration: underline;
+}
+.div-content img{
+    width: 130px;
+    height: 150px;
+    float: left;
+    margin-right: 30px;
+    
+}
+
+
+/* Animation */
+@keyframes fadeInDown{
+    0%{
+        opacity: 0;
+        transform: translate(-50%, -150%);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+.fadeInDown{
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+@keyframes fadeOutDown{
+    0%{
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    100%{
+        opacity: 0;
+        transform: translate(-50%, -150%);
+    }
+}
+.fadeOutDown{
+    animation-name: fadeOutDown;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+.div-login, .div-add-teacher, .div-edit-teacher, .div-add-student, .div-student-in-event{
+    width: 450px;
+    height: 400px;
+    background-color: white;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 120px;
+    border-radius: 10px;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    visibility: hidden;
+    z-index: 10;
+}
+.div-add-student{
+    height: 550px;
+}
+.div-student-in-event{
+    width: 60%;
+    height: 550px;
+}
+.div-login img{
+    margin: 10px auto;
+    height: 100px;
+    width: 100px;
+}
+.div-login form{
+    width: 100%;
+    height: 50%;
+}
+.div-login input, .div-add-teacher input, .div-edit-teacher input, .div-add-student input, .div-student-in-event input{
+    width: 80%;
+    height: 25%;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    background: #f6f6f6;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+.div-add-student input{
+    height: 15%;
+}
+.div-login input:focus, .div-add-teacher input:focus, .div-edit-teacher input:focus, .div-add-student input:focus, .div-student-in-event input:focus{
+    background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+    outline: none;
+}
+.div-login button, .div-add-teacher button, .div-edit-teacher button, .div-add-student button, .div-student-in-event button{
+    margin-top: 20px;
+    height: 20%;
+    width: 40%;
+    border-radius: 10px;
+    border: none;
+    background-color: #58baed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 10px 20px 0px #d7e6ee;
+    outline: none;
+}
+.div-student-in-event button{
+    width: 200px;
+    height: 30px;
+    margin: 0 auto;
+}
+.wrapper-table-student-in-event{
+    width: 90%;
+    margin: 0 auto;
+    height: 90%;
+    border: 1px pink solid;
+    overflow: scroll;
+}
+
+.div-login button:hover, .div-add-teacher button:hover, .div-edit-teacher button:hover, .div-add-student button:hover, .div-student-in-event button:hover{
+    background-color: #479bc6;
+    cursor: pointer;
+}
+.div-login-bottom{
+    position: absolute;
+    width: 100%;
+    height: 15%;
+    background: #f6f6f6;
+    bottom: 0;
+}
+.div-login-bottom a{
+    line-height: 55px;
+    text-decoration: none;
+    color: #58baed;
+}
+.div-login-bottom a:hover{
+    color: black;
+    text-decoration: underline;
+}
+.div-add-teacher p, .div-edit-teacher p, .div-add-student p, .div-student-in-event p{
+    margin: 0;
+    height: 8%;
+    line-height: 30px;
+    color: white;
+    font-size: 18px;
+    background: #3f8eae;
+}
+
+
+
+
+
+.a-login-quit{
+    text-decoration: none;
+    font-size: 26px;
+    position: absolute;
+    right: 2%;
+    top: 0%;
+}
+.a-login-quit:hover{
+    color: red;
+}
+.div-teacher-content{
+    width: 70%;
+    min-height: 300px;
+    margin: auto;
+}
+.div-teacher-left{
+    border: 1px #3f8eae solid;
+    float: left;
+    width: 66%;
+    height: 100%;
+}
+.div-teacher-right{
+    height: 300px;
+    margin-left: 2%;
+    float: left;
+    width: 30%;
+    border: 1px #3f8eae solid;
+}
+.div-department{
+    background: #3f8eae;
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+}
+.ul-teacher{
+    padding: 0;
+    margin: 0;
+}
+.ul-teacher li{
+    list-style: none;
+    margin-top: 10px;
+}
+.div-teacher-li{
+    position: relative;
+    width: 96%;
+    height: 150px;
+    margin: 0 auto;
+    border: 1px #3f8eae solid;
+}
+.teacher-edit{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+.div-teacher-li img{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    float: left;
+    top: 50%;
+    transform: translate(0,-50%);
+    margin-left: 10px;
+}
+.div-teacher-info{
+    width: 80%;
+    height: 90%;
+    float: left;
+    margin-left: 15px;
+    margin-top: 1%;
+}
+.ul-teacher-info{
+    margin: 0;
+    padding: 0;
+}
+.ul-teacher-info li{
+    list-style: none;
+    clear: left;
+    border-bottom: 1px gray solid;
+    height: 20px;
+    margin-top: 8px;
+}
+.ul-teacher-info li:last-child{
+    border: none;
+}
+.ul-teacher-info li div{
+    float: left;
+}
+.div-patern-info{
+    width: 30%;
+    font-size: 13px;
+    font-weight: bold;
+}
+.div-data{
+    margin-left: 0px;
+    width: 40%;
+    font-size: 13px;
+    color
+}
+.ul-teacher-info li:first-child .div-data{
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 10px;
+}
+.p-teacher-title{
+    width: 100%;
+    background: #3f8eae;
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    height: 30px;
+    line-height: 30px;
+}
+.div-teacher-right a{
+    margin-left: 20px;
+    color: #3f8eae;
+    display: block;
+}
+.div-teacher-right a:hover{
+    color: #14607e;
+}
+.div-student-content{
+    width: 70%;
+    margin: auto;
+    /* background: pink; */
+    height: 1000px;
+}
+.div-student-content table{
+    margin: 0 auto;
+}
+.div-search{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 30px;
+}
+.div-search input{
+    float: left;
+    margin-right: 30px;
+    margin-top: 5px;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+}
+.div-search input:focus{
+    /* border: 2px solid #3f8eae; */
+    outline: #2d78b9 solid;
+}
+.div-search button{
+    background: #4aa9fb;
+    color: white;
+    border-radius: 5px;
+    margin-top: 5px;
+    width: 120px;
+}
+.div-search button:hover{
+    background: #2d78b9;
+}
+.div-student-info{
+    width: 70%;
+    margin: 0 auto;
+}
+.div-project-info{
+    margin: 0 auto;
+    width: 70%;
+    height: 400px;
+    border: #14607e 1px solid;
+    box-shadow: 0px 6px 6px 6px gray;
+    text-align: center;
+}
+.div-project-info p:first-child{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    background-color: #3f8eae;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+@keyframes fadeInLeft{
+    0%{
+        opacity: 0;
+        transform: translate(300%,0);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(0,0);
+    }
+}
+.div-project-info p:nth-child(n+2){
+    color: red;
+    animation-name: fadeInLeft;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+.div-project-info p:nth-child(2){
+    color: #0c7099;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 22px;
+    animation-delay: 0.5s;
+}
+.div-project-info p:nth-child(3){
+    color: #0c7099;
+    animation-delay: 1s;
+}
+.div-project-info p:nth-child(4){
+    color: #0c7099;
+    animation-delay: 1.5s;
+}
+.div-project-info p:nth-child(5){
+    color: #fc6b58;
+    animation-delay: 2s;
+}
+.div-project-info p:nth-child(6){
+    color: blue;
+    animation-delay: 2.5s;
+}
+.div-project-info p:nth-child(7){
+    color: #c7bc08;
+    animation-delay: 3s;
+}
+.div-project-info p:nth-child(8){
+    color: green;
+    animation-delay: 3.5s;
+}
+.div-event{
+    width: 70%;
+    height: 100px;
+    margin: 0 auto;
+}
+.div-event-info{
+    width: 70%;
+    margin: 0 auto;
+    height: 100px;
+}
+.div-detail{
+    width: 100%;
+    margin: 0 auto;
+    height: 50px;
+    background: #3f8eae;
+    line-height: 10px;
+    color: white;
+    padding-top: 5px;
+}
+.div-detail p{
+    margin-left: 20px;
+}
+.table-deparment{
+    border: 1px #3f8eae solid;
+    width: 700px;
+}
+.table-deparment tr{
+    border-bottom: 1px #3f8eae solid;
+}
