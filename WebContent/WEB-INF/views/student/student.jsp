@@ -91,7 +91,9 @@
 		                    <th>Ngày sinh</th>
 		                    <th>Địa chỉ</th>
 		                    <th>Khóa</th>
+		                    <th>Điểm TBTL</th>
 		                    <th>Đồ án</th>
+		                    
 	            </tr>
             	<c:forEach items="${sinhViens}" var="sinhVien">
             		<tr style="text-align: center; font-weight: normal; font-size: 13px">
@@ -103,7 +105,9 @@
 	                    <th>${sinhVien.getNgaySinh()}</th>
 	                    <th>${sinhVien.getDiaChi()}</th>
 	                    <th>${sinhVien.getKhoa()}</th>
+	                    <th>${sinhVien.getDiemTBTL()}</th>
 	                    <td><a href="student-info.html">Click</a></td>
+	                    
             		</tr>
             	</c:forEach>
               <!-- <tr style="text-align: center;">

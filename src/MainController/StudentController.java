@@ -55,7 +55,7 @@ public class StudentController {
 			@RequestParam("ngaySinh") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngaySinh, 
 			@RequestParam("diaChi") String diaChi, @RequestParam("diemTBTL") float diemTBTL) {
 
-		DoAn doAn = null;
+		DoAn doAn = new DoAn(1, "", "", null, null);
 		SinhVien sinhVien = new SinhVien("n18dcat004", ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL, doAn);
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
