@@ -26,6 +26,19 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
    	
    	<!-- Cấu hình package chứa các controller -->
-	<context:component-scan base-package="MainController"/>
+	<context:component-scan base-package="MainController,tam"/>
+	
+	<!-- Cấu hình interceptor --> 
+	<mvc:interceptors>  
+		 <mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/Home/index.htm"/>
+			<mvc:exclude-mapping path="/home/index.htm"/>
+			<mvc:exclude-mapping path="/Home/login.htm"/>
+			<mvc:exclude-mapping path="/login.htm"/>
+			<bean class="interceptor.Interceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 
 </beans>

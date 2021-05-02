@@ -1,6 +1,7 @@
 body{
     font-family: Helvetica, sans-serif;
     overflow: scroll;
+    padding-bottom: 100px;
 }
 .div-top{
     width: 100%;
@@ -136,7 +137,7 @@ body{
     animation-duration: 1s;
     animation-fill-mode: both;
 }
-.div-login, .div-add-teacher, .div-edit-teacher, .div-add-student, .div-student-in-event{
+.div-login, .div-add-teacher, .div-edit-teacher, .div-add-student, .div-student-in-event, .div-teacher-in-event{
     width: 450px;
     height: 400px;
     background-color: white;
@@ -155,7 +156,7 @@ body{
 .div-add-student{
     height: 550px;
 }
-.div-student-in-event{
+.div-student-in-event, .div-teacher-in-event{
     width: 60%;
     height: 550px;
 }
@@ -234,7 +235,7 @@ body{
     color: black;
     text-decoration: underline;
 }
-.div-add-teacher p, .div-edit-teacher p, .div-add-student p, .div-student-in-event p{
+.div-add-teacher p, .div-edit-teacher p, .div-add-student p, .div-student-in-event p, .div-teacher-in-event p{
     margin: 0;
     height: 8%;
     line-height: 30px;
@@ -283,6 +284,10 @@ body{
     text-transform: uppercase;
     color: white;
     font-weight: bold;
+}
+.div-department span{
+    text-transform: none;
+    font-size: 15px;
 }
 .ul-teacher{
     padding: 0;

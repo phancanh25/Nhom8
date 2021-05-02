@@ -1,18 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="css.css">
+<head>
+<base href="${pageContext.servletContext.contextPath}/">
+<meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="resources/css.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    </head>
-    <body>
+        <script src="resources/script.js"></script>
+<title>Trang chủ</title>
+</head>
+<body>
+	${message}
         <div class="div-login" id="div-login">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
-            <img src="img/logo-lite.png">
-            <form>
-                <input type="text" placeholder="Tên đăng nhập"><br>
-                <input type="password" placeholder="Mật khẩu"><br>
-                <button>Đăng nhập</button>
+            <img src="resources/img/logo-lite.png">
+            <form action="/login.htm" method="POST">
+                <input type="text" name="username" placeholder="Tên đăng nhập"><br>
+                <input type="password" name="password" placeholder="Mật khẩu"><br>
+                <button type="submit">Đăng nhập</button>
             </form>
             <div class="div-login-bottom">
                 <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
@@ -30,9 +36,10 @@
         <div class="div-menu">
             <div class="div-top-wrapper"> 
                 <a href="index.html">
-                    <img src="img/logo.png" class="img-logo">
+                    <img src="resources/img/logo.png" class="img-logo">
                 </a>
                 <a href="event.html">DS kỳ bảo vệ</a>
+                <a href="assignment.html">Phân công đồ án</a>
                 <a href="student.html">DSSV</a>
                 <a href="teacher.html">DSGV</a>
                 <a href="index.html">Trang chủ</a>
@@ -43,28 +50,28 @@
                 <li>
                     <a href="javascript:void(0)"><h4>Danh sách sinh viên tốt nghiệp 2018</h4></a>
                     <div class="div-content">
-                        <img src="img/img-content1.png">
+                        <img src="resources/img/img-content1.png">
                         <p>Trước đó, vào sáng 19/3, tại Trụ sở Chính phủ, Phó Thủ tướng Vũ Đức Đam, Trưởng Ban Chỉ đạo Quốc gia phòng, chống dịch COVID-19 đã chủ trì cuộc họp về “hộ chiếu vaccine COVID-19”. Theo Bộ trưởng Bộ Y tế Nguyễn Thanh Long, từ góc độ tiếp cận của ngành Y tế, “hộ chiếu vaccine COVID-19” thực chất là giấy chứng nhận đã tiêm chủng đầy đủ hai mũi vaccine ngừa COVID-19, được điều chỉnh theo Luật Phòng, chống bệnh truyền nhiễm và Điều lệ kiểm dịch Y tế quốc tế...</p>
                     </div> 
                 </li>
                 <li>
                     <a href="javascript:void(0)"><h4>Danh sách sinh viên tốt nghiệp 2018</h4></a>
                     <div class="div-content">
-                        <img src="img/img-content1.png">
+                        <img src="resources/img/img-content1.png">
                         <p>Trước đó, vào sáng 19/3, tại Trụ sở Chính phủ, Phó Thủ tướng Vũ Đức Đam, Trưởng Ban Chỉ đạo Quốc gia phòng, chống dịch COVID-19 đã chủ trì cuộc họp về “hộ chiếu vaccine COVID-19”. Theo Bộ trưởng Bộ Y tế Nguyễn Thanh Long, từ góc độ tiếp cận của ngành Y tế, “hộ chiếu vaccine COVID-19” thực chất là giấy chứng nhận đã tiêm chủng đầy đủ hai mũi vaccine ngừa COVID-19, được điều chỉnh theo Luật Phòng, chống bệnh truyền nhiễm và Điều lệ kiểm dịch Y tế quốc tế...</p>
                     </div> 
                 </li>
                 <li>
                     <a href="javascript:void(0)"><h4>Danh sách sinh viên tốt nghiệp 2018</h4></a>
                     <div class="div-content">
-                        <img src="img/img-content1.png">
+                        <img src="resources/img/img-content1.png">
                         <p>Trước đó, vào sáng 19/3, tại Trụ sở Chính phủ, Phó Thủ tướng Vũ Đức Đam, Trưởng Ban Chỉ đạo Quốc gia phòng, chống dịch COVID-19 đã chủ trì cuộc họp về “hộ chiếu vaccine COVID-19”. Theo Bộ trưởng Bộ Y tế Nguyễn Thanh Long, từ góc độ tiếp cận của ngành Y tế, “hộ chiếu vaccine COVID-19” thực chất là giấy chứng nhận đã tiêm chủng đầy đủ hai mũi vaccine ngừa COVID-19, được điều chỉnh theo Luật Phòng, chống bệnh truyền nhiễm và Điều lệ kiểm dịch Y tế quốc tế...</p>
                     </div> 
                 </li>
                 <li>
                     <a href="javascript:void(0)"><h4>Danh sách sinh viên tốt nghiệp 2018</h4></a>
                     <div class="div-content">
-                        <img src="img/img-content1.png">
+                        <img src="resources/img/img-content1.png">
                         <p>Trước đó, vào sáng 19/3, tại Trụ sở Chính phủ, Phó Thủ tướng Vũ Đức Đam, Trưởng Ban Chỉ đạo Quốc gia phòng, chống dịch COVID-19 đã chủ trì cuộc họp về “hộ chiếu vaccine COVID-19”. Theo Bộ trưởng Bộ Y tế Nguyễn Thanh Long, từ góc độ tiếp cận của ngành Y tế, “hộ chiếu vaccine COVID-19” thực chất là giấy chứng nhận đã tiêm chủng đầy đủ hai mũi vaccine ngừa COVID-19, được điều chỉnh theo Luật Phòng, chống bệnh truyền nhiễm và Điều lệ kiểm dịch Y tế quốc tế...</p>
                     </div> 
                 </li>
@@ -72,4 +79,3 @@
         </div>
     </body>
 </html>
-<script src="script.js"></script>
