@@ -38,7 +38,7 @@
                 <a href="index.html">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="event.html">DS kỳ bảo vệ</a>
+                <a href="Home/event-info.htm">DS kỳ bảo vệ</a>
                 <a href="assignment.html">Phân công đồ án</a>
                 <a href="student/student.htm">DSSV</a>
                 <a href="teacher.html">DSGV</a>

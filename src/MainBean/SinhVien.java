@@ -1,12 +1,16 @@
 package MainBean;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,7 +50,7 @@ public class SinhVien {
 	@Column(name="DiemTBTL")
 	private float diemTBTL;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="MaDA")
 	private DoAn doAn;
 
@@ -68,6 +72,8 @@ public class SinhVien {
 		this.diemTBTL = diemTBTL;
 		this.doAn = doAn;
 	}
+
+
 
 	public String getMaSV() {
 		return maSV;
@@ -137,7 +143,7 @@ public class SinhVien {
 		return diemTBTL;
 	}
 
-	public void setDiemTBTL(int diemTBTL) {
+	public void setDiemTBTL(float diemTBTL) {
 		this.diemTBTL = diemTBTL;
 	}
 
@@ -148,5 +154,6 @@ public class SinhVien {
 	public void setDoAn(DoAn doAn) {
 		this.doAn = doAn;
 	}
+
 	
 }

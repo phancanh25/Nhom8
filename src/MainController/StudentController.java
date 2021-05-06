@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import MainBean.DoAn;
+import MainBean.GiangVien;
 import MainBean.SinhVien;
+import MainBean.TieuBan;
+
 
 @Transactional
 @Controller
@@ -38,6 +41,7 @@ public class StudentController {
 			String hql = "FROM SinhVien";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
+			System.out.println("Hello");
 			for(SinhVien i : sinhViens) {
 				System.out.println(i.getMaSV());
 			}
@@ -54,9 +58,12 @@ public class StudentController {
 			@RequestParam("ten") String ten, @RequestParam("lop") String lop, 
 			@RequestParam("ngaySinh") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngaySinh, 
 			@RequestParam("diaChi") String diaChi, @RequestParam("diemTBTL") float diemTBTL) {
-
-		DoAn doAn = new DoAn(1, "", "", null, null);
-		SinhVien sinhVien = new SinhVien("n18dcat004", ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL, doAn);
+		TieuBan tieuBan = null;
+		GiangVien GVHD = null;
+		GiangVien GVPB = null;
+		SinhVien sinhvien = null;
+		DoAn doAn = new DoAn(1, "", "", GVHD, GVPB,(float)1.0,(float)1.0,(float)1.0,(float)1.0,tieuBan,sinhvien);
+		SinhVien sinhVien = new SinhVien("n18dcat004", ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		

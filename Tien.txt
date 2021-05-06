@@ -1,4 +1,0 @@
-17h45 2-5-2020: +) Thêm sinh viên thành công (vào /Nhom8/Home/index.htm rồi click DSSV ==> click Thêm sinh viên để test)
-		+) Chưa có set mã sinh viên
-		+) Khóa và điểm phải nhập số nếu không sẽ lỗi
-		+) Có cần table lớp không

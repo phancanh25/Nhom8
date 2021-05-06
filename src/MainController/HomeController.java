@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import MainEntity.SinhVien;
+import MainBean.SinhVien;
 
 
 @Transactional

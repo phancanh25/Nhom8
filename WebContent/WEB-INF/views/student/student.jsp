@@ -101,7 +101,7 @@
 	                    <th>${sinhVien.getHo()}</th>
 	                    <th>${sinhVien.getTen()}</th>
 	                    <th>${sinhVien.getLop()}</th>
-	                    <th>${sinhVien.isPhai()?'Nữ':'Nam'}</th>
+	                    <th>${sinhVien.isPhai()?'Nam':'Nữ'}</th>
 	                    <th>${sinhVien.getNgaySinh()}</th>
 	                    <th>${sinhVien.getDiaChi()}</th>
 	                    <th>${sinhVien.getKhoa()}</th>

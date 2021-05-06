@@ -1,9 +1,19 @@
 package MainBean;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="GiangVien")
@@ -26,12 +36,17 @@ public class GiangVien {
 	
 	@Column(name="DiaChi")
 	private String diaChi;
+	
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "ChiTietTieuBan",
+            joinColumns = @JoinColumn(name = "MaGV"),
+            inverseJoinColumns = @JoinColumn(name = "MaTB")
+    )
+    private List<TieuBan> tieuBans;
 
-	public GiangVien() {
-		super();
-	}
-
-	public GiangVien(String maGV, String ho, String ten, boolean phai, String sDT, String diaChi) {
+	public GiangVien(String maGV, String ho, String ten, boolean phai, String sDT, String diaChi,
+			List<TieuBan> tieuBans) {
 		super();
 		this.maGV = maGV;
 		this.ho = ho;
@@ -39,6 +54,11 @@ public class GiangVien {
 		this.phai = phai;
 		SDT = sDT;
 		this.diaChi = diaChi;
+		this.tieuBans = tieuBans;
+	}
+
+	public GiangVien() {
+		super();
 	}
 
 	public String getMaGV() {
@@ -89,6 +109,13 @@ public class GiangVien {
 		this.diaChi = diaChi;
 	}
 
-	
+	public List<TieuBan> getTieuBans() {
+		return tieuBans;
+	}
+
+	public void setTieuBans(List<TieuBan> tieuBans) {
+		this.tieuBans = tieuBans;
+	}
+
 	
 }
