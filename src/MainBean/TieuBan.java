@@ -27,9 +27,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="TieuBan")
 public class TieuBan<ChiTietTieuBan> {
 	@Id
-	@GeneratedValue
 	@Column(name="MaTB")
-	private String maTB;
+	private int maTB;
 	
 	@Column(name="TenTB")
 	private String tenTB;
@@ -54,7 +53,7 @@ public class TieuBan<ChiTietTieuBan> {
 	private int khoa;
 
 	@OneToMany(mappedBy = "tieuBan", fetch=FetchType.EAGER)
-	private Collection<DoAn> doAn;
+	private List<DoAn> doAn;
 
 	
     @ManyToMany(fetch = FetchType.LAZY)
@@ -66,32 +65,12 @@ public class TieuBan<ChiTietTieuBan> {
     private List<GiangVien> giangViens;
 
 
-	public TieuBan(String maTB, String tenTB, String chuyenNganh, Date ngay, Date gio, String diaDiem, int khoa,
-			Collection<DoAn> doAn, List<GiangVien> giangViens) {
-		super();
-		this.maTB = maTB;
-		this.tenTB = tenTB;
-		this.chuyenNganh = chuyenNganh;
-		this.ngay = ngay;
-		this.gio = gio;
-		this.diaDiem = diaDiem;
-		this.khoa = khoa;
-		this.doAn = doAn;
-		this.giangViens = giangViens;
-	}
-
-
-	public TieuBan() {
-		super();
-	}
-
-
-	public String getMaTB() {
+	public int getMaTB() {
 		return maTB;
 	}
 
 
-	public void setMaTB(String maTB) {
+	public void setMaTB(int maTB) {
 		this.maTB = maTB;
 	}
 
@@ -156,12 +135,12 @@ public class TieuBan<ChiTietTieuBan> {
 	}
 
 
-	public Collection<DoAn> getDoAn() {
+	public List<DoAn> getDoAn() {
 		return doAn;
 	}
 
 
-	public void setDoAn(Collection<DoAn> doAn) {
+	public void setDoAn(List<DoAn> doAn) {
 		this.doAn = doAn;
 	}
 
@@ -175,7 +154,27 @@ public class TieuBan<ChiTietTieuBan> {
 		this.giangViens = giangViens;
 	}
 
+
+	public TieuBan(int maTB, String tenTB, String chuyenNganh, Date ngay, Date gio, String diaDiem, int khoa,
+			List<DoAn> doAn, List<GiangVien> giangViens) {
+		super();
+		this.maTB = maTB;
+		this.tenTB = tenTB;
+		this.chuyenNganh = chuyenNganh;
+		this.ngay = ngay;
+		this.gio = gio;
+		this.diaDiem = diaDiem;
+		this.khoa = khoa;
+		this.doAn = doAn;
+		this.giangViens = giangViens;
+	}
+
+
+	public TieuBan() {
+		super();
+	}
+
     
-	
+
 	
 }
