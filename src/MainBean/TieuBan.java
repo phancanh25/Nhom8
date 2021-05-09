@@ -1,6 +1,7 @@
 package MainBean;
 
 import java.lang.annotation.Target;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -62,7 +63,7 @@ public class TieuBan<ChiTietTieuBan> {
             joinColumns = @JoinColumn(name = "MaTB"),
             inverseJoinColumns = @JoinColumn(name = "MaGV")
     )
-    private List<GiangVien> giangViens;
+    private List<GiangVien> giangViens=new ArrayList<>();
 
 
 	public int getMaTB() {

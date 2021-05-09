@@ -64,11 +64,11 @@
                 <a href="index.html">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="event.html">DS kỳ bảo vệ</a>
-                <a href="assignment.html">Phân công đồ án</a>
-                <a href="student.html">DSSV</a>
-                <a href="teacher.html">DSGV</a>
-                <a href="index.html">Trang chủ</a>
+                <a href="Home/event-info.htm">DS kỳ bảo vệ</a>
+                <a href="Home/assignment.htm">Phân công đồ án</a>
+                <a href="student/student.htm">DSSV</a>
+                <a href="Home/teacher.htm">DSGV</a>
+                <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
         <div class="div-student-content">
@@ -78,7 +78,7 @@
               <input type="text" placeholder="Lớp">
               <input type="text" placeholder="Khóa">
               <button>Tìm kiếm</button>
-              <a href="javascript:void(0)" style="margin-left: 60px;" onclick="openAddStudent();">Thêm sinh viên</a>
+              <a href="javascript:void(0)" style="margin-left: 60px;" onclick="openAddStudent();">Thêm tiểu ban.</a>
           </div>
             <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
 	            <tr style="text-align: center; color: #0096ff">

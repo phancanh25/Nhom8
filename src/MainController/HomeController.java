@@ -42,11 +42,17 @@ public class HomeController {
 	}
 	@RequestMapping("event-info")
 	public String eventinfo() {
+		
 		return "event/event-info";	
 	}
 	@RequestMapping("student-info")
 	public String studentinfo() {
 		return "student/student-info";	
+	}
+	
+	@RequestMapping("assignment")
+	public String assignment() {
+		return "assignment/assignment";	
 	}
 	
 	@RequestMapping("showstudent")

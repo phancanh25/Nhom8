@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,35 +15,30 @@
 
 </head>
 <body>
+
         <div class="div-teacher-in-event" id="div-teacher-in-event">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeTeacherInEvent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Danh sách giảng viên</p>
             <div class="wrapper-table-student-in-event">
                 <table class="table-student-in-event table table-bordered table-striped">
                     <tr>
-                        <th>Mã GV</th>
-                        <th>Họ và tên</th>
-                        <th>Sđt</th>
-                        <th>Địa chỉ</th>
+                        <th>Mã giáo viên</th>
+						<th>Họ</th>
+						<th>Tên</th>
+						<th>Phái</th>
+						<th>Địa chỉ</th>
                     </tr>
-                    <tr>
-                        <td>GV1</td>
-                        <td>Dương Quá</td>
-                        <td>0987654321</td>
-                        <td>P.Hiệp Phú, Q.9, TP HCM</td>
-                    </tr>
-                    <tr>
-                        <td>GV1</td>
-                        <td>Dương Quá</td>
-                        <td>0987654321</td>
-                        <td>P.Hiệp Phú, Q.9, TP HCM</td>
-                    </tr>
-                    <tr>
-                        <td>GV1</td>
-                        <td>Dương Quá</td>
-                        <td>0987654321</td>
-                        <td>P.Hiệp Phú, Q.9, TP HCM</td>
-                    </tr>
+                    
+                   <c:forEach var="t" items="${giangVien}">
+						<tr>
+							<td>${t.maGV}</td>
+							<td>${t.ho}</td>
+							<td>${t.ten}</td>
+						 	<td>${t.isPhai()?'Nam':'Nữ'}</td>
+							<td>${t.diaChi}</td>
+							<td><a href="insert.htm">Insert</a></td>
+						</tr>
+					</c:forEach>>
                 </table>
             </div>
         </div>
@@ -50,30 +47,32 @@
             <p>Danh sách sinh viên tham gia</p>
             <div class="wrapper-table-student-in-event">
                 <table class="table-student-in-event table table-bordered table-striped">
-                    <tr>
-                        <th>MSSV</th>
-                        <th>Họ</th>
-                        <th>Tên</th>
-                        <th>Lớp</th>
-                        <th>Tên đồ án</th>
-                        <th>GVHD</th>
-                        <th>Điểm hướng dẫn</th>
-                        <th>Điểm phản biện</th>
-                        <th>Điểm tiểu ban</th>
-                        <th>Điểm tổng</th>
+                   <tr>
+                       <th>MSSV</th>
+                       <th>Họ</th>
+                       <th>Tên</th>
+                       <th>Lớp</th>
+                       <th>Tên đồ án</th>
+                       <th>GVHD</th>
+                       <th>Điểm hướng dẫn</th>
+                       <th>Điểm phản biện</th>
+                       <th>Điểm tiểu ban</th>
+                       <th>Điểm tổng</th>
                   </tr>
-                  <tr>
-                    <td>N18DCAT001</td>
-                    <td>Trương Vô</td>
-                    <td>Kỵ</td>
-                    <td>D18CQAT01-N</td>
-                    <td>Ứng dụng giám sát người dùng facebook</td>
-                    <td>Obama</td>
-                    <td><input type="text" value="9" disabled></td>
-                    <td><input type="text" value="9.6" disabled></td>
-                    <td><input type="text" value="9" disabled></td>
-                    <td><input type="text" value="9.3" disabled></td>
-                </tr>
+                  <c:forEach items="${sinhViens}" var="sinhVien">
+	                  <tr style="text-align: center; font-weight: normal; font-size: 13px">
+	                    <th>${sinhVien.getMaSV()}</th>
+	                    <th>${sinhVien.getHo()}</th>
+	                    <th>${sinhVien.getTen()}</th>
+	                    <th>${sinhVien.getLop()}</th>
+	                    <td>Ứng dụng giám sát người dùng facebook</td>
+	                    <td>Obama</td>
+	                    <td><input type="text" value="9" disabled></td>
+	                    <td><input type="text" value="9.6" disabled></td>
+	                    <td><input type="text" value="9" disabled></td>
+	                    <td><input type="text" value="9.3" disabled></td>
+	               	   </tr>
+               		</c:forEach>
                 </table>
             </div>
         </div>
@@ -111,55 +110,23 @@
             </div>
         </div>
         <div class="div-event-info">
-            <!-- <div class="div-detail">
-                <p>Địa điểm: Phòng 2A08</p>
-                <p>Thời gian: 8:00 15/5/2021</p>
-            </div> -->
-            <!-- Căn cứ vào mã đồ án để biết sv thuộc kỳ bảo vệ nào -->
-            <!-- <a href="javascript:void(0)">Xem danh sách sinh viên tham gia</a> -->
-            <br>
-            <div class="div-department" style="margin-top: 10px">
-                <p>An toàn thông tin</p>
-                <span>Địa điểm: 2A08</span>
-                <span>Thời gian: 8:00 15/5/2021</span>
-            </div>
-            <table class="table-deparment">
-                <tr>
-                    <td>Tiểu ban 1</td>
-                    <td><a href="javascript:void(0)" onclick="openTeacherInEvent();">Xem DSGV</a></td>
-                    <td><a href="javascript:void(0)" onclick="openStudentInEvent();">Xem DSSV</a></td>
-                </tr>
-                <tr>
-                    <td>Tiểu ban 2</td>
-                    <td><a href="javascript:void(0)" onclick="openTeacherInEvent();">Xem DSGV</a></td>
-                    <td><a href="javascript:void(0)" onclick="openStudentInEvent();" >Xem DSSV</a></td>
-                </tr>
-            </table>
-            
-            <div class="div-department" style="margin-top: 20px">
-                <p>Công nghệ đa phương tiện</p>
-                <span>Địa điểm: 2A08</span>
-                <span>Thời gian: 8:00 15/5/2021</span>
-            </div>
-            <table class="table-deparment">
-                <tr>
-                    <td>Tiểu ban 3</td>
-                    <td><a href="javascript:void(0)" onclick="openTeacherInEvent();">Xem DSGV</a></td>
-                    <td><a href="javascript:void(0)" onclick="openStudentInEvent();">Xem DSSV</a></td>
-                </tr>
-            </table>
-            <div class="div-department" style="margin-top: 20px">
-                <p>Công nghệ thông tin</p>
-                <span>Địa điểm: 2A08</span>
-                <span>Thời gian: 8:00 15/5/2021</span>
-            </div>
-            <table class="table-deparment">
-                <tr>
-                    <td>Tiểu ban 4</td>
-                    <td><a href="javascript:void(0)" onclick="openTeacherInEvent();">Xem DSGV</a></td>
-                    <td><a href="javascript:void(0)" onclick="openStudentInEvent();">Xem DSSV</a></td>
-                </tr>
-            </table>
+           <br>
+           <c:forEach items="${tieuBans}" var="tieuBan">
+	            <div class="div-department" style="margin-top: 10px">
+	                <p>${tieuBan.getTenTB()}</p>
+	                <span>${tieuBan.getDiaDiem()}</span>
+	                <span>Thời gian: ${tieuBan.getNgay()}  ${tieuBan.getGio()}</span>
+	            </div>
+	            <table class="table-deparment">
+	                <tr>
+	                    <td>Tiểu ban</td>
+	                    <td><a id="btn-xacnhan" href="javascript:void(0)" onclick="openTeacherInEvent();">Xem DSGV</a></td>
+	                    <td><a href="javascript:void(0)" onclick="openStudentInEvent();">Xem DSSV</a></td>
+	                </tr>
+	            </table>
+	            
+	           
+	         </c:forEach>
         </div>
     </body>
 </html>

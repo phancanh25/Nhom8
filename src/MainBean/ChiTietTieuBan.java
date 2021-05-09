@@ -1,22 +1,18 @@
 //package MainBean;
-//import java.util.Collection;
+//
+//import java.util.List;
 //
 //import javax.persistence.Column;
-//import javax.persistence.Embeddable;
-//import javax.persistence.Embedded;
 //import javax.persistence.EmbeddedId;
 //import javax.persistence.Entity;
-//import javax.persistence.FetchType;
-//import javax.persistence.Id;
+//
 //import javax.persistence.JoinColumn;
-//import javax.persistence.OneToMany;
+//
 //import javax.persistence.ManyToOne;
 //import javax.persistence.MapsId;
 //import javax.persistence.Table;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
 //
-//import org.hibernate.annotations.ManyToAny;
+//
 //
 //
 //@Entity
@@ -24,75 +20,54 @@
 //public class ChiTietTieuBan {
 //	
 //	@EmbeddedId
-//	ChiTietTieuBanKey id;
 //	
 //	@ManyToOne
 //	@MapsId("maGV")
 //	@JoinColumn(name="MaGV")
-//	GiangVien giangvien;
+//	GiangVien giangVien;
 //	
 //	@ManyToOne
 //	@MapsId("maTB")
 //	@JoinColumn(name="MaTB")
-//	TieuBan tieuban;
+//	TieuBan tieuBan;
 //	
 //	@Column(name="ChiTiet")
 //	private String chiTiet;
 //
-//	
-//	public ChiTietTieuBan(ChiTietTieuBanKey id, GiangVien giangvien, TieuBan tieuban, String chiTiet) {
+//
+//	public ChiTietTieuBan(GiangVien giangVien, TieuBan tieuBan, String chiTiet) {
 //		super();
-//		this.id = id;
-//		this.giangvien = giangvien;
-//		this.tieuban = tieuban;
+//		this.giangVien = giangVien;
+//		this.tieuBan = tieuBan;
 //		this.chiTiet = chiTiet;
 //	}
-//
 //
 //	public ChiTietTieuBan() {
 //		super();
 //	}
 //
-//
-//	public ChiTietTieuBanKey getId() {
-//		return id;
+//	public GiangVien getGiangVien() {
+//		return giangVien;
 //	}
 //
-//
-//	public void setId(ChiTietTieuBanKey id) {
-//		this.id = id;
+//	public void setGiangVien(GiangVien giangVien) {
+//		this.giangVien = giangVien;
 //	}
 //
-//
-//	public GiangVien getGiangvien() {
-//		return giangvien;
+//	public TieuBan getTieuBan() {
+//		return tieuBan;
 //	}
 //
-//
-//	public void setGiangvien(GiangVien giangvien) {
-//		this.giangvien = giangvien;
+//	public void setTieuBan(TieuBan tieuBan) {
+//		this.tieuBan = tieuBan;
 //	}
-//
-//
-//	public TieuBan getTieuban() {
-//		return tieuban;
-//	}
-//
-//
-//	public void setTieuban(TieuBan tieuban) {
-//		this.tieuban = tieuban;
-//	}
-//
 //
 //	public String getChiTiet() {
 //		return chiTiet;
 //	}
 //
-//
 //	public void setChiTiet(String chiTiet) {
 //		this.chiTiet = chiTiet;
 //	}
 //
-//	
-//	
 //}

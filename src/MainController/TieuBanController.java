@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -32,14 +34,40 @@ import MainBean.TieuBan;
 public class TieuBanController {
 	@Autowired
 	SessionFactory factory;
-	
-	@RequestMapping("tieuban")
-	public String openTieuban(ModelMap md) {
-		showTieuBan(md);
-		return "tieuban/showtb";
+
+	@RequestMapping(value="tieuban/{id}",params = "btn-xacnhan")
+	public String openTieuban(@PathVariable int id, ModelMap md) {
+		showTieuBan(id, md);
+		return "redirect:/tieuban/tieuban/";
 	}
 
-	private void showTieuBan(ModelMap md) {
+	private void showTieuBan(int id, ModelMap md) {
+		try {
+			Session session = factory.getCurrentSession();
+			String hql = "FROM TieuBan where MaTB = " + id;
+			Query q = session.createQuery(hql);
+			List<TieuBan> tieuBans = q.list();
+			TieuBan i = tieuBans.get(0);
+			System.out.println(i.getMaTB());
+			List<GiangVien> x = i.getGiangViens();
+
+			for (GiangVien y : x) {
+				System.out.println("Ma GV: " + y.getMaGV());
+				System.out.println("Ten GV: " + y.getTen());
+			}
+			md.addAttribute("giangVien", x);
+		} catch (Exception e) {
+			System.out.println("loi: " + e.getMessage());
+		}
+	}
+	
+	@RequestMapping("tieuban1")
+	public String openTieuban(ModelMap md) {
+		showTieuBan1(md);
+		return "event/event-info";
+	}
+
+	private void showTieuBan1(ModelMap md) {
 		try {
 			Session session = factory.getCurrentSession();
 			String hql = "FROM TieuBan";
@@ -54,20 +82,25 @@ public class TieuBanController {
 			System.out.println("loi: "+e.getMessage());
 		}	
 	}
+
+	
+	
+	
 	@RequestMapping("add-tieuban")
-	public String addTieuBan(ModelMap md,@RequestParam("maTB") int maTB, @RequestParam("tenTB") String tenTB, @RequestParam("chuyenNganh") String chuyenNganh, 
-			@RequestParam("ngay") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngay,
-			@RequestParam("gio") @DateTimeFormat(pattern="hh:mm:ss") Date gio,
+	public String addTieuBan(ModelMap md, @RequestParam("maTB") int maTB, @RequestParam("tenTB") String tenTB,
+			@RequestParam("chuyenNganh") String chuyenNganh,
+			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay,
+			@RequestParam("gio") @DateTimeFormat(pattern = "hh:mm:ss") Date gio,
 			@RequestParam("diaDiem") String diaDiem, @RequestParam("khoa") int khoa) {
 		List<DoAn> doAns = null;
 		List<GiangVien> giangViens = null;
 
-		TieuBan tieuBan = new TieuBan(maTB, tenTB, chuyenNganh, ngay, gio,diaDiem, khoa, doAns,giangViens);
+		TieuBan tieuBan = new TieuBan(maTB, tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
 		System.out.println("Hello1");
 		Session session = factory.openSession();
-		
+
 		Transaction t = session.beginTransaction();
-		
+
 		try {
 			System.out.println("Hello3");
 			session.save(tieuBan);
@@ -75,19 +108,17 @@ public class TieuBanController {
 			t.commit();
 			md.addAttribute("message", "Thêm tiểu ban thành công!!!");
 			System.out.println("Thêm tiểu ban thành công!!!");
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("Hello2");
 			t.rollback();
 			md.addAttribute("message", "Thêm tiểu ban thất bại!!!" + e.getMessage());
 			System.out.println("Thêm tiểu ban thất bại!!! " + e.getMessage());
-		}
-		finally {
+		} finally {
 			session.close();
 		}
-		
+
 		System.out.println(tenTB);
-		showTieuBan(md);
+		showTieuBan(1, md);
 		return "tieuban/showtb";
 	}
 }

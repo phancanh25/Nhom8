@@ -39,10 +39,10 @@
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
                 <a href="Home/event-info.htm">DS kỳ bảo vệ</a>
-                <a href="assignment.html">Phân công đồ án</a>
+                <a href="Home/assignment.htm">Phân công đồ án</a>
                 <a href="student/student.htm">DSSV</a>
-                <a href="teacher.html">DSGV</a>
-                <a href="index.html">Trang chủ</a>
+                <a href="Home/teacher.htm">DSGV</a>
+                <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
         <div class="div-home">
