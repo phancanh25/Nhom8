@@ -59,14 +59,15 @@ public class TieuBanController {
 			@RequestParam("ngay") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngay,
 			@RequestParam("gio") @DateTimeFormat(pattern="hh:mm:ss") Date gio,
 			@RequestParam("diaDiem") String diaDiem, @RequestParam("khoa") int khoa) {
+		
 		List<DoAn> doAns = null;
 		List<GiangVien> giangViens = null;
 
 		TieuBan tieuBan = new TieuBan(maTB, tenTB, chuyenNganh, ngay, gio,diaDiem, khoa, doAns,giangViens);
 		System.out.println("Hello1");
 		Session session = factory.openSession();
-		
 		Transaction t = session.beginTransaction();
+
 		
 		try {
 			System.out.println("Hello3");

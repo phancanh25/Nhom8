@@ -1,6 +1,8 @@
 package MainController;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,7 +23,15 @@ public class HomeController {
 	SessionFactory factory;
 	
 	@RequestMapping("index")
-	public String index() {
+	public String index(ModelMap md, HttpSession session) {
+		if(session.getAttribute("user") != null) {
+			System.out.println("user ko null");
+			md.addAttribute("username", session.getAttribute("user"));
+		}
+		else {
+			System.out.println("username = 0");
+			md.addAttribute("username", "");
+		}
 		return "home/index";	
 	}
 	@RequestMapping("teacher")
@@ -47,6 +57,14 @@ public class HomeController {
 	@RequestMapping("student-info")
 	public String studentinfo() {
 		return "student/student-info";	
+	}
+	@RequestMapping("cmt-student") //show committee student
+	public String cmtStudent() {
+		return "tieuban/show-student";	
+	}
+	@RequestMapping("cmt-teacher") //show committee teacher
+	public String cmtTeacher() {
+		return "tieuban/show-teacher";	
 	}
 	
 	@RequestMapping("showstudent")
