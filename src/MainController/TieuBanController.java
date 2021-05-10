@@ -117,7 +117,7 @@ public class TieuBanController {
 		}
 
 		System.out.println(tenTB);
-		showTieuBan(1, md);
+		//showTieuBan(1, md);
 		return "tieuban/showtb";
 	}
 }
