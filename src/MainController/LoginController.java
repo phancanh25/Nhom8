@@ -35,10 +35,17 @@ public class LoginController {
 			if(username.equals(i.getUsername()) && password.equals(i.getPassword())) {
 				ss.setAttribute("user", i.getUsername());
 				md.addAttribute("message", "Xin chào "+i.getUsername());
-				return "home/index";
+				return "redirect:/Home/index.htm";
+//				return "home/index";
 			}
 		}
 		md.addAttribute("message", "Tài khoản không chính xác");
 		return "home/index";
+	}
+	
+	@RequestMapping("/Home/logout")
+	public String signout(HttpSession session) {
+		session.removeAttribute("user");
+		return "redirect:/Home/index.htm";
 	}
 }

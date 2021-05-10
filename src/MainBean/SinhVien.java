@@ -51,7 +51,7 @@ public class SinhVien {
 	private float diemTBTL;
 	
 	@OneToOne
-	@JoinColumn(name="MaDA")
+	@JoinColumn(name="MaDA", referencedColumnName = "maDA")
 	private DoAn doAn;
 
 	public SinhVien() {

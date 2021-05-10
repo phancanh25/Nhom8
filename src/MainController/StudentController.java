@@ -62,10 +62,21 @@ public class StudentController {
 		GiangVien GVHD = null;
 		GiangVien GVPB = null;
 		SinhVien sinhvien = null;
-		DoAn doAn = new DoAn(1, "", "", GVHD, GVPB,(float)1.0,(float)1.0,(float)1.0,(float)1.0,tieuBan,sinhvien);
+		DoAn doAn = new DoAn(2, "", "", GVHD, GVPB,(float)1.0,(float)1.0,(float)1.0,(float)1.0,tieuBan,sinhvien);
+		
 		SinhVien sinhVien = new SinhVien("n18dcat004", ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
+		doAn.setSinhVien(sinhVien);
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
+		
+		String hql = "FROM SinhVien";
+		
+		Query q = session.createQuery(hql);
+		List<SinhVien> s = q.list();
+		System.out.println("right here: ");
+		for(SinhVien i : s) {
+			System.out.println("here: " +i.getDoAn().getTenDA());
+		}
 		
 		try {
 			session.save(sinhVien);
