@@ -3,6 +3,8 @@ package MainController;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,7 +32,15 @@ public class StudentController {
 	SessionFactory factory;
 	
 	@RequestMapping("student")
-	public String openStudent(ModelMap md) {
+	public String openStudent(ModelMap md, HttpSession session) {
+		if(session.getAttribute("user") != null) {
+			System.out.println("user ko null");
+			md.addAttribute("username", session.getAttribute("user"));
+		}
+		else {
+			System.out.println("username = 0");
+			md.addAttribute("username", "");
+		}
 		showStudent(md);
 		return "student/student";
 	}
@@ -62,22 +72,25 @@ public class StudentController {
 		GiangVien GVHD = null;
 		GiangVien GVPB = null;
 		SinhVien sinhvien = null;
-		DoAn doAn = new DoAn(2, "", "", GVHD, GVPB,(float)1.0,(float)1.0,(float)1.0,(float)1.0,tieuBan,sinhvien);
+		DoAn doAn = null;
 		
-		SinhVien sinhVien = new SinhVien("n18dcat004", ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
-		doAn.setSinhVien(sinhVien);
+		SinhVien sinhVien = new SinhVien("n18dcat015", ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
+		System.out.println("ma sv: "+sinhVien.getMaSV());
+		System.out.println("ho: "+sinhVien.getHo());
+		System.out.println("ten: "+sinhVien.getTen());
+		System.out.println("lop: "+sinhVien.getLop());
+		System.out.println("ngaysinh: "+sinhVien.getNgaySinh());
+		System.out.println("phai: "+sinhVien.isPhai());
+		System.out.println("diachi: "+sinhVien.getDiaChi());
+		System.out.println("khoa: "+sinhVien.getKhoa());
+		System.out.println("diemTBTL: "+sinhVien.getDiemTBTL());
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
 		String hql = "FROM SinhVien";
 		
 		Query q = session.createQuery(hql);
-		List<SinhVien> s = q.list();
-		System.out.println("right here: ");
-		for(SinhVien i : s) {
-			System.out.println("here: " +i.getDoAn().getTenDA());
-		}
-		
+		List<SinhVien> s = q.list();	
 		try {
 			session.save(sinhVien);
 			t.commit();

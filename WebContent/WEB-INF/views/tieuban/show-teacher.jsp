@@ -30,9 +30,9 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();">Login</a>
-                <a href="javascript:void(0)"></a>
-                <a href="javascript:void(0)">Register</a>
+                <a href="javascript:void(0)" onclick="openLogin();" ${username!=""?'hidden':''}>Login</a>
+                <a href="Home/logout.htm" ${username==""?'hidden':''} style="margin: 0px;  border: none; background: none;">Logout</a>
+                <a href="javascript:void(0)" ${username==""?'hidden':''}>Hi ${username}</a>
             </div>
         </div>
         <div class="div-menu">
@@ -64,14 +64,14 @@
 		                    <th>Địa chỉ</th>
 		                    
 	            </tr>
-            	<c:forEach items="${giangViens}" var="giangVienS">
+            	<c:forEach items="${giangViens}" var="giangVien">
             		<tr style="text-align: center; font-weight: normal; font-size: 13px">
-            				<td>giangVien.getMaGV()</td>
-            				<td>giangVien.getHo()</td>
-            				<td>giangVien.getTen()</td>
-            				<td>giangVien.isPhai()</td>
-            				<td>giangVien.getSDT()</td>
-            				<td>giangVien.getDiaChi()</td>
+            				<td>${giangVien.getMaGV()}</td>
+            				<td>${giangVien.getHo()}</td>
+            				<td>${giangVien.getTen()}</td>
+            				<td>${giangVien.isPhai()}</td>
+            				<td>${giangVien.getSDT()}</td>
+            				<td>${giangVien.getDiaChi()}</td>
             		</tr>
             	</c:forEach>
             </table>

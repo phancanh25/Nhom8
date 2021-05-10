@@ -3,6 +3,8 @@ package MainController;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,7 +31,15 @@ public class TeacherController {
 	SessionFactory factory;
 	
 	@RequestMapping("teacher")
-	public String openStudent(ModelMap md) {
+	public String openStudent(ModelMap md, HttpSession session) {
+		if(session.getAttribute("user") != null) {
+			System.out.println("user ko null");
+			md.addAttribute("username", session.getAttribute("user"));
+		}
+		else {
+			System.out.println("username = 0");
+			md.addAttribute("username", "");
+		}
 		showTeacher(md);
 		return "teacher/teacher-show";
 	}

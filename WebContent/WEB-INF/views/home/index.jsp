@@ -29,7 +29,7 @@
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
                 <a href="javascript:void(0)" onclick="openLogin();" ${username!=""?'hidden':''}>Login</a>
-                <a href="Home/logout.htm" ${username==""?'hidden':''} style="margin: 0px;  border: none;">Logout</a>
+                <a href="Home/logout.htm" ${username==""?'hidden':''} style="margin: 0px;  border: none; background: none;">Logout</a>
                 <a href="javascript:void(0)" ${username==""?'hidden':''}>Hi ${username}</a>
             </div>
         </div>

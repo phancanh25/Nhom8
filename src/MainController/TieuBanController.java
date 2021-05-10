@@ -35,31 +35,31 @@ public class TieuBanController {
 	@Autowired
 	SessionFactory factory;
 
-	@RequestMapping(value="tieuban/{id}",params = "btn-xacnhan")
-	public String openTieuban(@PathVariable int id, ModelMap md) {
-		showTieuBan(id, md);
-		return "redirect:/tieuban/tieuban/";
-	}
-
-	private void showTieuBan(int id, ModelMap md) {
-		try {
-			Session session = factory.getCurrentSession();
-			String hql = "FROM TieuBan where MaTB = " + id;
-			Query q = session.createQuery(hql);
-			List<TieuBan> tieuBans = q.list();
-			TieuBan i = tieuBans.get(0);
-			System.out.println(i.getMaTB());
-			List<GiangVien> x = i.getGiangViens();
-
-			for (GiangVien y : x) {
-				System.out.println("Ma GV: " + y.getMaGV());
-				System.out.println("Ten GV: " + y.getTen());
-			}
-			md.addAttribute("giangVien", x);
-		} catch (Exception e) {
-			System.out.println("loi: " + e.getMessage());
-		}
-	}
+//	@RequestMapping("tieuban/{id}")
+//	public String openTieuban(@PathVariable int id, ModelMap md) {
+//		showTieuBan(id, md);
+//		return "event/event-info";
+//	}
+//
+//	private void showTieuBan(int id, ModelMap md) {
+//		try {
+//			Session session = factory.getCurrentSession();
+//			String hql = "FROM TieuBan where MaTB = " + id;
+//			Query q = session.createQuery(hql);
+//			List<TieuBan> tieuBans = q.list();
+//			TieuBan i = tieuBans.get(0);
+//			System.out.println(i.getMaTB());
+//			List<GiangVien> x = i.getGiangViens();
+//
+//			for (GiangVien y : x) {
+//				System.out.println("Ma GV: " + y.getMaGV());
+//				System.out.println("Ten GV: " + y.getTen());
+//			}
+//			md.addAttribute("giangVien", x);
+//		} catch (Exception e) {
+//			System.out.println("loi: " + e.getMessage());
+//		}
+//	}
 	
 	@RequestMapping("tieuban1")
 	public String openTieuban(ModelMap md) {
@@ -99,15 +99,7 @@ public class TieuBanController {
 		TieuBan tieuBan = new TieuBan(maTB, tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
 		System.out.println("Hello1");
 		Session session = factory.openSession();
-<<<<<<< HEAD
-
 		Transaction t = session.beginTransaction();
-
-=======
-		Transaction t = session.beginTransaction();
-
-		
->>>>>>> d768da85e89da8c8527cd5c43bdf2cfd58f25e93
 		try {
 			System.out.println("Hello3");
 			session.save(tieuBan);

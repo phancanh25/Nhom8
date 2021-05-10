@@ -55,9 +55,9 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();">Login</a>
-                <a href="javascript:void(0)"></a>
-                <a href="javascript:void(0)">Register</a>
+                <a href="javascript:void(0)" onclick="openLogin();" ${username!=""?'hidden':''}>Login</a>
+                <a href="Home/logout.htm" ${username==""?'hidden':''} style="margin: 0px;  border: none; background: none;">Logout</a>
+                <a href="javascript:void(0)" ${username==""?'hidden':''}>Hi ${username}</a>
             </div>
         </div>
         <div class="div-menu">

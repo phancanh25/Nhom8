@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +30,9 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();">Login</a>
-                <a href="javascript:void(0)"></a>
-                <a href="javascript:void(0)">Register</a>
+                <a href="javascript:void(0)" onclick="openLogin();" ${username!=""?'hidden':''}>Login</a>
+                <a href="Home/logout.htm" ${username==""?'hidden':''} style="margin: 0px;  border: none; background: none;">Logout</a>
+                <a href="javascript:void(0)" ${username==""?'hidden':''}>Hi ${username}</a>
             </div>
         </div>
         <div class="div-menu">
@@ -51,7 +53,12 @@
                 <tr>
                     <th style="background: #3f8eae; color: white;">Danh sách các kỳ bảo vệ đồ án</th>
                 </tr>
-                <tr>
+                <c:forEach items="${years}" var="y">
+                	<tr>
+                    	<td><a href="event-info/${y}.htm">Kỳ bảo vệ năm ${y}</a></td>
+                	</tr>
+                </c:forEach>
+                <!-- <tr>
                     <td><a href="event-info.html">Kỳ bảo vệ năm 2021</a></td>
                 </tr>
                 <tr>
@@ -63,7 +70,7 @@
                 </tr>
                 <tr>
                     <td><a href="event-info.html">Kỳ bảo vệ năm 2018</a></td>
-                </tr>
+                </tr> -->
             </table>
         </div>
 </body>

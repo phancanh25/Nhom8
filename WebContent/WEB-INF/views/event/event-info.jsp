@@ -92,9 +92,9 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();">Login</a>
-                <a href="javascript:void(0)"></a>
-                <a href="javascript:void(0)">Register</a>
+                <a href="javascript:void(0)" onclick="openLogin();" ${username!=""?'hidden':''}>Login</a>
+                <a href="Home/logout.htm" ${username==""?'hidden':''} style="margin: 0px;  border: none; background: none;">Logout</a>
+                <a href="javascript:void(0)" ${username==""?'hidden':''}>Hi ${username}</a>
             </div>
         </div>
         <div class="div-menu">
@@ -109,24 +109,23 @@
                 <a href="index.html">Trang chủ</a>
             </div>
         </div>
-        <div class="div-event-info">
-           <br>
-           <c:forEach items="${tieuBans}" var="tieuBan">
+        <c:forEach items="${tieuBans}" var="tieuBan">
+        	<div class="div-event-info">
+           		<br>
 	            <div class="div-department" style="margin-top: 10px">
-	                <p>${tieuBan.getTenTB()}</p>
-	                <span>${tieuBan.getDiaDiem()}</span>
-	                <span>Thời gian: ${tieuBan.getNgay()}  ${tieuBan.getGio()}</span>
-	            </div>
-	            <table class="table-deparment">
-	                <tr>
-	                    <td>Tiểu ban</td>
-	                    <td><a id="btn-xacnhan" href="javascript:void(0)" onclick="openTeacherInEvent();">Xem DSGV</a></td>
-	                    <td><a href="javascript:void(0)" onclick="openStudentInEvent();">Xem DSSV</a></td>
-	                </tr>
-	            </table>
-	            
-	           
-	         </c:forEach>
-        </div>
+		                <p>${tieuBan.getTenTB()}</p>
+		                <span>${tieuBan.getDiaDiem()}</span>
+		                <span>Thời gian: ${tieuBan.getGio()} ${tieuBan.getNgay()}</span>
+		            </div>
+		            <table class="table-deparment">
+		                <tr>
+		                    <td><a id="btn-xacnhan" target="__blank" href="cmt-teacher/${tieuBan.getMaTB()}.htm">Xem DSGV</a></td>
+		                    <td><a id="btn-xacnhan" target="__blank" href="cmt-student/${tieuBan.getMaTB()}.htm">Xem DSSV</a></td>
+		                </tr>
+		            </table>
+	        </div>
+	        <br>
+        </c:forEach>
+        
     </body>
 </html>
