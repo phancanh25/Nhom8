@@ -1,5 +1,6 @@
 package MainController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import MainBean.DoAn;
 import MainBean.GiangVien;
@@ -113,6 +116,38 @@ public class StudentController {
 //		System.out.println(diaChi);
 		showStudent(md);
 		return "student/student";
+	}
+	
+//	@RequestMapping("student-info")
+//	public String showStudent() {
+//		return "student/student-info";
+//	}
+	
+	@RequestMapping("student/{id}")
+	public String openCmtStudent(ModelMap md, @PathVariable("id") String maSV, HttpSession ss) {
+		if(ss.getAttribute("user") != null) {
+			System.out.println("user ko null");
+			md.addAttribute("username", ss.getAttribute("user"));
+		}
+		else {
+			System.out.println("username = 0");
+			md.addAttribute("username", "");
+		}
+		Session session = factory.getCurrentSession();
+//		String hql = "FROM SinhVien where maSV ="+maSV;
+//		Query query = session.createQuery(hql);
+//		List<SinhVien> sinhViens = query.list();
+//		SinhVien sinhVien = sinhViens.get(0);
+		SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, maSV));
+		DoAn doAn = sinhVien.getDoAn();
+		if(doAn==null) {
+			md.addAttribute("flag", "none");
+		}
+		else {
+			md.addAttribute("flag", "have");
+			md.addAttribute("doAn", doAn);
+		}
+		return "student/student-info";
 	}
 	
 }

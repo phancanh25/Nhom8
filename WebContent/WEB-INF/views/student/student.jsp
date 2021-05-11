@@ -65,11 +65,11 @@
                 <a href="index.html">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="event.html">DS kỳ bảo vệ</a>
-                <a href="assignment.html">Phân công đồ án</a>
-                <a href="student.html">DSSV</a>
-                <a href="teacher.html">DSGV</a>
-                <a href="index.html">Trang chủ</a>
+                <a href="event.htm">DS kỳ bảo vệ</a>
+                <a href="Home/assignment.htm">Phân công đồ án</a>
+                <a href="student/student.htm">DSSV</a>
+                <a href="Home/teacher.htm">DSGV</a>
+                <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
         <div class="div-student-content">
@@ -106,7 +106,7 @@
 	                    <th>${sinhVien.getDiaChi()}</th>
 	                    <th>${sinhVien.getKhoa()}</th>
 	                    <th>${sinhVien.getDiemTBTL()}</th>
-	                    <td><a href="student-info.html">Click</a></td>
+	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td>
 	                    
             		</tr>
             	</c:forEach>
