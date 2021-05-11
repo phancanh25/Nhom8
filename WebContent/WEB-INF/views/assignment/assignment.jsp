@@ -48,6 +48,7 @@
             </div>
         </div>
        <div class="div-assignment">
+       		<a href="subcommittee.html">Tạo kỳ bảo vệ mới</a>
            <ul class="ul-assignment">
             <li>
                 <a href="javascript:void(0)" id="current-exam" onclick="expandAssignmentRoadmap();">&#10095; Kỳ bảo vệ năm 2021 <code>(Mỗi mục nhỏ trong này sau khi bấm ok sẽ chuyển hướng về lại trang này)</code></a>
@@ -57,9 +58,9 @@
                     <a href="mark1.html">3. GVHD chấm điểm</a>
                     <a href="add-gvpb.html">4. Phân công GVPB</a>
                     <a href="mark2.html">5. GVPB chấm điểm</a>
-                    <a href="subcommittee.html">6. Quản lý tiểu ban</a>
-                    <a href="prj-to-scmt.html">7. Phân công đồ án vào tiểu ban</a>
-                    <a href="mark3.html">8. Tiểu ban chấm điểm</a>
+                    
+                    <a href="prj-to-scmt.html">6. Phân công đồ án vào tiểu ban</a>
+                    <a href="mark3.html">7. Tiểu ban chấm điểm</a>
                     <!-- <a href="subcommittee.html">9.Phân công đồ án vào tiểu ban</a>
                     <a href="subcommittee.html">10.Phân công đồ án vào tiểu ban</a> -->
                 </div>

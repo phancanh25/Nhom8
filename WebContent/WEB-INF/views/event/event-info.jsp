@@ -119,8 +119,8 @@
 		            </div>
 		            <table class="table-deparment">
 		                <tr>
-		                    <td><a id="btn-xacnhan" target="__blank" href="cmt-teacher/${tieuBan.getMaTB()}.htm">Xem DSGV</a></td>
-		                    <td><a id="btn-xacnhan" target="__blank" href="cmt-student/${tieuBan.getMaTB()}.htm">Xem DSSV</a></td>
+		                    <td><a id="btn-xacnhan1" target="__blank" href="cmt-teacher/${tieuBan.getMaTB()}.htm">Xem DSGV</a></td>
+		                    <td><a id="btn-xacnhan2" target="__blank" href="cmt-student/${tieuBan.getMaTB()}.htm">Xem DSSV</a></td>
 		                </tr>
 		            </table>
 	        </div>
