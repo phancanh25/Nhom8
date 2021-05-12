@@ -52,27 +52,18 @@
         		<c:when test="${flag=='have'}">
 	        		<div class="div-project-info">
 	            		<tr style="text-align: center; font-weight: normal; font-size: 13px">
-	            			<th>${doAn.getMaDA()}</th>
-	            			<%-- <th>${da.getMaDA()}</th>
-		                    <th>${sinhVien.getHo()}</th>
-		                    <th>${sinhVien.getTen()}</th>
-		                    <th>${sinhVien.getLop()}</th>
-		                    <th>${sinhVien.isPhai()?'Nam':'Nữ'}</th>
-		                    <th>${sinhVien.getNgaySinh()}</th>
-		                    <th>${sinhVien.getDiaChi()}</th>
-		                    <th>${sinhVien.getKhoa()}</th>
-		                    <th>${sinhVien.getDiemTBTL()}</th> --%>
-		                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td>
+	            			<p>Thông tin đồ án</p>
+			                <p class="project-title p-first">Tên đồ án: ${doAn.getTenDA()}</p>
+			                <p class="project-user p-second">Sinh viên thực hiện: ${doAn.getSinhVien().getHo()}  ${doAn.getSinhVien().getTen()}</p>
+			               <%--  <p class="project-teacher p-third">Giảng viên hướng dẫn: ${doAn.getGVHD().getTenGV()}</p> --%>
+			                <p class="p-fourth">Điểm hướng dẫn: ${doAn.getDiemHD()}</p>
+			                <p class="p-fifth">Điểm phản biện: ${doAn.getDiemPB()}</p>
+			                <p class="p-sixth">Điểm tiểu ban: ${doAn.getDiemTB()}</p>
+			                <p class="p-seventh">Xếp loại tốt nghiệp: Giỏi</p>
+		                   <%--  <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td> --%>
 		                 
 	            		</tr>
-		                <!-- <p>Thông tin đồ án</p>
-		                <p class="project-title p-first">Phần mềm nhận diện mệnh giá tiền giấy</p>
-		                <p class="project-user p-second">Sinh viên thực hiện: Lệnh Hồ Xung</p>
-		                <p class="project-teacher p-third">Giảng viên hướng dẫn: Trương Tam Phong</p>
-		                <p class="p-fourth">Điểm hướng dẫn: 10</p>
-		                <p class="p-fifth">Điểm phản biện: 9.5</p>
-		                <p class="p-sixth">Điểm tiểu ban: 9.5</p>
-		                <p class="p-seventh">Xếp loại tốt nghiệp: Giỏi</p> -->
+		                
 		            </div>
         		</c:when>
         		<c:otherwise>

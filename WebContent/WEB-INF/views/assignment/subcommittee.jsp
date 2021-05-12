@@ -297,7 +297,7 @@
             <form action="scmt-add.htm" method="POST">
             	<input name="maTB" type="number" placeholder="Mã tiểu ban(Tạm thời)" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
 	            <input name="tenTB" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
-	            <input name="gio" type="time" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
+	            <input name="gio" type="time" step="2" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
 	            <input name="ngay" type="date" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
 	            <input name="diaDiem" type="text" placeholder="Địa điểm" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
 	            <input name="khoa" type="number" placeholder="Khóa" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">

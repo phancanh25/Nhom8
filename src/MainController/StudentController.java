@@ -108,20 +108,10 @@ public class StudentController {
 		finally {
 			session.close();
 		}
-//		System.out.println(phai);
-//		System.out.println(chuyenNganh);
-//		System.out.println(khoa);
-//		System.out.println(ho);
-//		System.out.println(ten);
-//		System.out.println(diaChi);
 		showStudent(md);
 		return "student/student";
 	}
 	
-//	@RequestMapping("student-info")
-//	public String showStudent() {
-//		return "student/student-info";
-//	}
 	
 	@RequestMapping("student/{id}")
 	public String openCmtStudent(ModelMap md, @PathVariable("id") String maSV, HttpSession ss) {

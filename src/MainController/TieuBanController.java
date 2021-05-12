@@ -90,25 +90,21 @@ public class TieuBanController {
 	public String addTieuBan(ModelMap md, @RequestParam("maTB") int maTB, @RequestParam("tenTB") String tenTB,
 			@RequestParam("chuyenNganh") String chuyenNganh,
 			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay,
-			@RequestParam("gio") @DateTimeFormat(pattern = "hh:mm:ss") Date gio,
+			@RequestParam("gio") @DateTimeFormat(pattern = "hh:mm:ss") Time gio,
 			@RequestParam("diaDiem") String diaDiem, @RequestParam("khoa") int khoa) {
 		
 		List<DoAn> doAns = null;
 		List<GiangVien> giangViens = null;
 
 		TieuBan tieuBan = new TieuBan(maTB, tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
-		System.out.println("Hello1");
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
-			System.out.println("Hello3");
 			session.save(tieuBan);
-			System.out.println("Hello");
 			t.commit();
 			md.addAttribute("message", "Thêm tiểu ban thành công!!!");
 			System.out.println("Thêm tiểu ban thành công!!!");
 		} catch (Exception e) {
-			System.out.println("Hello2");
 			t.rollback();
 			md.addAttribute("message", "Thêm tiểu ban thất bại!!!" + e.getMessage());
 			System.out.println("Thêm tiểu ban thất bại!!! " + e.getMessage());

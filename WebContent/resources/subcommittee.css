@@ -34,7 +34,7 @@
 
 .div-subcommittee-show, .div-subcommittee-edit, .div-subcommittee-delete, .div-subcommittee-add{
     z-index: 1;
-    position: fixed;
+    position: absolute;
     left: 50%;
     transform: translate(-50%, -80%);
     width: 70%;
@@ -44,8 +44,19 @@
     display: none;
 }
 
+.div-subcommittee-show, .div-subcommittee-edit{
+	position: fixed;
+	left: 50%;
+	top: 70%;
+}
+.div-subcommittee-delete{
+	position: fixed;
+	left: 50%;
+	top: 70%;
+}
+
 .div-subcommittee-add{
-    height: 550px;
+    height: 580px;
 }
 .div-subcommittee-delete{
     width: 30%;

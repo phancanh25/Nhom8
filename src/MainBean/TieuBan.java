@@ -57,7 +57,7 @@ public class TieuBan<ChiTietTieuBan> {
 	private List<DoAn> doAn;
 
 	
-    @ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "ChiTietTieuBan",
             joinColumns = @JoinColumn(name = "MaTB"),
