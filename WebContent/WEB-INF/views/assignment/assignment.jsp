@@ -61,23 +61,17 @@
 			                <a href="javascript:void(0)" id="current-exam" onclick="expandAssignmentRoadmap();">&#10095; Kỳ bảo vệ năm 2021 <code>(Mỗi mục nhỏ trong này sau khi bấm ok sẽ chuyển hướng về lại trang này)</code></a>
 			                <div class="div-assignment-roadmap">
 			                    <a href="addStudent/showStudent.htm">1. Chọn SV làm đồ án</a>
-			                    <a href="add-project.html">2. GVHD ra đồ án</a>
-			                    <a href="mark1.html">3. GVHD chấm điểm</a>
-			                    <a href="add-gvpb.html">4. Phân công GVPB</a>
-			                    <a href="mark2.html">5. GVPB chấm điểm</a>
-			                    <a href="prj-to-scmt.html">6. Phân công đồ án vào tiểu ban</a>
-			                    <a href="mark3.html">7. Tiểu ban chấm điểm</a>
-			                    <!-- <a href="subcommittee.html">9.Phân công đồ án vào tiểu ban</a>
-			                    <a href="subcommittee.html">10.Phân công đồ án vào tiểu ban</a> -->
+			                    <a href="addProject/showProject.htm">2. GVHD ra đồ án</a>
+			                    <a href="GVHD/index.htm">3. GVHD chấm điểm</a>
+			                    <a href="ChoseGVPB/index.htm">4. Phân công GVPB</a>
+			                    <a href="GVPB/index.htm">5. GVPB chấm điểm</a>
+			                    <a href="PTCMT/index.htm">6. Phân công đồ án vào tiểu ban</a>
+			                    <a href="CMT/index.htm">7. Tiểu ban chấm điểm</a>
 			                </div>
 			            </li>
 			           </ul>
        			</c:otherwise>
        		</c:choose>
-       			
-       		
-       		
-           
        </div>
         
     </body>

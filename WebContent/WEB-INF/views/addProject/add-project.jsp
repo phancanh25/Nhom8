@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,22 +64,23 @@
                         <th>Tên đồ án</th>
                         <th>Chi tiết</th>
                     </tr>
-                    <tr>
-                        <td>N18DCAT001</td>
-                        <td>Trương Vô</td>
-                        <td>Kỵ</td>
-                        <td>D18CQAT01-N</td>
-                        <td>Nam</td>
-                        <td>01/01/2000</td>
-                        <td>2018</td>
-                        <td>Chưa TN</td>
-                        <td>
-                            <input type="text" value="Trương Tam Phong" disabled>
-                        </td>
-                        <td><input type="text" placeholder="Tên đồ án"></td>
-                        <td><textarea cols="20" rows="3" placeholder="Chi tiết"></textarea></td>
-                    </tr>
-
+                    <c:forEach items="${sinhViens}" var="sinhVien">
+	                    <tr>
+	                       <td>${sinhVien.getMaSV()}</td>
+		                    <td>${sinhVien.getHo()}</td>
+		                    <td>${sinhVien.getTen()}</td>
+		                    <td>${sinhVien.getLop()}</td>
+		                    <td>${sinhVien.isPhai()?'Nam':'Nữ'}</td>
+		                    <td>${sinhVien.getNgaySinh()}</td>
+		                    <td>${sinhVien.getKhoa()}</td>
+		                    <td>Chưa tốt nghiệp</td>
+	                        <td>
+	                            <input type="text" value="GiaoVien" disabled><!-- giaovien.ho.ten -->
+	                        </td>
+	                        <td><input type="text" placeholder="Tên đồ án"></td>
+	                        <td><textarea cols="20" rows="3" placeholder="Chi tiết"></textarea></td>
+	                    </tr>
+					</c:forEach>
                 </table>
             </div>
             <button class="finish-btn btn btn-success" id="btn-success" style="position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
