@@ -73,6 +73,11 @@ public class HomeController {
 		return "assignment/assignment";	
 	}
 	
+	@RequestMapping("statistic")
+	public String chart() {
+		return "Statistic/charts";	
+	}
+	
 	@RequestMapping("showstudent")
 	public String Showstudent(ModelMap model) {
 		Session session= factory.getCurrentSession();

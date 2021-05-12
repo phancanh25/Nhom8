@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import MainBean.GiangVien;
 import MainBean.SinhVien;
 
 @Transactional
@@ -47,9 +48,10 @@ public class AddStuToCMT {
 			String hql = "FROM SinhVien where diemTBTL >= 2.5 order by diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
-			for(SinhVien i : sinhViens) {
-				System.out.println(i.getMaSV());
-			}
+			String hql1 = "FROM GiangVien";
+			Query q1 = session.createQuery(hql1);
+			List<GiangVien> giangViens = q1.list();
+			md.addAttribute("giangViens", giangViens);
 			md.addAttribute("sinhViens", sinhViens);
 		}
 		catch (Exception e) {

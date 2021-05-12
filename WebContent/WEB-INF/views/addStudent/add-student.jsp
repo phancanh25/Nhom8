@@ -76,11 +76,12 @@
 		                    <td><input type="checkbox" class="student-check" onchange="check();"></td>
 	                        <td>
 	                            <select disabled class="select-teacher">
-	                                <option>Trương Tam Phong</option>
-	                                <option>Tạ Tốn</option>
-	                                <option>Optimus</option>
+	                            <c:forEach items="${giangViens}" var="giangVien">
+	                                <option>${giangVien.getHo()} ${giangVien.getTen()}</option>
+	                            </c:forEach> 
 	                            </select>
-	                        </td>  
+	                        </td> 
+
             			</tr>
                     </c:forEach>
                 </table>
