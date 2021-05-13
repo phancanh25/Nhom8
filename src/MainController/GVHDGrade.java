@@ -77,6 +77,6 @@ public class GVHDGrade {
 				System.out.println("Loi khi cham diem huong dan (buoc 3): "+doAn.getMaDA());
 			}
 		}
-		return "a";
+		return "redirect:../ChoseGVPB/index.htm";
 	}
 }
