@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +50,7 @@
         <div class="div-add-project">
             <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Giảng viên hướng dẫn ra đề tài</p>
             <div class="div-add-project-wrapper">
+           		<form action="addProject/add-pro-for-stu.htm" method="POST">
                 <table class="table table-striped table-bordered table-add-project">
                     <tr>
                         <th>MSSV</th>
@@ -75,15 +76,18 @@
 		                    <td>${sinhVien.getKhoa()}</td>
 		                    <td>Chưa tốt nghiệp</td>
 	                        <td>
-	                            <input type="text" value="GiaoVien" disabled><!-- giaovien.ho.ten -->
+	                            <input type="text" value="${sinhVien.getDoAn().getGVHD().getHo()} ${sinhVien.getDoAn().getGVHD().getTen()}" disabled><!-- giaovien.ho.ten -->
 	                        </td>
-	                        <td><input type="text" placeholder="Tên đồ án"></td>
-	                        <td><textarea cols="20" rows="3" placeholder="Chi tiết"></textarea></td>
+	                        <td><input name="tenDA" type="text" placeholder="Tên đồ án"></td>
+	                        <td><textarea name="chiTietDA" cols="20" rows="3" placeholder="Chi tiết"></textarea></td>
+	                        <input name="maDA" type="text" value="${sinhVien.getDoAn().getMaDA()}" hidden>
 	                    </tr>
 					</c:forEach>
                 </table>
+                
             </div>
             <button class="finish-btn btn btn-success" id="btn-success" style="position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+        	</form>
         </div>
     </body>
 </html>

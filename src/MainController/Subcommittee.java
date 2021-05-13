@@ -94,7 +94,6 @@ public class Subcommittee {
 			GiangVien giangVien = (GiangVien)(session.get(GiangVien.class, i));
 			giangViens.add(giangVien);
 		}
-//		TieuBan tt = new TieuBan<>(maTB, tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAn, giangViens);
 		TieuBan tieuBan = new TieuBan<>(maTB, tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
 		try {
 			session.save(tieuBan);

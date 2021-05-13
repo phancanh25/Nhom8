@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 @Table(name="DoAn")
 public class DoAn {
 	@Id
+	@GeneratedValue
 	@Column(name="MaDA")
 	private int maDA;
 	@Column(name="TenDA")
@@ -37,6 +39,8 @@ public class DoAn {
 	private Float diemTB;
 	@Column(name="DiemTong")
 	private Float diemTong;
+	@Column(name="Nam")
+	private int nam;
 	@ManyToOne
 	@JoinColumn(name="MaTB")
 	private TieuBan tieuBan;
@@ -108,10 +112,17 @@ public class DoAn {
 	public void setSinhVien(SinhVien sinhVien) {
 		this.sinhVien = sinhVien;
 	}
-	public DoAn(int maDA, String tenDA, String chiTiet, GiangVien gVHD, GiangVien gVPB, Float diemHD, Float diemPB,
-			Float diemTB, Float diemTong, TieuBan tieuBan, SinhVien sinhVien) {
+	
+	public int getNam() {
+		return nam;
+	}
+	public void setNam(int nam) {
+		this.nam = nam;
+	}
+	
+	public DoAn(String tenDA, String chiTiet, GiangVien gVHD, GiangVien gVPB, Float diemHD, Float diemPB, Float diemTB,
+			Float diemTong, int nam, TieuBan tieuBan, SinhVien sinhVien) {
 		super();
-		this.maDA = maDA;
 		this.tenDA = tenDA;
 		this.chiTiet = chiTiet;
 		GVHD = gVHD;
@@ -120,6 +131,7 @@ public class DoAn {
 		this.diemPB = diemPB;
 		this.diemTB = diemTB;
 		this.diemTong = diemTong;
+		this.nam = nam;
 		this.tieuBan = tieuBan;
 		this.sinhVien = sinhVien;
 	}

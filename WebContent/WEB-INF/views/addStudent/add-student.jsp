@@ -50,6 +50,7 @@
         <div class="div-add-stu-project">
             <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Chọn sinh viên <code>(Table này dùng sql xuất những sinh viên đủ điều kiện làm đồ án)</code></p>
             <div class="div-add-stu-project-wrapper">
+           		<form action="addStudent/add-stu-to-event.htm" method="POST">
                 <table class="table table-striped table-bordered table-add-stu-project">
                     <tr>
                         <th>MSSV</th>
@@ -73,11 +74,11 @@
 		                    <td>${sinhVien.getNgaySinh()}</td>
 		                    <td>${sinhVien.getKhoa()}</td>
 		                    <td>Chưa tốt nghiệp</td>
-		                    <td><input type="checkbox" class="student-check" onchange="check();"></td>
+		                    <td><input value="${sinhVien.getMaSV()}" name="student-list" type="checkbox" class="student-check" onchange="check();"></td>
 	                        <td>
-	                            <select disabled class="select-teacher">
+	                            <select name="gvhd-list" disabled class="select-teacher">
 	                            <c:forEach items="${giangViens}" var="giangVien">
-	                                <option>${giangVien.getHo()} ${giangVien.getTen()}</option>
+	                                <option value="${giangVien.getMaGV()}">${giangVien.getHo()} ${giangVien.getTen()}</option>
 	                            </c:forEach> 
 	                            </select>
 	                        </td> 
@@ -85,8 +86,10 @@
             			</tr>
                     </c:forEach>
                 </table>
+                
             </div>
-            <button class="finish-btn btn btn-success" id="btn-success" style="position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+            <button type="submit" class="finish-btn btn btn-success" id="btn-success" style="position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+        	</form>
         </div>
         
     </body>
