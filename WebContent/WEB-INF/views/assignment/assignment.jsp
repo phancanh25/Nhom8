@@ -65,7 +65,7 @@
 			                    <a href="GVHD/index.htm">3. GVHD chấm điểm</a>
 			                    <a href="ChoseGVPB/index.htm">4. Phân công GVPB</a>
 			                    <a href="GVPB/index.htm">5. GVPB chấm điểm</a>
-			                    <a href="PTCMT/index.htm">6. Phân công đồ án vào tiểu ban</a>
+			                    <a href="PTCMT/show-cmt.htm">6. Phân công đồ án vào tiểu ban</a>
 			                    <a href="CMT/index.htm">7. Tiểu ban chấm điểm</a>
 			                </div>
 			            </li>
