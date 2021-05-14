@@ -83,6 +83,6 @@ public class ChoseGVPB {
 				System.out.println("Loi khi cham diem huong dan (buoc 4): "+doAn.getMaDA());
 			}
 		}
-		return "a";
+		return "redirect:../GVPB/index.htm";
 	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,6 +50,7 @@
         <div class="div-mark2">
             <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Giảng viên phản biện chấm điểm</p>
             <div class="div-mark2-wrapper">
+           		 <form action="GVPB/gvpb-grade.htm" method="POST">
                 <table class="table table-striped table-bordered table-mark2">
                     <tr>
                         <th>MSSV</th>
@@ -66,30 +68,34 @@
                         <th>GVPB</th>
                         <th>Điểm phản biện</th>
                     </tr>
-                    <tr>
-                        <td>N18DCAT001</td>
-                        <td>Trương Vô</td>
-                        <td>Kỵ</td>
-                        <td>D18CQAT01-N</td>
-                        <td>Nam</td>
-                        <td>01/01/2000</td>
-                        <td>2018</td>
-                        <td>Chưa TN</td>
-                        <td>
-                            <input type="text" value="Trương Tam Phong" readonly>
-                        </td>
-                        <td><input type="text" placeholder="Tên đồ án" value="Nhà thông minh" readonly></td>
-                        <td><textarea cols="20" rows="3" placeholder="Chi tiết" readonly>Cho phép ra lệnh bằng giọng nói</textarea></td>
-                        <td><input type="text" placeholder="Điểm hd" value="9.5" readonly></td>
-                        <td>
-                            <input type="text" value="Trương Tam Phong" readonly>
-                        </td>
-                        <td><input type="text" placeholder="Điểm pb"></td>
-                    </tr>
+                    <c:forEach items="${sinhViens}" var="sinhVien">
+	                    <tr>
+	                        <td>${sinhVien.getMaSV()}</td>
+		                    <td>${sinhVien.getHo()}</td>
+		                    <td>${sinhVien.getTen()}</td>
+		                    <td>${sinhVien.getLop()}</td>
+		                    <td>${sinhVien.isPhai()?'Nam':'Nữ'}</td>
+		                    <td>${sinhVien.getNgaySinh()}</td>
+		                    <td>${sinhVien.getKhoa()}</td>
+		                    <td>Chưa tốt nghiệp</td>
+	                        <td>
+	                            <input type="text" value="${sinhVien.getDoAn().getGVHD().getHo()} ${sinhVien.getDoAn().getGVHD().getTen()}" disabled><!-- giaovien.ho.ten -->
+	                        </td>
+	                        <td><input value="${sinhVien.getDoAn().getTenDA()}" name="tenDA" type="text" placeholder="Tên đồ án" readonly></td>
+	                        <td><textarea name="chiTietDA" cols="20" rows="3" placeholder="Chi tiết" readonly>${sinhVien.getDoAn().getChiTiet()}</textarea></td>
+	                        <td><input name="diemHD" step="0.01" type="number" placeholder="Điểm hd" readonly value="${sinhVien.getDoAn().getDiemHD() }"></td>
+
+                        	<input name="maDA" type="text" value="${sinhVien.getDoAn().getMaDA()}" hidden>
+                        	 <td>
+	                            <input type="text" value="${sinhVien.getDoAn().getGVPB().getHo()} ${sinhVien.getDoAn().getGVPB().getTen()}" disabled><!-- giaovien.ho.ten -->
+	                        </td>
+	                        <td><input name="diemPB" step="0.01" type="number" placeholder="Điểm pb"></td>
+	                    </tr>
+						</c:forEach>
 
                 </table>
             </div>
-            <button class="finish-btn btn btn-success" id="btn-success" style="position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+            <button type="submit" class="finish-btn btn btn-success" id="btn-success" style="position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
         </div>
         
     </body>
