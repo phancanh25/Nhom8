@@ -26,28 +26,34 @@
 </head>
 
 <body id="page-top">
-
+	<div>
+	
+	<table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
+	            <tr style="text-align: center; color: #0096ff">
+	            			<th>Mã Da</th>
+		                    <th>Tên DA</th>
+		                    <th>Chi tiết</th>
+		                    <th>Năm</th>
+		                    
+	            </tr>
+            	<%-- <c:forEach items="${doAns}" var="doAn">
+            		<tr style="text-align: center; font-weight: normal; font-size: 13px">
+            			<th>${doAn.getMaDA()}</th>
+	                    <th>${doAn.getTenDA()}</th>
+	                    <th>${doAn.getChiTiet()}</th>
+	                    <th>${doAn.getNam()}</th>
+	                    <th>${SLDA}</th>
+	                    <td><a href="#">Click</a></td>
+	                    
+            		</tr>
+            	</c:forEach> --%>
+            </table>
+	</div>
     <!-- Page Wrapper -->
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                     <div class="row">
-
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart-bar">
-                                        <canvas id="myBarChart"></canvas>
-                                    </div>
-                                    <hr>
-                                    Styling for the bar chart can be found in the
-                                    <code>resources//js/demo/chart-bar-demo.js</code> file.
-                                </div>
-                            </div>
-                        </div>
                         <!-- Donut Chart -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">

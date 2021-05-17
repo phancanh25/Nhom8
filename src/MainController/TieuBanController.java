@@ -71,6 +71,7 @@ public class TieuBanController {
 		try {
 			Session session = factory.getCurrentSession();
 			String hql = "FROM TieuBan";
+			
 			Query q = session.createQuery(hql);
 			List<TieuBan> tieuBans = q.list();
 			for(TieuBan i : tieuBans) {
