@@ -22,13 +22,68 @@
 
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
 
+      function drawStuff() {
+    	var SLDAperYears=<%=request.getAttribute("SLDAperYear") %>;
+    	var namofSLDAs=<%=request.getAttribute("namofSLDA") %>;
+    	<%-- var AllDoAns=<%=request.getAttribute("AllDoAn") %>; --%>
+        var data = new google.visualization.arrayToDataTable([
+          ["Đồ án mỗi năm", 'Số lượng']
+        ]);
+        
+        
+        for (var i = 0; i < SLDAperYears.length; i ++) {
+        	data.Vf[i] = [namofSLDAs[i], SLDAperYears[i]]
+        	data.Vf[i] = {
+        			c: [
+        				{
+            				v: namofSLDAs[i]
+            			},
+            			{
+            				v: SLDAperYears[i]
+            			}
+        			]
+        	}
+        }
+/*         
+        console.log(data.Vf) */
+
+        var options = {
+          title: 'ĐỒ ÁN TRONG TỪNG NĂM!!!',
+          width: 900,
+          legend: { position: 'none' },
+          chart: { title: 'Năm bao nhiêu, đồ án bấy nhiêu',
+                   subtitle: 'Viết đại gì đấy' },
+          bars: 'horizontal', // Required for Material Bar Charts.
+          axes: {
+            x: {
+              0: { side: 'top', label: 'Số lượng đồ án'} // Top x-axis.
+            }
+          },
+          bar: { groupWidth: "90%" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        chart.draw(data, options);
+      };
+    </script>
+	
+	
+	
 </head>
 
 <body id="page-top">
 	<div>
+	<div id="top_x_div" style="width: 900px; height: 500px;"></div>
+	<br/>
 	
-	<table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
+	
+	<%-- <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
 	            <tr style="text-align: center; color: #0096ff">
 	            			<th>Mã Da</th>
 		                    <th>Tên DA</th>
@@ -36,7 +91,7 @@
 		                    <th>Năm</th>
 		                    
 	            </tr>
-            	<%-- <c:forEach items="${doAns}" var="doAn">
+            	<c:forEach items="${doAns}" var="doAn">
             		<tr style="text-align: center; font-weight: normal; font-size: 13px">
             			<th>${doAn.getMaDA()}</th>
 	                    <th>${doAn.getTenDA()}</th>
@@ -46,11 +101,11 @@
 	                    <td><a href="#">Click</a></td>
 	                    
             		</tr>
-            	</c:forEach> --%>
-            </table>
+            	</c:forEach>
+            </table> --%>
 	</div>
     <!-- Page Wrapper -->
-    <div id="wrapper">
+<%--     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                     <div class="row">
@@ -78,7 +133,7 @@
         </div>
         <!-- End of Content Wrapper -->
 
-    </div>
+    </div> --%>
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>

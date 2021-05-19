@@ -44,7 +44,7 @@ public class GVPBGrade {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		try {
 			Session session = factory.getCurrentSession();
-			String hql = "FROM SinhVien sinhVien where sinhVien.diemTBTL >= 2.5 and sinhVien.doAn.nam= "+year+"  order by diemTBTL DESC";
+			String hql = "FROM SinhVien sinhVien where sinhVien.diemTBTL >= 2.5 and sinhVien.doAn.nam= "+year+" and sinhVien.doAn.diemHD >= 5  order by diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
 			for(SinhVien i : sinhViens) {

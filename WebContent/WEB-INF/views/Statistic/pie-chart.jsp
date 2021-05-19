@@ -22,13 +22,51 @@
 
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+	
+	
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+    	var SLDADat=<%=request.getAttribute("DADat") %>;
+      	var SLDAKDat=<%=request.getAttribute("DAKDat") %>;
+      	var listnam=<%=request.getAttribute("listnam") %>;
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Đạt', SLDADat],
+          ['Không đạt', SLDAKDat]
+        ]);
+        console.log(listnam);
+        var options = {
+          title: 'Thống kê tỉ lệ đạt hay không năm 2021'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+	
 </head>
 
 <body id="page-top">
+	<div id="piechart" style="width: 900px; height: 500px;"></div>
+		<label for="cars">Choose a car:</label>
+	
+	<form id="myForm" action="statistic/piechart/'document.getElementById('nowtime').value'+.htm" target="__blank" method="post">
+	    <select id="nowtime" >
+	    	<c:forEach items="${listnam}" var="listnam">
+	        	<option value="${listnam}">${listnam}</option>
+	        </c:forEach>
+	    </select> 
+	    <button type="button" onclick="submitValue()">submit </button>
+	</form>
+	<!-- <div id="piechart1" style="width: 900px; height: 500px;"></div> -->
 	<div>
 	
-	<table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
+	<%-- <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
 	            <tr style="text-align: center; color: #0096ff">
 	            			<th>Mã Da</th>
 		                    <th>Tên DA</th>
@@ -36,7 +74,7 @@
 		                    <th>Năm</th>
 		                    
 	            </tr>
-            	<%-- <c:forEach items="${doAns}" var="doAn">
+            	<c:forEach items="${doAns}" var="doAn">
             		<tr style="text-align: center; font-weight: normal; font-size: 13px">
             			<th>${doAn.getMaDA()}</th>
 	                    <th>${doAn.getTenDA()}</th>
@@ -46,11 +84,11 @@
 	                    <td><a href="#">Click</a></td>
 	                    
             		</tr>
-            	</c:forEach> --%>
-            </table>
+            	</c:forEach>
+            </table> --%>
 	</div>
     <!-- Page Wrapper -->
-    <div id="wrapper">
+   <%--  <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                     <div class="row">
@@ -75,11 +113,14 @@
                     </div>
 
                 </div>
-            </div>
+            </div> 
         </div>
         <!-- End of Content Wrapper -->
 
-    </div>
+    </div>--%>
+    
+    
+    
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -101,5 +142,12 @@
     <script src="resources/js/demo/chart-bar-demo.js"></script>
 
 </body>
+<script>
+	function submitValue() {
+		valueSelect = document.getElementById("nowtime").value;
+		document.getElementById("myForm").action = "statistic/piechart/" + valueSelect + ".htm";
+		document.getElementById("myForm").submit()
 
+	}
+</script>
 </html>

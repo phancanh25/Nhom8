@@ -124,10 +124,6 @@ public class StudentController {
 			md.addAttribute("username", "");
 		}
 		Session session = factory.getCurrentSession();
-//		String hql = "FROM SinhVien where maSV ="+maSV;
-//		Query query = session.createQuery(hql);
-//		List<SinhVien> sinhViens = query.list();
-//		SinhVien sinhVien = sinhViens.get(0);
 		SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, maSV));
 		DoAn doAn = sinhVien.getDoAn();
 		if(doAn==null) {
