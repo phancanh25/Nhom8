@@ -51,6 +51,31 @@
                 <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
             </div>
         </div>
+        <div class="div-edit-student" id="div-edit-student" style="height: 650px; margin-top: 50px">
+            <a href="javascript:void(0)" class="a-login-quit" onclick="closeEditStudent();" style="color: white; margin-top: -10px;">&times</a>
+            <p>Sửa sinh viên</p>
+            <form action="student/edit-student.htm" method="POST">
+                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <select name="chuyenNganh">
+                    <option>An toàn thông tin</option>
+                    <option>Công nghệ đa phương tiện</option>
+                    <option>Công nghệ thông tin</option>
+                </select>
+                <input name="khoa" type="number" placeholder="Khóa"><br>
+                <input name="ho" type="text" placeholder="Họ"><br>
+                <input name="ten" type="text" placeholder="Tên"><br>
+                <input name="lop" type="text" placeholder="Lớp"><br>
+                <text>Ngày sinh</text>
+                <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
+                <input name="diaChi" type="text" placeholder="Địa chỉ"><br>
+                <input name="diemTBTL" type="number" placeholder="Điểm trung bình tích lũy"><br>
+                <button type="submit">Sửa</button>
+            </form>
+            <div class="div-login-bottom" style="height: 50px">
+                <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
+            </div>
+        </div>
         <div class="div-top">
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
@@ -95,7 +120,7 @@
 		                    <th>Khóa</th>
 		                    <th>Điểm TBTL</th>
 		                    <th>Đồ án</th>
-		                    
+		                    <th></th>
 	            </tr>
             	<c:forEach items="${sinhViens}" var="sinhVien">
             		<tr style="text-align: center; font-weight: normal; font-size: 13px">
@@ -109,7 +134,7 @@
 	                    <th>${sinhVien.getKhoa()}</th>
 	                    <th>${sinhVien.getDiemTBTL()}</th>
 	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td>
-	                    
+	                    <td><a href="javascript:void()" onclick="openEditStudent();">Sửa</a></td>
             		</tr>
             	</c:forEach>
                <!--  <tr style="text-align: center;">

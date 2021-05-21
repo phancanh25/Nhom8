@@ -136,7 +136,7 @@ body{
     animation-duration: 1s;
     animation-fill-mode: both;
 }
-.div-login, .div-add-teacher, .div-edit-teacher, .div-add-student, .div-student-in-event, .div-teacher-in-event{
+.div-login, .div-add-teacher, .div-edit-teacher, .div-add-student, .div-edit-student, .div-student-in-event, .div-teacher-in-event{
     width: 450px;
     height: 400px;
     background-color: white;
@@ -152,7 +152,7 @@ body{
     visibility: hidden;
     z-index: 10;
 }
-.div-add-student{
+.div-add-student, .div-edit-student{
     height: 550px;
 }
 .div-student-in-event, .div-teacher-in-event{
@@ -168,7 +168,7 @@ body{
     width: 100%;
     height: 50%;
 }
-.div-login input, .div-add-teacher input, .div-edit-teacher input, .div-add-student input, .div-student-in-event input{
+.div-login input, .div-add-teacher input, .div-edit-teacher input, .div-add-student input, .div-edit-student input, .div-student-in-event input{
     width: 80%;
     height: 25%;
     margin-top: 10px;
@@ -180,15 +180,15 @@ body{
     font-weight: 400;
     font-size: 16px;
 }
-.div-add-student input{
+.div-add-student input, .div-edit-student input{
     height: 15%;
 }
-.div-login input:focus, .div-add-teacher input:focus, .div-edit-teacher input:focus, .div-add-student input:focus, .div-student-in-event input:focus{
+.div-login input:focus, .div-add-teacher input:focus, .div-edit-teacher input:focus, .div-add-student input:focus, .div-edit-student input:focus, .div-student-in-event input:focus{
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
     outline: none;
 }
-.div-login button, .div-add-teacher button, .div-edit-teacher button, .div-add-student button, .div-student-in-event button{
+.div-login button, .div-add-teacher button, .div-edit-teacher button, .div-add-student button, .div-edit-student button, .div-student-in-event button{
     margin-top: 20px;
     height: 20%;
     width: 40%;
@@ -214,7 +214,7 @@ body{
     overflow: scroll;
 }
 
-.div-login button:hover, .div-add-teacher button:hover, .div-edit-teacher button:hover, .div-add-student button:hover, .div-student-in-event button:hover{
+.div-login button:hover, .div-add-teacher button:hover, .div-edit-teacher button:hover, .div-add-student button:hover, .div-edit-student button:hover, .div-student-in-event button:hover{
     background-color: #479bc6;
     cursor: pointer;
 }
@@ -234,7 +234,7 @@ body{
     color: black;
     text-decoration: underline;
 }
-.div-add-teacher p, .div-edit-teacher p, .div-add-student p, .div-student-in-event p, .div-teacher-in-event p{
+.div-add-teacher p, .div-edit-teacher p, .div-add-student p, .div-edit-student p, .div-student-in-event p, .div-teacher-in-event p{
     margin: 0;
     height: 8%;
     line-height: 30px;

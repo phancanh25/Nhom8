@@ -34,6 +34,15 @@ function closeAddStudent(){
     document.getElementById("div-add-student").className = "div-add-student fadeOutDown";
 }
 
+function openEditStudent(){
+    document.getElementById("div-edit-student").style.visibility = "visible";
+    document.getElementById("div-edit-student").className = "div-edit-student fadeInDown";
+}
+
+function closeEditStudent(){
+    document.getElementById("div-edit-student").className = "div-edit-student fadeOutDown";
+}
+
 
 function openTeacherInEvent(){
     document.getElementById("div-teacher-in-event").style.visibility = "visible";
