@@ -23,7 +23,7 @@ body{
 .div-top a:nth-child(2){
     margin-left: 15px;
 }
-.div-top a:nth-child(3), .div-top a:nth-child(4), .div-top a:nth-child(5){
+.div-top a:nth-child(3), .div-top a:nth-child(4), .div-top a:nth-child(5), .div-top a:nth-child(6){
     float: right;
 }
 .div-top a:nth-child(4){
@@ -31,7 +31,6 @@ body{
     margin-right: 10px;
     width: 2px;
     height: 70%;
-    background: #7f9da9;
     margin-top: 8px;
     cursor: default;
 }
@@ -509,4 +508,11 @@ body{
 }
 .table-deparment tr{
     border-bottom: 1px #3f8eae solid;
+}
+
+.error{
+	margin-bottom: -10px;
+	font-size: 15px;
+	font-style: italic;
+	color: red;
 }

@@ -17,22 +17,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import MainBean.TieuBan;
+import other.Other;
 
 @Controller
 @Transactional
 public class EventInfo {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("event-info/{year}")
-	public String openEventInfo(ModelMap md, @PathVariable("year") Integer year, HttpSession ss) {
+	public String openEventInfo(ModelMap model, @PathVariable("year") Integer year, HttpSession ss) {
 		if(ss.getAttribute("user") != null) {
 			System.out.println("user ko null");
-			md.addAttribute("username", ss.getAttribute("user"));
+			model.addAttribute("username", ss.getAttribute("user"));
 		}
 		else {
 			System.out.println("username = 0");
-			md.addAttribute("username", "");
+			model.addAttribute("username", "");
 		}
 		Session session = factory.getCurrentSession();
 		String hql = "from TieuBan where YEAR(ngay) = "+year;
@@ -41,7 +43,8 @@ public class EventInfo {
 		for(TieuBan i: tieuBans) {
 			System.out.print(i.getMaTB()); 
 		}
-		md.addAttribute("tieuBans", tieuBans);
+		model.addAttribute("tieuBans", tieuBans);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "event/event-info";
 	}
 }

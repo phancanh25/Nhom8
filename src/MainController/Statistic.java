@@ -21,25 +21,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import MainBean.DoAn;
 import MainBean.SinhVien;
+import other.Other;
 
 
 @Transactional
 @Controller
 @RequestMapping("/statistic/")
 public class Statistic {
-	
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
-	
+	//file cua Tien
 	@RequestMapping("piechart")
-	public String piechart(ModelMap md) {
-		showPie(md);
+	public String piechart(ModelMap model, HttpSession ss) {
+		showPie(model);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "Statistic/pie-chart";	
 	}
+	//file cua Canh
+	@RequestMapping("piechart1")
+	public String piechart1(ModelMap md) {
+		showPie(md);
+		return "Statistic/pie-chart1";	
+	}
+	
 	@RequestMapping("barchart")
-	public String barchart(ModelMap md) {
-		showBar(md);
+	public String barchart(ModelMap model, HttpSession ss) {
+		showBar(model);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "Statistic/bar-chart";	
+	}
+
+	@RequestMapping("barchart1")
+	public String barchart1(ModelMap md) {
+		showBar(md);
+		return "Statistic/bar-chart1";	
 	}
 	
 	private void showBar(ModelMap md) {
@@ -92,14 +108,14 @@ public class Statistic {
 		}	
 	}
 	@RequestMapping("piechart/{id}")
-	public String openNam(Model md, @PathVariable("id") String nam, HttpSession ss) {
+	public String openNam(ModelMap model, @PathVariable("id") String nam, HttpSession ss) {
 		if(ss.getAttribute("user") != null) {
 			System.out.println("user ko null");
-			md.addAttribute("username", ss.getAttribute("user"));
+			model.addAttribute("username", ss.getAttribute("user"));
 		}
 		else {
 			System.out.println("username = 0");
-			md.addAttribute("username", "");
+			model.addAttribute("username", "");
 		}
 		Session session = factory.getCurrentSession();
 		int namSelect = Integer.parseInt(nam);  
@@ -113,8 +129,11 @@ public class Statistic {
 		List<DoAn> doAn1s = q1.list();
 		
 		System.out.println(namSelect);
-		md.addAttribute("DADat", doAns.size());
-		md.addAttribute("DAKDat", doAn1s.size());
+		showPie(model);
+		model.addAttribute("nam", nam);
+		model.addAttribute("DADat", doAns.size());
+		model.addAttribute("DAKDat", doAn1s.size());
+		model.addAttribute("username", other.checkLogin(ss));
 		return "Statistic/pie-chart";
 	}	
 }

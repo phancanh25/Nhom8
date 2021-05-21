@@ -15,25 +15,17 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import MainBean.TieuBan;
+import other.Other;
 
 @Controller
 @Transactional
 public class Assignment {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("assignment")
 	public String openAssignment(ModelMap model, HttpSession ss) {
-		//Kiem tra nguoi dung
-		if(ss.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			model.addAttribute("username", ss.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			model.addAttribute("username", "");
-		}
-		
 		//Kiem tra xem ton tai tieu ban nam hien tai chua
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		model.addAttribute("year", year);
@@ -48,7 +40,7 @@ public class Assignment {
 		else {
 			System.out.println("bi loi gi roi ");
 		}
-		
+		model.addAttribute("username", other.checkLogin(ss));
 		return "assignment/assignment";
 	}
 	

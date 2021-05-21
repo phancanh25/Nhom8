@@ -23,34 +23,30 @@ import MainBean.DoAn;
 import MainBean.GiangVien;
 import MainBean.SinhVien;
 import MainBean.TieuBan;
+import other.Other;
 
 @Transactional
 @Controller
 @RequestMapping("/addStudent/")
 public class AddStuToCMT {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("index")
-	public String index() {
+	public String index(ModelMap model, HttpSession ss) {
+		model.addAttribute("username", other.checkLogin(ss));
 		return "addStudent/add-student";	
 	}
 	
 	@RequestMapping("showStudent")
-	public String showStudent(ModelMap md, HttpSession session) {
-		if(session.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			md.addAttribute("username", session.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			md.addAttribute("username", "");
-		}
-		ShowStudent(md);
+	public String showStudent(ModelMap model, HttpSession ss) {
+		ShowStudent(model);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "addStudent/add-student";
 	}
 	
-	public void ShowStudent(ModelMap md) {
+	public void ShowStudent(ModelMap model) {
 		try {
 			Session session = factory.getCurrentSession();
 			String hql = "FROM SinhVien where diemTBTL >= 2.5 order by diemTBTL DESC";
@@ -59,8 +55,8 @@ public class AddStuToCMT {
 			String hql1 = "FROM GiangVien";
 			Query q1 = session.createQuery(hql1);
 			List<GiangVien> giangViens = q1.list();
-			md.addAttribute("giangViens", giangViens);
-			md.addAttribute("sinhViens", sinhViens);
+			model.addAttribute("giangViens", giangViens);
+			model.addAttribute("sinhViens", sinhViens);
 		}
 		catch (Exception e) {
 			System.out.println("loi: "+e.getMessage());

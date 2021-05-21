@@ -1,0 +1,7 @@
+@charset "ISO-8859-1";
+.div-barchar-content{
+	width: 70%;
+	min-height: 100px;
+	margin: 0 auto;
+	border: 1px #139CD5 solid;
+}

@@ -20,25 +20,19 @@ import MainBean.DoAn;
 import MainBean.GiangVien;
 import MainBean.SinhVien;
 import MainBean.TieuBan;
+import other.Other;
 
 @Controller
 @Transactional
 @RequestMapping("cmt-student")
 
 public class CmtStudent {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("/{id}")
-	public String openCmtStudent(ModelMap md, @PathVariable("id") String maTB, HttpSession ss) {
-		if(ss.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			md.addAttribute("username", ss.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			md.addAttribute("username", "");
-		}
+	public String openCmtStudent(ModelMap model, @PathVariable("id") String maTB, HttpSession ss) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM TieuBan where maTB ="+maTB;
 		Query query = session.createQuery(hql);
@@ -49,7 +43,8 @@ public class CmtStudent {
 		for(DoAn i: doAns) {
 			sinhViens.add(i.getSinhVien());
 		}
-		md.addAttribute("sinhViens", sinhViens);
+		model.addAttribute("sinhViens", sinhViens);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "tieuban/show-student";
 	}
 }

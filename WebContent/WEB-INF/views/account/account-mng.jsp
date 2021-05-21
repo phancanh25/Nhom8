@@ -44,23 +44,24 @@
         </div>
         <div class="div-top">
             <div class="div-top-wrapper">
-                <a href="javascript:void(0)">&#9743 0987-654-321</a>
+               	<a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();" ${username!=""?'hidden':''}>Login</a>
-                <a href="Home/logout.htm" ${username==""?'hidden':''} style="margin: 0px;  border: none;">Logout</a>
-                <a href="javascript:void(0)" ${username==""?'hidden':''}>Hi ${username}</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${username==null?'visible':'hidden'}">Login</a>
+                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${username!=null?'visible':'hidden'}">Logout</a>
+                <a href="javascript:void(0)" style="visibility: ${username!=null?'visible':'hidden'}">Hi ${username}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${username=='admin'?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">
             <div class="div-top-wrapper"> 
-                <a href="index.html">
+                <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="Home/event-info.htm">DS kỳ bảo vệ</a>
-                <a href="assignment.html">Phân công đồ án</a>
+                <a href="event.htm">DS kỳ bảo vệ</a>
+                <a href="assignment.htm">Phân công đồ án</a>
                 <a href="student/student.htm">DSSV</a>
-                <a href="teacher.html">DSGV</a>
-                <a href="index.html">Trang chủ</a>
+                <a href="Home/teacher.htm">DSGV</a>
+                <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
         <div class="div-account-content">
@@ -95,7 +96,7 @@
 		            		<th>${accountGV.getGiangVien().getHo()} ${accountGV.getGiangVien().getTen()}</th>
 		            		<th>Giảng viên</th>
 		            		<th>
-		            			<button class="btn btn-primary" type="submit">Xóa</button>
+		            			<button class="btn btn-primary" type="submit" ${accountGV.getUsername()=='admin'?'hidden':''}>Xóa</button>
 		            		</th>
 		            	</tr>
 	            	</form>

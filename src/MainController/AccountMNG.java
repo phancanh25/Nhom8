@@ -2,6 +2,8 @@ package MainController;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,6 +22,7 @@ import MainBean.AccountSV;
 import MainBean.GiangVien;
 import MainBean.Role;
 import MainBean.SinhVien;
+import other.Other;
 
 @Controller
 @Transactional
@@ -28,7 +31,9 @@ public class AccountMNG {
 	SessionFactory factory;
 	
 	@RequestMapping("open-account-mng")
-	public String openAccountMNG(ModelMap model) {
+	public String openAccountMNG(ModelMap model, HttpSession ss) {
+		Other other = new Other();
+		model.addAttribute("username", other.checkLogin(ss));
 		Session session = factory.getCurrentSession();
 		String hql = "FROM AccountGV";
 		Query query = session.createQuery(hql);

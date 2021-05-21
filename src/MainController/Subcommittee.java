@@ -26,24 +26,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import MainBean.DoAn;
 import MainBean.GiangVien;
 import MainBean.TieuBan;
+import other.Other;
 
 @Controller
 @Transactional
 public class Subcommittee {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("subcommittee")
 	public String openSCMT(ModelMap model, HttpSession ss) {
-		if(ss.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			model.addAttribute("username", ss.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			model.addAttribute("username", "");
-		}
-		
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		model.addAttribute("year", year);
 		
@@ -73,6 +66,7 @@ public class Subcommittee {
 		model.addAttribute("tieuBanCNTTs", tieuBanCNTTs);
 		model.addAttribute("tieuBanCNDPTs", tieuBanCNDPTs);
 		model.addAttribute("giangViens", giangViens);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "assignment/subcommittee";
 	}
 	
