@@ -30,7 +30,7 @@ body{
     text-transform: uppercase;
     color: white;
     font-weight: bold;
-    position: sticky;
+    position: fixed;
 }
 
 @keyframes toUp{
@@ -47,7 +47,7 @@ body{
 .toUp{
     animation-name: toUp;
     animation-duration: 1s;
-    /* animation-fill-mode: */
+    animation-fill-mode:
 }
 
 .div-event-btn{

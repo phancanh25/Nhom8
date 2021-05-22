@@ -1,0 +1,101 @@
+@charset "ISO-8859-1";
+.div-account-content{
+	width: 70%;
+	min-height: 100px;
+	margin: 0 auto;
+}
+.div-account-add{
+	width: 450px;
+    height: 400px;
+    background-color: white;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 10px;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    z-index: 10;
+    display: none;
+}
+.p-title-add{
+	margin: 0 0 20px;
+    height: 8%;
+    line-height: 30px;
+    color: white;
+    font-size: 18px;
+    background: #3f8eae;
+}
+
+.div-account-add input{
+	text-align: center;
+	width: 60%;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    background: #f6f6f6;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    margin: 10px auto;
+}
+.div-account-add input:focus{
+	background-color: #fff;
+    border-bottom: 2px solid #5fbae9;
+    outline: none;
+}
+.div-account-add button{
+	margin: 20px auto;
+    height: 50px;
+    width: 50%;
+    border-radius: 10px;
+    border: none;
+    background-color: #58baed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 10px 20px 0px #d7e6ee;
+    outline: none;
+}
+
+.div-account-add button:hover{
+	background-color: #479bc6;
+    cursor: pointer;
+}
+.p-error-add{
+	color: red;
+	margin: 0 auto;
+}
+.a-quit{
+	position: absolute;
+	color: white;
+	font-size: 22px;
+	top: -5px;
+	right: 10px;
+	font-weight: bold
+}
+.a-quit:hover{
+	color: white;
+}
+
+@keyframes fadeInDown2{
+	0%{margin-top: -500px;}
+	100%{margin-top: 100px;}
+}
+@keyframes fadeOutUp2{
+	100%{margin-top: -500px;}
+	0%{margin-top: 100px;}
+}
+.fadeInDown2{
+	animation-name: fadeInDown2;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+.fadeOutUp2{
+	animation-name: fadeOutUp2;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}

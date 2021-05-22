@@ -1,0 +1,23 @@
+.div-assignment{
+    margin: 0 auto;
+    width: 70%;
+    height: 300px;
+    box-shadow: 0px 10px 20px 0px black;
+}
+.ul-assignment li{
+    list-style: none;
+    clear: left;
+    margin-top:10px;
+}
+.div-assignment-roadmap{
+    width: 90%;
+    height: 30px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    display: none;
+}
+.div-assignment-roadmap a{
+    float: left;
+    margin-right: 20px;
+    color: blue;
+}

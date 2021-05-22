@@ -1,2 +1,11 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/MainController/LoginController.java=UTF-8
+=======
+encoding//WebContent/WEB-INF/views/teacher/insert.jsp=UTF-8
+encoding//src/MainController/ChoseGVPB.java=UTF-8
+encoding//src/MainController/Statistic.java=UTF-8
+encoding//src/MainController/StudentController.java=UTF-8
+encoding//src/MainController/TeacherController.java=UTF-8
+encoding//src/MainController/TieuBanController.java=UTF-8
+>>>>>>> 34a463320f652de879e37902daaf4ca14a12077b

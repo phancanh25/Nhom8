@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <!-- <link rel="stylesheet" type="text/css" href="css.css"> -->
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css.css"/>">
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-        <link rel="stylesheet" type="text/css" href="<c:url value="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>">
-    </head>
-    <body>
+<head>
+<meta charset="UTF-8">
+<base href="${pageContext.servletContext.contextPath}/">
+<script src="resources/script.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Giảng viên</title>
+
+</head>
+<body>
         <div class="div-login" id="div-login">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
-            <!-- <img src="img/logo-lite.png"> -->
-            <img src="<c:url value="/resources/img/logo-lite.png"/>">
+            <img src="resources/img/logo-lite.png">
             <form>
                 <input type="text" placeholder="Tên đăng nhập"><br>
                 <input type="password" placeholder="Mật khẩu"><br>
@@ -56,21 +56,23 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();">Login</a>
-                <a href="javascript:void(0)"></a>
-                <a href="javascript:void(0)">Register</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${username==null?'visible':'hidden'}">Login</a>
+                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${username!=null?'visible':'hidden'}">Logout</a>
+                <a href="javascript:void(0)" style="visibility: ${username!=null?'visible':'hidden'}">Hi ${username}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${username=='admin'?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">
             <div class="div-top-wrapper"> 
-                <a href="index.html">
-                    <!-- <img src="img/logo.png" class="img-logo"> -->
-                    <img src="<c:url value="/resources/img/logo.png"/>" class="img-logo" >
+                <a href="">
+                    <img src="resources/img/logo.png" class="img-logo">
                 </a>
+                <a href="./statistic/piechart.htm">Thống kê</a>
                 <a href="event.htm">DS kỳ bảo vệ</a>
-                <a href="student.htm">DSSV</a>
-                <a href="teacher.htm">DSGV</a>
-                <a href="index.htm">Trang chủ</a>
+                <a href="assignment.htm">Phân công đồ án</a>
+                <a href="student/student.htm">DSSV</a>
+                <a href="Home/teacher.htm">DSGV</a>
+                <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
         <div class="div-teacher-content">
@@ -83,8 +85,7 @@
                     <li>
                         <div class="div-teacher-li">
                             <a href="javascript:void(0)" class="teacher-edit" onclick="openEditTeacher();">Sửa</a>
-                            <!-- <img src="img/user1.png"> -->
-            				<img src="<c:url value="/resources/img/user1.png"/>">
+                            <img src="resources/img/user1.png">
                             <div class="div-teacher-info">
                                 <ul class="ul-teacher-info">
                                     <li>
@@ -107,8 +108,112 @@
                             </div>
                         </div>
                     </li>
-                    
-                   
+                    <li>
+                        <div class="div-teacher-li">
+                            <a href="javascript:void(0)" class="teacher-edit" onclick="openEditTeacher();">Sửa</a>
+                            <img src="resources/img/user1.png">
+                            <div class="div-teacher-info">
+                                <ul class="ul-teacher-info">
+                                    <li>
+                                        <div class="div-patern-info">Họ và tên:</div>
+                                        <div class="div-data">Trương Tam Phong</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">Mã GV</div>
+                                        <div class="div-data">GV123</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">SĐT</div>
+                                        <div class="div-data">0987654321</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">Địa chỉ</div>
+                                        <div class="div-data">97 Man Thiện, phường Hiệp Phú, TP Thủ Đức, TP HCM</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="div-teacher-li">
+                            <a href="javascript:void(0)" class="teacher-edit" onclick="openEditTeacher();">Sửa</a>
+                            <img src="resources/img/user1.png">
+                            <div class="div-teacher-info">
+                                <ul class="ul-teacher-info">
+                                    <li>
+                                        <div class="div-patern-info">Họ và tên:</div>
+                                        <div class="div-data">Trương Tam Phong</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">Mã GV</div>
+                                        <div class="div-data">GV123</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">SĐT</div>
+                                        <div class="div-data">0987654321</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">Địa chỉ</div>
+                                        <div class="div-data">97 Man Thiện, phường Hiệp Phú, TP Thủ Đức, TP HCM</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="div-teacher-li">
+                            <a href="javascript:void(0)" class="teacher-edit" onclick="openEditTeacher();">Sửa</a>
+                            <img src="resources/img/user1.png">
+                            <div class="div-teacher-info">
+                                <ul class="ul-teacher-info">
+                                    <li>
+                                        <div class="div-patern-info">Họ và tên:</div>
+                                        <div class="div-data">Trương Tam Phong</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">Mã GV</div>
+                                        <div class="div-data">GV123</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">SĐT</div>
+                                        <div class="div-data">0987654321</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">Địa chỉ</div>
+                                        <div class="div-data">97 Man Thiện, phường Hiệp Phú, TP Thủ Đức, TP HCM</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="div-teacher-li">
+                            <a href="javascript:void(0)" class="teacher-edit" onclick="openEditTeacher();">Sửa</a>
+                            <img src="resources/img/user1.png">
+                            <div class="div-teacher-info">
+                                <ul class="ul-teacher-info">
+                                    <li>
+                                        <div class="div-patern-info">Họ và tên:</div>
+                                        <div class="div-data">Trương Tam Phong</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">Mã GV</div>
+                                        <div class="div-data">GV123</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">SĐT</div>
+                                        <div class="div-data">0987654321</div>
+                                    </li>
+                                    <li>
+                                        <div class="div-patern-info">Địa chỉ</div>
+                                        <div class="div-data">97 Man Thiện, phường Hiệp Phú, TP Thủ Đức, TP HCM</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <div class="div-teacher-right">
                 <p class="p-teacher-title">CHUYÊN NGÀNH</p>
                 <a href="javascript:void(0)">An toàn thông tin</a>
@@ -122,5 +227,3 @@
         </div>
     </body>
 </html>
-<!-- <script src="script.js"></script> -->
-<script src="<c:url value="/resources/script.js"/>"></script>

@@ -1,19 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <!-- <link rel="stylesheet" type="text/css" href="css.css">
-        <link rel="stylesheet" type="text/css" href="student-css.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/student-css.css"/>">
-        <link rel="stylesheet" type="text/css" href="<c:url value="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>">
-        <base href= "${pageContext.servletContext.contextPath}/">
-    </head>
-    <body>
+<head>
+<base href="${pageContext.servletContext.contextPath}/">
+<script src="resources/script.js"></script>
+<meta charset="UTF-8"><link rel="stylesheet" type="text/css" href="resources/css.css">
+        <link rel="stylesheet" type="text/css" href="resources/student-css.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<title>Kỳ bảo vệ đồ án tốt nghiệp</title>
+
+</head>
+ <body>
         <div class="div-login" id="div-login">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
             <img src="resources/img/logo-lite.png">
@@ -30,44 +30,50 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();">Login</a>
-                <a href="javascript:void(0)"></a>
-                <a href="javascript:void(0)">Register</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${username==null?'visible':'hidden'}">Login</a>
+                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${username!=null?'visible':'hidden'}">Logout</a>
+                <a href="javascript:void(0)" style="visibility: ${username!=null?'visible':'hidden'}">Hi ${username}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${username=='admin'?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">
             <div class="div-top-wrapper"> 
-                <a href="index.htm">
+                <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
+                <a href="./statistic/piechart.htm">Thống kê</a>
                 <a href="event.htm">DS kỳ bảo vệ</a>
-                <a href="student.htm">DSSV</a>
-                <a href="teacher.htm">DSGV</a>
-                <a href="index.htm">Trang chủ</a>
+                <a href="assignment.htm">Phân công đồ án</a>
+                <a href="student/student.htm">DSSV</a>
+                <a href="Home/teacher.htm">DSGV</a>
+                <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
         <div class="div-event">
-            <a href="event-add.htm" style="margin-left: 103px; text-decoration: underline;">Tạo kỳ bảo vệ đồ án</a>
+            <!-- <a href="event-add.html" style="margin-left: 103px; text-decoration: underline;">Tạo kỳ bảo vệ đồ án</a> -->
             <table style="width: 80%; margin: 20px auto" border="1">
                 <tr>
                     <th style="background: #3f8eae; color: white;">Danh sách các kỳ bảo vệ đồ án</th>
                 </tr>
-                <tr>
-                    <td><a href="event-info.htm">Kỳ bảo vệ năm 2021</a></td>
+                <c:forEach items="${years}" var="y">
+                	<tr>
+                    	<td><a href="event-info/${y}.htm">Kỳ bảo vệ năm ${y}</a></td>
+                	</tr>
+                </c:forEach>
+                <!-- <tr>
+                    <td><a href="event-info.html">Kỳ bảo vệ năm 2021</a></td>
                 </tr>
                 <tr>
-                    <td><a href="event-info.htm">Kỳ bảo vệ năm 2020</a></td>
+                    <td><a href="event-info.html">Kỳ bảo vệ năm 2020</a></td>
                 </tr>
 
                 <tr>
-                    <td><a href="event-info.htm">Kỳ bảo vệ năm 2019</a></td>
+                    <td><a href="event-info.html">Kỳ bảo vệ năm 2019</a></td>
                 </tr>
                 <tr>
-                    <td><a href="event-info.htm">Kỳ bảo vệ năm 2018</a></td>
-                </tr>
+                    <td><a href="event-info.html">Kỳ bảo vệ năm 2018</a></td>
+                </tr> -->
             </table>
         </div>
 </body>
 </html>
-<!-- <script src="script.js"></script> -->
-<script src="<c:url value="resources/script.js"/>"></script>
