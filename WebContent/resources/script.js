@@ -19,6 +19,7 @@ function closeAddTeacher(){
 function openEditTeacher(){
     document.getElementById("div-edit-teacher").style.visibility = "visible";
     document.getElementById("div-edit-teacher").className = "div-edit-teacher fadeInDown";
+    
 }
 
 function closeEditTeacher(){
@@ -34,7 +35,15 @@ function closeAddStudent(){
     document.getElementById("div-add-student").className = "div-add-student fadeOutDown";
 }
 
-function openEditStudent(){
+//${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}',${sinhVien.isPhai()},'${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}',${sinhVien.getDiemTBTL()}
+function openEditStudent(maSV, ho, ten, lop, phai, diaChi, khoa, diemTBTL){
+	document.getElementById("input-edit-maSV").value = maSV;
+	document.getElementById("input-edit-ho").value = ho;
+	document.getElementById("input-edit-ten").value = ten;
+	document.getElementById("input-edit-lop").value = lop;
+	document.getElementById("input-edit-diaChi").value = diaChi;
+	document.getElementById("input-edit-khoa").value = khoa;
+	document.getElementById("input-edit-diemTBTL").value = diemTBTL;
     document.getElementById("div-edit-student").style.visibility = "visible";
     document.getElementById("div-edit-student").className = "div-edit-student fadeInDown";
 }

@@ -28,6 +28,7 @@ import MainBean.TieuBan;
 import other.Other;
 
 
+
 @Transactional
 @Controller
 @RequestMapping("student/")
@@ -158,14 +159,55 @@ public class StudentController {
 	}
 	
 	
-	@RequestMapping(value="student/{maSV}",params = "ledt")
-	public String update(ModelMap model, @PathVariable("maSV") String maSV) {
-		Session s = factory.getCurrentSession();
-		String hql = "FROM SanPham where maSV = :maSV";
-		Query q = s.createQuery(hql);
-		q.setParameter("maSV",maSV);
-		SinhVien sv = (SinhVien)q.uniqueResult();
-		model.addAttribute("sinhViens",sv);	
+	@RequestMapping("edit-student")
+	public String editStudent(ModelMap model,@RequestParam("maSV") String maSV, @RequestParam("phai") boolean phai,
+			@RequestParam("khoa") int khoa, @RequestParam("ho") String ho, 
+			@RequestParam("ten") String ten, @RequestParam("lop") String lop, 
+			@RequestParam("ngaySinh") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngaySinh, 
+			@RequestParam("diaChi") String diaChi, @RequestParam("diemTBTL") float diemTBTL,
+			HttpSession ss) {
+//		TieuBan tieuBan = null;
+//		GiangVien GVHD = null;
+//		GiangVien GVPB = null;
+//		SinhVien sinhvien = null;
+//		DoAn doAn = null;
+		
+//		SinhVien sinhVien = new SinhVien(maSV, ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
+		System.out.println("ma sv: "+maSV);
+		System.out.println("ho: "+ho);
+		System.out.println("ten: "+ten);
+		System.out.println("lop: "+lop);
+		
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		String hql = "FROM SinhVien WHERE maSV = :mssv";
+		Query q = session.createQuery(hql);
+		q.setParameter("mssv", maSV);
+		SinhVien sinhvien = (SinhVien)q.uniqueResult();
+		sinhvien.setHo(ho);
+		sinhvien.setTen(ten);
+		sinhvien.setKhoa(khoa);
+		sinhvien.setLop(lop);
+		sinhvien.setPhai(phai);
+		sinhvien.setDiemTBTL(diemTBTL);
+		sinhvien.setDiaChi(diaChi);
+		sinhvien.setNgaySinh(ngaySinh);
+		try {
+			session.update(sinhvien);
+			t.commit();
+			model.addAttribute("message", "Sửa sinh viên thành công");
+			System.out.println("Sửa sinh viên thành công");
+		}
+		catch (Exception e) {
+			t.rollback();
+			model.addAttribute("message", "Sửa sinh viên thất bại " + e.getMessage());
+			System.out.println("Sửa sinh viên thất bại " + e.getMessage());
+		}
+		finally {
+			session.close();
+		}
+		showStudent(model);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "student/student";
 	}
 	

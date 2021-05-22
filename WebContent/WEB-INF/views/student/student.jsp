@@ -57,21 +57,22 @@
           <!--  SỬA SINH VIÊN ------------------------------- -->
             <p>Sửa sinh viên</p>
             <form action="student/edit-student.htm" method="POST">
-                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"checked></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"checked></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
                 <select name="chuyenNganh">
                     <option>An toàn thông tin</option>
                     <option>Công nghệ đa phương tiện</option>
                     <option>Công nghệ thông tin</option>
                 </select>
-                <input value="2018" name="khoa" type="number" placeholder="Khóa"><br>
-                <input value="Phan Văn" name="ho" type="text" placeholder="Họ"><br>
-                <input value="Cảnh" name="ten" type="text" placeholder="Tên"><br>
-                <input value="D18CQAT02-N" name="lop" type="text" placeholder="Lớp"><br>
+                <input id="input-edit-maSV" name="maSV" type="text" placeholder="Mã Sinh Viên" readonly="readonly"><br>
+                <input id="input-edit-khoa" name="khoa" type="number" placeholder="Khóa"><br>
+                <input id="input-edit-ho" name="ho" type="text" placeholder="Họ"><br>
+                <input id="input-edit-ten" name="ten" type="text" placeholder="Tên"><br>
+                <input id="input-edit-lop" name="lop" type="text" placeholder="Lớp"><br>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
-                <input value="97 Man Thiện, hiệp phú" name="diaChi" type="text" placeholder="Địa chỉ"><br>
-                <input value="2.5" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
+                <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ"><br>
+                <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
                 <button type="submit">Sửa</button>
             </form>
             <div class="div-login-bottom" style="height: 50px">
@@ -135,7 +136,7 @@
 	                    <th>${sinhVien.getKhoa()}</th>
 	                    <th>${sinhVien.getDiemTBTL()}</th>
 	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td>
-	                    <td><a href="javascript:void()" onclick="openEditStudent();" name="${sinhVien.getMaSV()}">Sửa</a></td>
+	                    <td><a href="javascript:void()" onclick="openEditStudent('${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}',${sinhVien.isPhai()},'${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}',${sinhVien.getDiemTBTL()});" name="${sinhVien.getMaSV()}">Sửa</a></td>
 	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel">Xóa</a></th>
             		</tr>
             	</c:forEach>
