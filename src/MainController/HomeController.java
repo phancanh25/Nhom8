@@ -1,11 +1,8 @@
 package MainController;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
 import javax.servlet.http.HttpSession;
 
->>>>>>> 34a463320f652de879e37902daaf4ca14a12077b
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,22 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-<<<<<<< HEAD
-import MainEntity.SinhVien;
-=======
 import MainBean.SinhVien;
 import other.Other;
->>>>>>> 34a463320f652de879e37902daaf4ca14a12077b
 
 
 @Transactional
 @Controller
 @RequestMapping("/Home/")
 public class HomeController {
-<<<<<<< HEAD
-=======
 	Other other = new Other();
->>>>>>> 34a463320f652de879e37902daaf4ca14a12077b
 	@Autowired
 	SessionFactory factory;
 	
@@ -73,8 +63,6 @@ public class HomeController {
 		return "tieuban/show-teacher";	
 	}
 	
-<<<<<<< HEAD
-=======
 	@RequestMapping("assignment")
 	public String assignment() {
 		return "assignment/assignment";	
@@ -85,7 +73,6 @@ public class HomeController {
 		return "Statistic/charts";	
 	}
 	
->>>>>>> 34a463320f652de879e37902daaf4ca14a12077b
 	@RequestMapping("showstudent")
 	public String Showstudent(ModelMap model) {
 		Session session= factory.getCurrentSession();
