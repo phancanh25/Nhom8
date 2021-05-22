@@ -21,30 +21,25 @@ import MainBean.DoAn;
 import MainBean.GiangVien;
 import MainBean.SinhVien;
 import MainBean.TieuBan;
+import other.Other;
 
 @Transactional
 @Controller
 @RequestMapping("teacher/")
 
 public class TeacherController {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("teacher")
-	public String openStudent(ModelMap md, HttpSession session) {
-		if(session.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			md.addAttribute("username", session.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			md.addAttribute("username", "");
-		}
-		showTeacher(md);
-		return "teacher/teacher-show";
+	public String openStudent(ModelMap model, HttpSession ss) {
+		model.addAttribute("username", other.checkLogin(ss));
+		showTeacher(model);
+		return "teacher/teacher";
 	}
 	
-	public void showTeacher(ModelMap md) {
+	public void showTeacher(ModelMap model) {
 		try {
 			Session session = factory.getCurrentSession();
 			String hql = "FROM GiangVien";
@@ -54,7 +49,7 @@ public class TeacherController {
 			for(GiangVien i : giangViens) {
 				System.out.println(i.getMaGV());
 			}
-			md.addAttribute("giangVien", giangViens);
+			model.addAttribute("giangVien", giangViens);
 		}
 		catch (Exception e) {
 			System.out.println("loi: "+e.getMessage());

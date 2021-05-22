@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Generated;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,11 +28,13 @@ import MainBean.DoAn;
 import MainBean.GiangVien;
 import MainBean.SinhVien;
 import MainBean.TieuBan;
+import other.Other;
 
 @Transactional
 @Controller
 @RequestMapping("tieuban/")
 public class TieuBanController {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 
@@ -88,11 +91,12 @@ public class TieuBanController {
 	
 	
 	@RequestMapping("add-tieuban")
-	public String addTieuBan(ModelMap md, @RequestParam("maTB") int maTB, @RequestParam("tenTB") String tenTB,
+	public String addTieuBan(ModelMap model, @RequestParam("maTB") int maTB, @RequestParam("tenTB") String tenTB,
 			@RequestParam("chuyenNganh") String chuyenNganh,
 			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay,
 			@RequestParam("gio") @DateTimeFormat(pattern = "hh:mm:ss") Time gio,
-			@RequestParam("diaDiem") String diaDiem, @RequestParam("khoa") int khoa) {
+			@RequestParam("diaDiem") String diaDiem, @RequestParam("khoa") int khoa,
+			HttpSession ss) {
 		
 		List<DoAn> doAns = null;
 		List<GiangVien> giangViens = null;
@@ -103,18 +107,18 @@ public class TieuBanController {
 		try {
 			session.save(tieuBan);
 			t.commit();
-			md.addAttribute("message", "Thêm tiểu ban thành công!!!");
+			model.addAttribute("message", "Thêm tiểu ban thành công!!!");
 			System.out.println("Thêm tiểu ban thành công!!!");
 		} catch (Exception e) {
 			t.rollback();
-			md.addAttribute("message", "Thêm tiểu ban thất bại!!!" + e.getMessage());
+			model.addAttribute("message", "Thêm tiểu ban thất bại!!!" + e.getMessage());
 			System.out.println("Thêm tiểu ban thất bại!!! " + e.getMessage());
 		} finally {
 			session.close();
 		}
 
 		System.out.println(tenTB);
-		//showTieuBan(1, md);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "tieuban/showtb";
 	}
 }

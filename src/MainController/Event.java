@@ -16,24 +16,19 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import MainBean.TieuBan;
+import other.Other;
 
 @Transactional
 @Controller
 public class Event {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("event")
-	public String openEvent(ModelMap md, HttpSession session) {
-		if(session.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			md.addAttribute("username", session.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			md.addAttribute("username", "");
-		}
-		showEvent(md);
+	public String openEvent(ModelMap model, HttpSession ss) {
+		model.addAttribute("username", other.checkLogin(ss));
+		showEvent(model);
 		return "event/event";
 	}
 	

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import MainBean.AccountGV;
+import MainBean.AccountSV;
 
 
 @Transactional
@@ -25,27 +26,51 @@ public class LoginController {
 	SessionFactory factory;
 	
 	@RequestMapping("login")
-	public String openIndex(ModelMap md, @RequestParam("username") String username, 
+	public String openIndex(ModelMap model, @RequestParam("username") String username, 
 			@RequestParam("password") String password, HttpSession ss) {
-		Session session = factory.getCurrentSession();
-		String hql = "From AccountGV";
-		Query q = session.createQuery(hql);
-		List<AccountGV> accountGVs = q.list();
-		for(AccountGV i : accountGVs) {
-			if(username.equals(i.getUsername()) && password.equals(i.getPassword())) {
-				ss.setAttribute("user", i.getUsername());
-				md.addAttribute("message", "Xin chào "+i.getUsername());
-				return "redirect:/Home/index.htm";
-//				return "home/index";
-			}
+		if(checkLogin(username, password, ss, model)) {
+			System.out.println("thanh cong");
+			return "redirect:/Home/index.htm";
 		}
-		md.addAttribute("message", "Tài khoản không chính xác");
-		return "home/index";
+		else {
+			System.out.println("that bai");
+			model.addAttribute("error", "Tài khoản không chính xác");
+			return "home/index";
+		}
+		
 	}
 	
 	@RequestMapping("/Home/logout")
-	public String signout(HttpSession session) {
+	public String signout(HttpSession session, ModelMap model) {
+		System.out.println("Logout thanh cong");
 		session.removeAttribute("user");
 		return "redirect:/Home/index.htm";
+	}
+	
+	public boolean checkLogin(String username, String password, HttpSession ss, ModelMap model) {
+		boolean flag = true;
+		Session session = factory.getCurrentSession();
+		AccountGV accountGV = (AccountGV)(session.get(AccountGV.class, username));
+		AccountSV accountSV = (AccountSV)(session.get(AccountSV.class, username));
+		if(accountGV == null && accountSV == null) {
+			flag = false;
+		}
+		//Neu la tai khoan sinh vien
+		else if(accountGV == null) {
+			if(accountSV.getPassword().equals(password)) {
+				ss.setAttribute("user", username);
+				ss.setAttribute("role", 3);
+			}
+			else flag = false;
+		}
+		//Neu la tai khoan giang vien
+		else if(accountSV == null) {
+			if(accountGV.getPassword().equals(password)) {
+				ss.setAttribute("user", username);
+				ss.setAttribute("role", 2);
+			}
+			else flag = false;
+		}
+		return flag;
 	}
 }

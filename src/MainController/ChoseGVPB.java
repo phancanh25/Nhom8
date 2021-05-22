@@ -19,26 +19,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import MainBean.DoAn;
 import MainBean.GiangVien;
 import MainBean.SinhVien;
+import other.Other;
 
 @Transactional
 @Controller
 @RequestMapping("/ChoseGVPB/")
 public class ChoseGVPB {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("index")
-	public String index(ModelMap md, HttpSession session) {
-		if(session.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			md.addAttribute("username", session.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			md.addAttribute("username", "");
-		}
-		ShowStudent(md);
-		
+	public String index(ModelMap model, HttpSession ss) {
+		ShowStudent(model);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "GVPB/addGVPB";
 	}
 	

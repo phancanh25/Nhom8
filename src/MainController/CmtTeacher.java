@@ -16,24 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import MainBean.GiangVien;
 import MainBean.TieuBan;
+import other.Other;
 
 @Controller
 @Transactional
 @RequestMapping("cmt-teacher")
 public class CmtTeacher {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 		
 	@RequestMapping("/{id}")
-	public String openCmtTeacher(ModelMap md, @PathVariable("id") String maTB, HttpSession ss) {
-		if(ss.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			md.addAttribute("username", ss.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			md.addAttribute("username", "");
-		}
+	public String openCmtTeacher(ModelMap model, @PathVariable("id") String maTB, HttpSession ss) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM TieuBan where maTB = "+maTB;
 		Query query = session.createQuery(hql);
@@ -43,7 +37,8 @@ public class CmtTeacher {
 		for(GiangVien i:giangViens) {
 			System.out.println(i.getMaGV());
 		}
-		md.addAttribute("giangViens", giangViens);
+		model.addAttribute("giangViens", giangViens);
+		model.addAttribute("username", other.checkLogin(ss));
 		return "tieuban/show-teacher";
 	}
 }

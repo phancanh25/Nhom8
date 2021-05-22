@@ -20,27 +20,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import MainBean.DoAn;
 import MainBean.SinhVien;
+import other.Other;
 
 @Transactional
 @Controller
 @RequestMapping("/addProject/")
 
 public class AddProject {
-
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 
 	@RequestMapping("showProject")
-	public String showStudent(ModelMap md, HttpSession session) {
-		if(session.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			md.addAttribute("username", session.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			md.addAttribute("username", "");
-		}
-		ShowStudent(md);
+	public String showStudent(ModelMap model, HttpSession session) {
+		model.addAttribute("username", other.checkLogin(session));
+		ShowStudent(model);
 		return "addProject/add-project";
 	}
 	

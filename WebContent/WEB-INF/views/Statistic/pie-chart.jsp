@@ -1,29 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-	<base href="${pageContext.servletContext.contextPath}/">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title> </title>
-
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-	
-	
+<base href="${pageContext.servletContext.contextPath}/">
+<meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="resources/css.css">
+        <link rel="stylesheet" type="text/css" href="resources/pie-chart.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="resources/script.js"></script>
+	<title>Thống kê</title>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -33,6 +20,7 @@
     	var SLDADat=<%=request.getAttribute("DADat") %>;
       	var SLDAKDat=<%=request.getAttribute("DAKDat") %>;
       	var listnam=<%=request.getAttribute("listnam") %>;
+      	var nam=<%=request.getAttribute("nam") %>;
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
           ['Đạt', SLDADat],
@@ -40,7 +28,20 @@
         ]);
         console.log(listnam);
         var options = {
-          title: 'Thống kê tỉ lệ đạt hay không năm 2021'
+          title: 'Thống kê tỉ lệ đồ án đạt hay không năm '+nam,
+          titleTextStyle: {
+              color: '#139CD5',    // any HTML string color ('red', '#cc00cc')
+              fontName: 'Tahoma', // i.e. 'Times New Roman'
+              fontSize: 25, // 12, 18 whatever you want (don't specify px)
+          },
+          is3D: true,
+          legend: {
+		        textStyle: {
+		            color: 'black',
+		            fontSize: 18
+		        }
+		    },
+		    chartArea:{left:270,top:50,width:"70%",height:"70%"},
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -48,101 +49,7 @@
         chart.draw(data, options);
       }
     </script>
-	
-</head>
-
-<body id="page-top">
-	<div id="piechart" style="width: 900px; height: 500px;"></div>
-		<label for="cars">Choose a car:</label>
-	
-	<form id="myForm" action="statistic/piechart/'document.getElementById('nowtime').value'+.htm" target="__blank" method="post">
-	    <select id="nowtime" >
-	    	<c:forEach items="${listnam}" var="listnam">
-	        	<option value="${listnam}">${listnam}</option>
-	        </c:forEach>
-	    </select> 
-	    <button type="button" onclick="submitValue()">submit </button>
-	</form>
-	<!-- <div id="piechart1" style="width: 900px; height: 500px;"></div> -->
-	<div>
-	
-	<%-- <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
-	            <tr style="text-align: center; color: #0096ff">
-	            			<th>Mã Da</th>
-		                    <th>Tên DA</th>
-		                    <th>Chi tiết</th>
-		                    <th>Năm</th>
-		                    
-	            </tr>
-            	<c:forEach items="${doAns}" var="doAn">
-            		<tr style="text-align: center; font-weight: normal; font-size: 13px">
-            			<th>${doAn.getMaDA()}</th>
-	                    <th>${doAn.getTenDA()}</th>
-	                    <th>${doAn.getChiTiet()}</th>
-	                    <th>${doAn.getNam()}</th>
-	                    <th>${SLDA}</th>
-	                    <td><a href="#">Click</a></td>
-	                    
-            		</tr>
-            	</c:forEach>
-            </table> --%>
-	</div>
-    <!-- Page Wrapper -->
-   <%--  <div id="wrapper">
-        <div id="content-wrapper" class="d-flex flex-column">
-            <div id="content">
-                    <div class="row">
-                        <!-- Donut Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <hr>
-                                    Styling for the donut chart can be found in the
-                                    <code>resources//js/demo/chart-pie-demo.js</code> file.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div> 
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>--%>
-    
-    
-    
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-    <script src="resources/vendor/jquery/jquery.min.js"></script>
-    <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="resources/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="resources/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="resources/js/demo/chart-area-demo.js"></script>
-    <script src="resources/js/demo/chart-pie-demo.js"></script>
-    <script src="resources/js/demo/chart-bar-demo.js"></script>
-
-</body>
-<script>
+    <script>
 	function submitValue() {
 		valueSelect = document.getElementById("nowtime").value;
 		document.getElementById("myForm").action = "statistic/piechart/" + valueSelect + ".htm";
@@ -150,4 +57,58 @@
 
 	}
 </script>
+
+</head>
+<body>
+        <div class="div-login" id="div-login">
+            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+            <img src="resources/img/logo-lite.png">
+            <form action="./login.htm" method="POST">
+                <input type="text" name="username" placeholder="Tên đăng nhập"><br>
+                <input type="password" name="password" placeholder="Mật khẩu"><br>
+                <button type="submit">Đăng nhập</button>
+            </form>
+            <div class="div-login-bottom">
+                <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
+            </div>
+        </div>
+        <div class="div-top">
+            <div class="div-top-wrapper">
+                <a href="javascript:void(0)">&#9743 0987-654-321</a>
+                <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${username==null?'visible':'hidden'}">Login</a>
+                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${username!=null?'visible':'hidden'}">Logout</a>
+                <a href="javascript:void(0)" style="visibility: ${username!=null?'visible':'hidden'}">Hi ${username}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${username=='admin'?'':'hidden'}>Quản lý tài khoản</a>
+            </div>
+        </div>
+        <div class="div-menu">
+            <div class="div-top-wrapper"> 
+                <a href="">
+                    <img src="resources/img/logo.png" class="img-logo">
+                </a>
+                <a href="./statistic/piechart.htm">Thống kê</a>
+                <a href="event.htm">DS kỳ bảo vệ</a>
+                <a href="assignment.htm">Phân công đồ án</a>
+                <a href="student/student.htm">DSSV</a>
+                <a href="Home/teacher.htm">DSGV</a>
+                <a href="Home/index.htm">Trang chủ</a>
+            </div>
+        </div>
+        
+        <div class="div-piechart-content">
+        	<form id="myForm" action="statistic/piechart/'document.getElementById('nowtime').value'+.htm" target="__blank" method="post" style="margin-top: 50px; ">
+        		<font style="margin-left: 110px; font-family: Tahoma; font-size: 25; color: black;">Chọn năm </font> &nbsp;
+			    <select class="form-control" id="nowtime" style="width: 200px; display: inline;">
+			    	<c:forEach items="${listnam}" var="listnam">
+			        	<option value="${listnam}">${listnam}</option>
+			        </c:forEach>
+			    </select> &nbsp;
+			    <button type="button" class="btn btn-primary" onclick="submitValue()" style="margin-top: -5px;">submit </button>
+			    <a style="margin: 5px 110px 0 0; float: right; font-weight: bold" href="./statistic/barchart.htm" class="text-success">Chuyển sang biểu đồ cột</a>
+			</form>
+			<hr style="background: #139CD5; width: 80%">
+        	<div id="piechart" style="width: 900px; height: 500px; margin-top: -10px;"></div>
+        </div>
+    </body>
 </html>
