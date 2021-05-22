@@ -61,7 +61,7 @@ public class StudentController {
 	}
 	
 	@RequestMapping("add-student")
-	public String addStudent(ModelMap model, @RequestParam("phai") boolean phai, @RequestParam("chuyenNganh") String chuyenNganh,
+	public String addStudent(ModelMap model,@RequestParam("maSV") String maSV, @RequestParam("phai") boolean phai, @RequestParam("chuyenNganh") String chuyenNganh,
 			@RequestParam("khoa") int khoa, @RequestParam("ho") String ho, 
 			@RequestParam("ten") String ten, @RequestParam("lop") String lop, 
 			@RequestParam("ngaySinh") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngaySinh, 
@@ -73,7 +73,7 @@ public class StudentController {
 		SinhVien sinhvien = null;
 		DoAn doAn = null;
 		
-		SinhVien sinhVien = new SinhVien("n18dcat015", ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
+		SinhVien sinhVien = new SinhVien(maSV, ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
 		System.out.println("ma sv: "+sinhVien.getMaSV());
 		System.out.println("ho: "+sinhVien.getHo());
 		System.out.println("ten: "+sinhVien.getTen());
@@ -109,6 +109,65 @@ public class StudentController {
 		return "student/student";
 	}
 	
+	@RequestMapping(value = "student/{maSV}", params = "ldel")
+	public String delete(ModelMap model, @ModelAttribute("SV") SinhVien SV,
+			@PathVariable("maSV") String masv) {
+		Integer temp = this.DeleteSV(this.getMaSV(masv));
+		if (temp != 0) {
+			model.addAttribute("message", "Delete thành công");
+		} else {
+			model.addAttribute("message", "Delete th?t b?i!");
+		}
+		
+		model.addAttribute("sinhViens", this.getMaSVs());
+		
+
+		return "student/student";
+	}
+	
+	public List<SinhVien> getMaSVs() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM SinhVien ORDER BY khoa DESC";
+		Query query = session.createQuery(hql);
+		List<SinhVien> list = query.list();
+		return list;
+	}
+	
+	public SinhVien getMaSV(String maSV) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM SinhVien where maSV = :maSV ORDER BY khoa DESC";
+		Query query = session.createQuery(hql);
+		query.setParameter("maSV", maSV);
+		SinhVien list = (SinhVien) query.list().get(0);
+		return list;
+	}
+	
+	public Integer DeleteSV(SinhVien sv) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.delete(sv);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			return 0;
+		} finally {
+			session.close();
+		}
+		return 1;
+	}
+	
+	
+	@RequestMapping(value="student/{maSV}",params = "ledt")
+	public String update(ModelMap model, @PathVariable("maSV") String maSV) {
+		Session s = factory.getCurrentSession();
+		String hql = "FROM SanPham where maSV = :maSV";
+		Query q = s.createQuery(hql);
+		q.setParameter("maSV",maSV);
+		SinhVien sv = (SinhVien)q.uniqueResult();
+		model.addAttribute("sinhViens",sv);	
+		return "student/student";
+	}
 	
 	@RequestMapping("student/{id}")
 	public String openCmtStudent(ModelMap model, @PathVariable("id") String maSV, HttpSession ss) {
