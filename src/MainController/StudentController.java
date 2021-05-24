@@ -1,5 +1,6 @@
 package MainController;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cache.spi.CacheKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -71,19 +73,8 @@ public class StudentController {
 		TieuBan tieuBan = null;
 		GiangVien GVHD = null;
 		GiangVien GVPB = null;
-		SinhVien sinhvien = null;
 		DoAn doAn = null;
-		
 		SinhVien sinhVien = new SinhVien(maSV, ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
-		System.out.println("ma sv: "+sinhVien.getMaSV());
-		System.out.println("ho: "+sinhVien.getHo());
-		System.out.println("ten: "+sinhVien.getTen());
-		System.out.println("lop: "+sinhVien.getLop());
-		System.out.println("ngaysinh: "+sinhVien.getNgaySinh());
-		System.out.println("phai: "+sinhVien.isPhai());
-		System.out.println("diachi: "+sinhVien.getDiaChi());
-		System.out.println("khoa: "+sinhVien.getKhoa());
-		System.out.println("diemTBTL: "+sinhVien.getDiemTBTL());
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
@@ -91,11 +82,61 @@ public class StudentController {
 		
 		Query q = session.createQuery(hql);
 		List<SinhVien> s = q.list();	
+		System.out.println("in gi coi");
+		System.out.println(sinhVien.getMaSV());
 		try {
-			session.save(sinhVien);
-			t.commit();
-			model.addAttribute("message", "Thêm sinh viên thành công");
-			System.out.println("Thêm sinh viên thành công");
+			boolean check = true;
+			if(sinhVien.getMaSV().trim().isEmpty()) {
+				check = false;
+				model.addAttribute("LoiDinhDangMSSV","MSSV không được để trống!!!");
+			}
+			else if(!sinhVien.getMaSV().trim().toLowerCase().matches("^n..dc..[0-9][0-9][0-9]")) {
+				check = false;
+				model.addAttribute("LoiDinhDangMSSV","Định dạng MSSV chưa đúng!!!");
+			}
+			else if(!sinhVien.getMaSV().trim().matches(".{10}")) {
+				check = false;
+				model.addAttribute("LoiDinhDangMSSV","MSSV đúng 10 ký tự!!!");
+			}
+			if(sinhVien.getHo().trim().isEmpty()) {
+				check = false;
+				model.addAttribute("LoiDinhDangHo","Họ không được để trống!!!");
+			}
+			else if(!sinhVien.getHo().trim().matches(".{2,30}")) {
+				check = false;
+				model.addAttribute("LoiDinhDangHo","Họ phải lớn hơn 2 và nhỏ hơn 30 ký tự!!!");
+			}
+			if(sinhVien.getTen().trim().isEmpty()) {
+				check = false;
+				model.addAttribute("LoiDinhDangTen","Tên không được để trống!!!");
+			}
+			else if(!sinhVien.getTen().trim().matches(".{2,20}")) {
+				check = false;
+				model.addAttribute("LoiDinhDangTen","MSSV đúng hơn 2 và nhỏ hơn 20 ký tự!!!");
+			}
+			if(sinhVien.getLop().trim().isEmpty()) {
+				check = false;
+				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
+			}
+			else if(!sinhVien.getLop().trim().toLowerCase().matches("^d..cq..[0-9][0-9]-n$")) {
+				check = false;
+				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
+			}
+			else if(!sinhVien.getLop().trim().matches(".{11}")) {
+				check = false;
+				model.addAttribute("LoiDinhDangLop","Lớp đúng 10 ký tự!!!");
+			}
+			if(sinhVien.getDiemTBTL() < 0 ||sinhVien.getDiemTBTL() > 4.0) {
+				check = false;
+				model.addAttribute("LoiDinhDangDiem","Format điểm sai!!!");
+			}
+			model.addAttribute("check",check);
+			if(check) {
+				session.save(sinhVien);
+				t.commit();
+				model.addAttribute("message", "Thêm sinh viên thành công");
+				System.out.println("Thêm sinh viên thành công");
+			}
 		}
 		catch (Exception e) {
 			t.rollback();
@@ -166,13 +207,6 @@ public class StudentController {
 			@RequestParam("ngaySinh") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngaySinh, 
 			@RequestParam("diaChi") String diaChi, @RequestParam("diemTBTL") float diemTBTL,
 			HttpSession ss) {
-//		TieuBan tieuBan = null;
-//		GiangVien GVHD = null;
-//		GiangVien GVPB = null;
-//		SinhVien sinhvien = null;
-//		DoAn doAn = null;
-		
-//		SinhVien sinhVien = new SinhVien(maSV, ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
 		System.out.println("ma sv: "+maSV);
 		System.out.println("ho: "+ho);
 		System.out.println("ten: "+ten);

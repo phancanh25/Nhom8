@@ -26,26 +26,33 @@
                 <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
             </div>
         </div>
-        <div class="div-add-student" id="div-add-student" style="height: 650px; margin-top: 50px">
+        <div class="div-add-student ${check==false?'fadeInDown':''}" id="div-add-student" style="height: 650px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }"">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeAddStudent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Thêm sinh viên</p>
-            <form action="student/add-student.htm" method="POST">
-                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
-                <select name="chuyenNganh">
+            <form action="student/add-student.htm" method="POST" >
+                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" path="phai" style="width: 15px; height: 15px; color: black;" checked></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" path="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <select name="chuyenNganh" path="chuyenNganh">
                     <option>An toàn thông tin</option>
                     <option>Công nghệ đa phương tiện</option>
                     <option>Công nghệ thông tin</option>
                 </select>
-                <input name="maSV" type="text" placeholder="Mã Sinh Viên" required><br>
-                <input name="khoa" type="number" placeholder="Khóa"><br>
-                <input name="ho" type="text" placeholder="Họ"><br>
-                <input name="ten" type="text" placeholder="Tên"><br>
-                <input name="lop" type="text" placeholder="Lớp"><br>
+                <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV"><br>
+                <span style="color: red">${LoiDinhDangMSSV}</span>
+                <input name="khoa" type="number" placeholder="Khóa" path="khoa"><br>
+                <span style="color: red">${LoiDinhDangMSSV}</span>
+                <input name="ho" type="text" placeholder="Họ" path="ho"><br>
+                <span style="color: red">${LoiDinhDangHo}</span>
+                <input name="ten" type="text" placeholder="Tên" path="ten"><br>
+                <span style="color: red">${LoiDinhDangTen}</span>
+                <input name="lop" type="text" placeholder="Lớp" path="lop"><br>
+                <span style="color: red">${LoiDinhDangLop}</span>
                 <text>Ngày sinh</text>
-                <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
-                <input name="diaChi" type="text" placeholder="Địa chỉ"><br>
-                <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
+                <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
+                <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"><br>
+                <span style="color: red">${LoiDinhDangMSSV}</span>
+                <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" path="diemTBTL"><br>
+                <span style="color: red">${LoiDinhDangDiem}</span>
                 <button type="submit">Thêm</button>
             </form>
             <div class="div-login-bottom" style="height: 50px">
@@ -140,19 +147,6 @@
 	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel">Xóa</a></th>
             		</tr>
             	</c:forEach>
-               <!--  <tr style="text-align: center;">
-                    <th>#</th>
-                    <th>MSSV</th>
-                    <th>Họ</th>
-                    <th>Tên</th>
-                    <th>Lớp</th>
-                    <th>Phái</th>
-                    <th>Ngày sinh</th>
-                    <th>Địa chỉ</th>
-                    <th>Khóa</th>
-                    <th>Tốt nghiệp</th>
-                    <th>Đồ án</th>
-              </tr> -->
             </table>
         </div>
     </body>
