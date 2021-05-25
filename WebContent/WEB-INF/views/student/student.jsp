@@ -26,7 +26,7 @@
                 <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
             </div>
         </div>
-        <div class="div-add-student ${check==false?'fadeInDown':''}" id="div-add-student" style="height: 650px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }"">
+        <div class="div-add-student ${check==false?'fadeInDown':''}" id="div-add-student" style="height: 650px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeAddStudent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Thêm sinh viên</p>
             <form action="student/add-student.htm" method="POST" >
@@ -40,7 +40,7 @@
                 <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV"><br>
                 <span style="color: red">${LoiDinhDangMSSV}</span>
                 <input name="khoa" type="number" placeholder="Khóa" path="khoa"><br>
-                <span style="color: red">${LoiDinhDangMSSV}</span>
+                <<%-- span style="color: red">${LoiDinhDangKhoa}</span> --%>
                 <input name="ho" type="text" placeholder="Họ" path="ho"><br>
                 <span style="color: red">${LoiDinhDangHo}</span>
                 <input name="ten" type="text" placeholder="Tên" path="ten"><br>
@@ -50,7 +50,7 @@
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
                 <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"><br>
-                <span style="color: red">${LoiDinhDangMSSV}</span>
+                <%-- <span style="color: red">${LoiDinhDangMSSV}</span> --%>
                 <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" path="diemTBTL"><br>
                 <span style="color: red">${LoiDinhDangDiem}</span>
                 <button type="submit">Thêm</button>
@@ -59,7 +59,7 @@
                 <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
             </div>
         </div>
-        <div class="div-edit-student" id="div-edit-student" style="height: 650px; margin-top: 50px">
+        <div class="div-edit-student ${check==false?'fadeInDown':''}" id="div-edit-student" style="height: 650px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeEditStudent();" style="color: white; margin-top: -10px;">&times</a>
           <!--  SỬA SINH VIÊN ------------------------------- -->
             <p>Sửa sinh viên</p>
@@ -73,13 +73,18 @@
                 </select>
                 <input id="input-edit-maSV" name="maSV" type="text" placeholder="Mã Sinh Viên" readonly="readonly"><br>
                 <input id="input-edit-khoa" name="khoa" type="number" placeholder="Khóa"><br>
+                <%-- <span style="color: red">${LoiDinhDangKhoa}</span> --%>
                 <input id="input-edit-ho" name="ho" type="text" placeholder="Họ"><br>
+                <span style="color: red">${LoiDinhDangHo}</span>
                 <input id="input-edit-ten" name="ten" type="text" placeholder="Tên"><br>
+                <span style="color: red">${LoiDinhDangTen}</span>
                 <input id="input-edit-lop" name="lop" type="text" placeholder="Lớp"><br>
+                <span style="color: red">${LoiDinhDangLop}</span>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
                 <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ"><br>
                 <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
+                <span style="color: red">${LoiDinhDangDiem}</span>
                 <button type="submit">Sửa</button>
             </form>
             <div class="div-login-bottom" style="height: 50px">

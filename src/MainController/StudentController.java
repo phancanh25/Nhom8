@@ -207,10 +207,8 @@ public class StudentController {
 			@RequestParam("ngaySinh") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngaySinh, 
 			@RequestParam("diaChi") String diaChi, @RequestParam("diemTBTL") float diemTBTL,
 			HttpSession ss) {
-		System.out.println("ma sv: "+maSV);
-		System.out.println("ho: "+ho);
-		System.out.println("ten: "+ten);
-		System.out.println("lop: "+lop);
+		
+		
 		
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
@@ -227,10 +225,58 @@ public class StudentController {
 		sinhvien.setDiaChi(diaChi);
 		sinhvien.setNgaySinh(ngaySinh);
 		try {
+			boolean check = true;
+			if(sinhvien.getMaSV().trim().isEmpty()) {
+				check = false;
+				model.addAttribute("LoiDinhDangMSSV","MSSV không được để trống!!!");
+			}
+			else if(!sinhvien.getMaSV().trim().toLowerCase().matches("^n..dc..[0-9][0-9][0-9]")) {
+				check = false;
+				model.addAttribute("LoiDinhDangMSSV","Định dạng MSSV chưa đúng!!!");
+			}
+			else if(!sinhvien.getMaSV().trim().matches(".{10}")) {
+				check = false;
+				model.addAttribute("LoiDinhDangMSSV","MSSV đúng 10 ký tự!!!");
+			}
+			if(sinhvien.getHo().trim().isEmpty()) {
+				check = false;
+				model.addAttribute("LoiDinhDangHo","Họ không được để trống!!!");
+			}
+			else if(!sinhvien.getHo().trim().matches(".{2,30}")) {
+				check = false;
+				model.addAttribute("LoiDinhDangHo","Họ phải lớn hơn 2 và nhỏ hơn 30 ký tự!!!");
+			}
+			if(sinhvien.getTen().trim().isEmpty()) {
+				check = false;
+				model.addAttribute("LoiDinhDangTen","Tên không được để trống!!!");
+			}
+			else if(!sinhvien.getTen().trim().matches(".{2,20}")) {
+				check = false;
+				model.addAttribute("LoiDinhDangTen","MSSV đúng hơn 2 và nhỏ hơn 20 ký tự!!!");
+			}
+			if(sinhvien.getLop().trim().isEmpty()) {
+				check = false;
+				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
+			}
+			else if(!sinhvien.getLop().trim().toLowerCase().matches("^d..cq..[0-9][0-9]-n$")) {
+				check = false;
+				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
+			}
+			else if(!sinhvien.getLop().trim().matches(".{11}")) {
+				check = false;
+				model.addAttribute("LoiDinhDangLop","Lớp đúng 10 ký tự!!!");
+			}
+			if(sinhvien.getDiemTBTL() < 0 ||sinhvien.getDiemTBTL() > 4.0) {
+				check = false;
+				model.addAttribute("LoiDinhDangDiem","Format điểm sai!!!");
+			}
+			model.addAttribute("check",check);
+			if(check) {
 			session.update(sinhvien);
-			t.commit();
-			model.addAttribute("message", "Sửa sinh viên thành công");
-			System.out.println("Sửa sinh viên thành công");
+				t.commit();
+				model.addAttribute("message", "Sửa sinh viên thành công");
+				System.out.println("Sửa sinh viên thành công");
+			}
 		}
 		catch (Exception e) {
 			t.rollback();
