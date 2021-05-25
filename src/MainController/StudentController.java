@@ -74,7 +74,7 @@ public class StudentController {
 		GiangVien GVHD = null;
 		GiangVien GVPB = null;
 		DoAn doAn = null;
-		SinhVien sinhVien = new SinhVien(maSV, ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
+		SinhVien sinhVien = new SinhVien(maSV.toUpperCase(), ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		
@@ -90,13 +90,17 @@ public class StudentController {
 				check = false;
 				model.addAttribute("LoiDinhDangMSSV","MSSV không được để trống!!!");
 			}
-			else if(!sinhVien.getMaSV().trim().toLowerCase().matches("^n..dc..[0-9][0-9][0-9]")) {
+			else if(!sinhVien.getMaSV().trim().toLowerCase().matches("^n\\d{2}dc[a-z]{2}\\d{3}")) {
 				check = false;
 				model.addAttribute("LoiDinhDangMSSV","Định dạng MSSV chưa đúng!!!");
 			}
 			else if(!sinhVien.getMaSV().trim().matches(".{10}")) {
 				check = false;
 				model.addAttribute("LoiDinhDangMSSV","MSSV đúng 10 ký tự!!!");
+			}
+			if(sinhVien.getKhoa() < 1945 ||sinhVien.getKhoa() > 2050) {
+				check = false;
+				model.addAttribute("LoiDinhDangKhoa","Khóa không đúng định dạng!!!");
 			}
 			if(sinhVien.getHo().trim().isEmpty()) {
 				check = false;
@@ -118,13 +122,17 @@ public class StudentController {
 				check = false;
 				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
 			}
-			else if(!sinhVien.getLop().trim().toLowerCase().matches("^d..cq..[0-9][0-9]-n$")) {
+			else if(!sinhVien.getLop().trim().toLowerCase().matches("^^n\\d{2}cq[a-z]{2}\\d{3}-n$")) {
 				check = false;
 				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
 			}
 			else if(!sinhVien.getLop().trim().matches(".{11}")) {
 				check = false;
 				model.addAttribute("LoiDinhDangLop","Lớp đúng 10 ký tự!!!");
+			}
+			if(sinhVien.getDiaChi().length() < 20||sinhVien.getDiaChi().length() > 200) {
+				check = false;
+				model.addAttribute("LoiDinhDangDiaChi","Địa chỉ quá dài!!!");
 			}
 			if(sinhVien.getDiemTBTL() < 0 ||sinhVien.getDiemTBTL() > 4.0) {
 				check = false;

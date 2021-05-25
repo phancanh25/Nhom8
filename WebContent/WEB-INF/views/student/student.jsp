@@ -39,8 +39,8 @@
                 </select>
                 <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV"><br>
                 <span style="color: red">${LoiDinhDangMSSV}</span>
-                <input name="khoa" type="number" placeholder="Khóa" path="khoa"><br>
-                <<%-- span style="color: red">${LoiDinhDangKhoa}</span> --%>
+                <input name="khoa" type="number" placeholder="Khóa" path="khoa" required><br>
+                <span style="color: red">${LoiDinhDangKhoa}</span>
                 <input name="ho" type="text" placeholder="Họ" path="ho"><br>
                 <span style="color: red">${LoiDinhDangHo}</span>
                 <input name="ten" type="text" placeholder="Tên" path="ten"><br>
@@ -50,8 +50,8 @@
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
                 <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"><br>
-                <%-- <span style="color: red">${LoiDinhDangMSSV}</span> --%>
-                <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" path="diemTBTL"><br>
+                <span style="color: red">${LoiDinhDangDiaChi}</span>
+                <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" path="diemTBTL" required><br>
                 <span style="color: red">${LoiDinhDangDiem}</span>
                 <button type="submit">Thêm</button>
             </form>
