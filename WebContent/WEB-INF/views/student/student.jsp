@@ -83,6 +83,7 @@
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
                 <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ"><br>
+                <span style="color: red">${LoiDinhDangDiaChi}</span>
                 <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
                 <span style="color: red">${LoiDinhDangDiem}</span>
                 <button type="submit">Sửa</button>

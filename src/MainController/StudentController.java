@@ -122,7 +122,7 @@ public class StudentController {
 				check = false;
 				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
 			}
-			else if(!sinhVien.getLop().trim().toLowerCase().matches("^^n\\d{2}cq[a-z]{2}\\d{3}-n$")) {
+			else if(!sinhVien.getLop().trim().toLowerCase().matches("^n\\d{2}cq[a-z]{2}\\d{2}-n$")) {
 				check = false;
 				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
 			}
@@ -238,7 +238,7 @@ public class StudentController {
 				check = false;
 				model.addAttribute("LoiDinhDangMSSV","MSSV không được để trống!!!");
 			}
-			else if(!sinhvien.getMaSV().trim().toLowerCase().matches("^n..dc..[0-9][0-9][0-9]")) {
+			else if(!sinhvien.getMaSV().trim().toLowerCase().matches("^n\\d{2}dc[a-z]{2}\\d{3}")) {
 				check = false;
 				model.addAttribute("LoiDinhDangMSSV","Định dạng MSSV chưa đúng!!!");
 			}
@@ -266,7 +266,7 @@ public class StudentController {
 				check = false;
 				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
 			}
-			else if(!sinhvien.getLop().trim().toLowerCase().matches("^d..cq..[0-9][0-9]-n$")) {
+			else if(!sinhvien.getLop().trim().toLowerCase().matches("^d\\d{2}cq[a-z]{2}\\d{2}-n$")) {
 				check = false;
 				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
 			}
@@ -277,6 +277,10 @@ public class StudentController {
 			if(sinhvien.getDiemTBTL() < 0 ||sinhvien.getDiemTBTL() > 4.0) {
 				check = false;
 				model.addAttribute("LoiDinhDangDiem","Format điểm sai!!!");
+			}
+			if(sinhvien.getDiaChi().length() < 20||sinhvien.getDiaChi().length() > 200) {
+				check = false;
+				model.addAttribute("LoiDinhDangDiaChi","Địa chỉ quá dài!!!");
 			}
 			model.addAttribute("check",check);
 			if(check) {
