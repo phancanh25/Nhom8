@@ -26,99 +26,52 @@
                 <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
             </div>
         </div>
-        <div class="div-add-student ${check==false?'fadeInDown':''}" id="div-add-student" style="height: 650px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
+        <div class="div-add-student" id="div-add-student" style="height: 650px; margin-top: 50px">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeAddStudent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Thêm sinh viên</p>
-            <form action="student/add-student.htm" method="POST" >
-                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" path="phai" style="width: 15px; height: 15px; color: black;" checked></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" path="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
-                <select name="chuyenNganh" path="chuyenNganh">
+            <form action="student/add-student.htm" method="POST">
+                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <select name="chuyenNganh">
                     <option>An toàn thông tin</option>
                     <option>Công nghệ đa phương tiện</option>
                     <option>Công nghệ thông tin</option>
                 </select>
-<<<<<<< HEAD
                 <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV" pattern="^n\d{2}dc[a-z]{2}\d{3}" title="Format MSSV chưa đúng" size="10" required><br>
-                <%-- <span style="color: red">${LoiDinhDangMSSV}</span> --%>
                 <input name="khoa" type="number" placeholder="Khóa" path="khoa" min="1900" max="2900" required><br>
-                <%-- <span style="color: red">${LoiDinhDangKhoa}</span> --%>
                 <input name="ho" type="text" placeholder="Họ" path="ho" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
-                <%-- <span style="color: red">${LoiDinhDangHo}</span> --%>
                 <input name="ten" type="text" placeholder="Tên" path="ten" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
-                <%-- <span style="color: red">${LoiDinhDangTen}</span> --%>
                 <input name="lop" type="text" placeholder="Lớp" path="lop" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required><br>
-                <span style="color: red">${LoiDinhDangLop}</span>
-=======
-                <input name="maSV" type="text" placeholder="Mã Sinh Viên" required><br>
-                <input name="khoa" type="number" placeholder="Khóa" required><br>
-                <input name="ho" type="text" placeholder="Họ" required><br>
-                <input name="ten" type="text" placeholder="Tên" required><br>
-                <input name="lop" type="text" placeholder="Lớp" required><br>
->>>>>>> tien
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
                 <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"  size="50"><br>
-                <span style="color: red">${LoiDinhDangDiaChi}</span>
                 <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" min="0" max="4" path="diemTBTL" required><br>
-                <span style="color: red">${LoiDinhDangDiem}</span>
                 <button type="submit">Thêm</button>
             </form>
             <div class="div-login-bottom" style="height: 50px">
                 <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
             </div>
         </div>
-        <div class="div-edit-student ${check==false?'fadeInDown':''}" id="div-edit-student" style="height: 650px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
+        <div class="div-edit-student" id="div-edit-student" style="height: 650px; margin-top: 50px">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeEditStudent();" style="color: white; margin-top: -10px;">&times</a>
           <!--  SỬA SINH VIÊN ------------------------------- -->
             <p>Sửa sinh viên</p>
             <form action="student/edit-student.htm" method="POST">
-                <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"checked></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"checked></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
                 <select name="chuyenNganh">
                     <option>An toàn thông tin</option>
                     <option>Công nghệ đa phương tiện</option>
                     <option>Công nghệ thông tin</option>
                 </select>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <input id="input-edit-maSV" name="maSV" type="text" placeholder="Mã Sinh Viên" readonly="readonly"><br>
-                <input id="input-edit-khoa" name="khoa" type="number" placeholder="Khóa"  min="1900" max="2900" required><br>
-                <%-- <span style="color: red">${LoiDinhDangKhoa}</span> --%>
-                <input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
-                <%-- <span style="color: red">${LoiDinhDangHo}</span> --%>
+                <input value="2018" name="khoa" type="number" placeholder="Khóa" min="1900" max="2900" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
+                <<input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input id="input-edit-ten" name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
-                <%-- <span style="color: red">${LoiDinhDangTen}</span> --%>
-                <input id="input-edit-lop" name="lop" type="text" placeholder="Lớp" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required><br>
-                <%-- <span style="color: red">${LoiDinhDangLop}</span> --%>
+                <input value="D18CQAT02-N" name="lop" type="text" placeholder="Lớp" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
-<<<<<<< HEAD
                 <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="50"><br>
-                <%-- <span style="color: red">${LoiDinhDangDiaChi}</span> --%>
-                <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"  min="0" max="4" path="diemTBTL" required><br>
-                <%-- <span style="color: red">${LoiDinhDangDiem}</span> --%>
-=======
-                <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ"><br>
-                <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
-=======
-=======
->>>>>>> 16b7d657e9ffe2a00101f65149c79575145def91
-                <input value="2018" name="khoa" type="number" placeholder="Khóa" ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
-                <input value="Phan Văn" name="ho" type="text" placeholder="Họ"><br>
-                <input value="Cảnh" name="ten" type="text" placeholder="Tên"><br>
-                <input value="D18CQAT02-N" name="lop" type="text" placeholder="Lớp" ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
-                <text>Ngày sinh</text>
-                <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
-                <input value="97 Man Thiện, hiệp phú" name="diaChi" type="text" placeholder="Địa chỉ"><br>
-                <input value="2.5" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
-<<<<<<< HEAD
->>>>>>> db236bd617adc8de588a26973637865310fdf4ee
-<<<<<<< HEAD
->>>>>>> tien
-=======
-=======
->>>>>>> 16b7d657e9ffe2a00101f65149c79575145def91
->>>>>>> tien
+                <input value="2.5" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" min="0" max="4" path="diemTBTL" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
                 <button type="submit">Sửa</button>
             </form>
             <div class="div-login-bottom" style="height: 50px">
@@ -152,10 +105,8 @@
         <div class="div-student-content">
         	<p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
           <div class="div-search">
-              <input id="myInput" type="text" placeholder="Search..">
-              <!-- <input type="text" placeholder="Lớp">
-              <input type="text" placeholder="Khóa"> -->
-              <!-- <button>Tìm kiếm</button> -->
+               <input id="myInput" type="text" placeholder="Search..">
+              <button>Tìm kiếm</button>
               <a href="javascript:void(0)" style="margin-left: 60px;" onclick="openAddStudent();">Thêm sinh viên</a>
           </div>
             <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
@@ -185,21 +136,9 @@
 	                    <th>${sinhVien.getDiaChi()}</th>
 	                    <th>${sinhVien.getKhoa()}</th>
 	                    <th>${sinhVien.getDiemTBTL()}</th>
-<<<<<<< HEAD
-<<<<<<< HEAD
-	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td>
-	                    <td><a href="javascript:void()" onclick="openEditStudent('${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}',${sinhVien.isPhai()},'${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}',${sinhVien.getDiemTBTL()});" name="${sinhVien.getMaSV()}">Sửa</a></td>
-	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel">Xóa</a></th>
-=======
 	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Click</a></td>
 	                    <td><a href="javascript:void()" onclick="openEditStudent();" name="${sinhVien.getMaSV()}" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Sửa</a></td>
 	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel" ${role == 1 ?'':'hidden'}>Xóa</a></th>
->>>>>>> db236bd617adc8de588a26973637865310fdf4ee
-=======
-	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Click</a></td>
-	                    <td><a href="javascript:void()" onclick="openEditStudent();" name="${sinhVien.getMaSV()}" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Sửa</a></td>
-	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel" ${role == 1 ?'':'hidden'}>Xóa</a></th>
->>>>>>> 16b7d657e9ffe2a00101f65149c79575145def91
             		</tr>
             	</c:forEach>
             	</tbody>
