@@ -86,58 +86,58 @@ public class StudentController {
 		System.out.println(sinhVien.getMaSV());
 		try {
 			boolean check = true;
-			if(sinhVien.getMaSV().trim().isEmpty()) {
-				check = false;
-				model.addAttribute("LoiDinhDangMSSV","MSSV không được để trống!!!");
-			}
-			else if(!sinhVien.getMaSV().trim().toLowerCase().matches("^n\\d{2}dc[a-z]{2}\\d{3}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangMSSV","Định dạng MSSV chưa đúng!!!");
-			}
-			else if(!sinhVien.getMaSV().trim().matches(".{10}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangMSSV","MSSV đúng 10 ký tự!!!");
-			}
-			if(sinhVien.getKhoa() < 1945 ||sinhVien.getKhoa() > 2050) {
-				check = false;
-				model.addAttribute("LoiDinhDangKhoa","Khóa không đúng định dạng!!!");
-			}
-			if(sinhVien.getHo().trim().isEmpty()) {
-				check = false;
-				model.addAttribute("LoiDinhDangHo","Họ không được để trống!!!");
-			}
-			else if(!sinhVien.getHo().trim().matches(".{2,30}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangHo","Họ phải lớn hơn 2 và nhỏ hơn 30 ký tự!!!");
-			}
-			if(sinhVien.getTen().trim().isEmpty()) {
-				check = false;
-				model.addAttribute("LoiDinhDangTen","Tên không được để trống!!!");
-			}
-			else if(!sinhVien.getTen().trim().matches(".{2,20}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangTen","MSSV đúng hơn 2 và nhỏ hơn 20 ký tự!!!");
-			}
-			if(sinhVien.getLop().trim().isEmpty()) {
-				check = false;
-				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
-			}
-			else if(!sinhVien.getLop().trim().toLowerCase().matches("^n\\d{2}cq[a-z]{2}\\d{2}-n$")) {
-				check = false;
-				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
-			}
-			else if(!sinhVien.getLop().trim().matches(".{11}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangLop","Lớp đúng 10 ký tự!!!");
-			}
-			if(sinhVien.getDiaChi().length() < 20||sinhVien.getDiaChi().length() > 200) {
-				check = false;
-				model.addAttribute("LoiDinhDangDiaChi","Địa chỉ quá dài!!!");
-			}
-			if(sinhVien.getDiemTBTL() < 0 ||sinhVien.getDiemTBTL() > 4.0) {
-				check = false;
-				model.addAttribute("LoiDinhDangDiem","Format điểm sai!!!");
-			}
+//			if(sinhVien.getMaSV().trim().isEmpty()) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangMSSV","MSSV không được để trống!!!");
+//			}
+//			else if(!sinhVien.getMaSV().trim().toLowerCase().matches("^n\\d{2}dc[a-z]{2}\\d{3}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangMSSV","Định dạng MSSV chưa đúng!!!");
+//			}
+//			else if(!sinhVien.getMaSV().trim().matches(".{10}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangMSSV","MSSV đúng 10 ký tự!!!");
+//			}
+//			if(sinhVien.getKhoa() < 1945 ||sinhVien.getKhoa() > 2050) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangKhoa","Khóa không đúng định dạng!!!");
+//			}
+//			if(sinhVien.getHo().trim().isEmpty()) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangHo","Họ không được để trống!!!");
+//			}
+//			else if(!sinhVien.getHo().trim().matches(".{2,30}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangHo","Họ phải lớn hơn 2 và nhỏ hơn 30 ký tự!!!");
+//			}
+//			if(sinhVien.getTen().trim().isEmpty()) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangTen","Tên không được để trống!!!");
+//			}
+//			else if(!sinhVien.getTen().trim().matches(".{2,20}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangTen","MSSV đúng hơn 2 và nhỏ hơn 20 ký tự!!!");
+//			}
+//			if(sinhVien.getLop().trim().isEmpty()) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
+//			}
+//			else if(!sinhVien.getLop().trim().toLowerCase().matches("^d\\d{2}cq[a-z]{2}\\d{2}-n$")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
+//			}
+//			else if(!sinhVien.getLop().trim().matches(".{11}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangLop","Lớp đúng 10 ký tự!!!");
+//			}
+//			if(sinhVien.getDiaChi().length() < 20||sinhVien.getDiaChi().length() > 200) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangDiaChi","Địa chỉ quá dài!!!");
+//			}
+//			if(sinhVien.getDiemTBTL() < 0 ||sinhVien.getDiemTBTL() > 4.0) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangDiem","Format điểm sai!!!");
+//			}
 			model.addAttribute("check",check);
 			if(check) {
 				session.save(sinhVien);
@@ -234,54 +234,54 @@ public class StudentController {
 		sinhvien.setNgaySinh(ngaySinh);
 		try {
 			boolean check = true;
-			if(sinhvien.getMaSV().trim().isEmpty()) {
-				check = false;
-				model.addAttribute("LoiDinhDangMSSV","MSSV không được để trống!!!");
-			}
-			else if(!sinhvien.getMaSV().trim().toLowerCase().matches("^n\\d{2}dc[a-z]{2}\\d{3}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangMSSV","Định dạng MSSV chưa đúng!!!");
-			}
-			else if(!sinhvien.getMaSV().trim().matches(".{10}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangMSSV","MSSV đúng 10 ký tự!!!");
-			}
-			if(sinhvien.getHo().trim().isEmpty()) {
-				check = false;
-				model.addAttribute("LoiDinhDangHo","Họ không được để trống!!!");
-			}
-			else if(!sinhvien.getHo().trim().matches(".{2,30}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangHo","Họ phải lớn hơn 2 và nhỏ hơn 30 ký tự!!!");
-			}
-			if(sinhvien.getTen().trim().isEmpty()) {
-				check = false;
-				model.addAttribute("LoiDinhDangTen","Tên không được để trống!!!");
-			}
-			else if(!sinhvien.getTen().trim().matches(".{2,20}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangTen","MSSV đúng hơn 2 và nhỏ hơn 20 ký tự!!!");
-			}
-			if(sinhvien.getLop().trim().isEmpty()) {
-				check = false;
-				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
-			}
-			else if(!sinhvien.getLop().trim().toLowerCase().matches("^d\\d{2}cq[a-z]{2}\\d{2}-n$")) {
-				check = false;
-				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
-			}
-			else if(!sinhvien.getLop().trim().matches(".{11}")) {
-				check = false;
-				model.addAttribute("LoiDinhDangLop","Lớp đúng 10 ký tự!!!");
-			}
-			if(sinhvien.getDiemTBTL() < 0 ||sinhvien.getDiemTBTL() > 4.0) {
-				check = false;
-				model.addAttribute("LoiDinhDangDiem","Format điểm sai!!!");
-			}
-			if(sinhvien.getDiaChi().length() < 20||sinhvien.getDiaChi().length() > 200) {
-				check = false;
-				model.addAttribute("LoiDinhDangDiaChi","Địa chỉ quá dài!!!");
-			}
+//			if(sinhvien.getMaSV().trim().isEmpty()) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangMSSV","MSSV không được để trống!!!");
+//			}
+//			else if(!sinhvien.getMaSV().trim().toLowerCase().matches("^n\\d{2}dc[a-z]{2}\\d{3}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangMSSV","Định dạng MSSV chưa đúng!!!");
+//			}
+//			else if(!sinhvien.getMaSV().trim().matches(".{10}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangMSSV","MSSV đúng 10 ký tự!!!");
+//			}
+//			if(sinhvien.getHo().trim().isEmpty()) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangHo","Họ không được để trống!!!");
+//			}
+//			else if(!sinhvien.getHo().trim().matches(".{2,30}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangHo","Họ phải lớn hơn 2 và nhỏ hơn 30 ký tự!!!");
+//			}
+//			if(sinhvien.getTen().trim().isEmpty()) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangTen","Tên không được để trống!!!");
+//			}
+//			else if(!sinhvien.getTen().trim().matches(".{2,20}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangTen","MSSV đúng hơn 2 và nhỏ hơn 20 ký tự!!!");
+//			}
+//			if(sinhvien.getLop().trim().isEmpty()) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangLop","Lớp không được để trống!!!");
+//			}
+//			else if(!sinhvien.getLop().trim().toLowerCase().matches("^d\\d{2}cq[a-z]{2}\\d{2}-n$")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangLop","Định dạng Lớp chưa đúng!!!");
+//			}
+//			else if(!sinhvien.getLop().trim().matches(".{11}")) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangLop","Lớp đúng 10 ký tự!!!");
+//			}
+//			if(sinhvien.getDiemTBTL() < 0 ||sinhvien.getDiemTBTL() > 4.0) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangDiem","Format điểm sai!!!");
+//			}
+//			if(sinhvien.getDiaChi().length() < 20||sinhvien.getDiaChi().length() > 200) {
+//				check = false;
+//				model.addAttribute("LoiDinhDangDiaChi","Địa chỉ quá dài!!!");
+//			}
 			model.addAttribute("check",check);
 			if(check) {
 			session.update(sinhvien);

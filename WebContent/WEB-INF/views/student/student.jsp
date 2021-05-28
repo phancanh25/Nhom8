@@ -37,21 +37,21 @@
                     <option>Công nghệ đa phương tiện</option>
                     <option>Công nghệ thông tin</option>
                 </select>
-                <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV"><br>
-                <span style="color: red">${LoiDinhDangMSSV}</span>
-                <input name="khoa" type="number" placeholder="Khóa" path="khoa" required><br>
-                <span style="color: red">${LoiDinhDangKhoa}</span>
-                <input name="ho" type="text" placeholder="Họ" path="ho"><br>
-                <span style="color: red">${LoiDinhDangHo}</span>
-                <input name="ten" type="text" placeholder="Tên" path="ten"><br>
-                <span style="color: red">${LoiDinhDangTen}</span>
-                <input name="lop" type="text" placeholder="Lớp" path="lop"><br>
+                <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV" pattern="^n\d{2}dc[a-z]{2}\d{3}" title="Format MSSV chưa đúng" size="10" required><br>
+                <%-- <span style="color: red">${LoiDinhDangMSSV}</span> --%>
+                <input name="khoa" type="number" placeholder="Khóa" path="khoa" min="1900" max="2900" required><br>
+                <%-- <span style="color: red">${LoiDinhDangKhoa}</span> --%>
+                <input name="ho" type="text" placeholder="Họ" path="ho" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
+                <%-- <span style="color: red">${LoiDinhDangHo}</span> --%>
+                <input name="ten" type="text" placeholder="Tên" path="ten" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
+                <%-- <span style="color: red">${LoiDinhDangTen}</span> --%>
+                <input name="lop" type="text" placeholder="Lớp" path="lop" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required><br>
                 <span style="color: red">${LoiDinhDangLop}</span>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
-                <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"><br>
+                <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"  size="50"><br>
                 <span style="color: red">${LoiDinhDangDiaChi}</span>
-                <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" path="diemTBTL" required><br>
+                <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" min="0" max="4" path="diemTBTL" required><br>
                 <span style="color: red">${LoiDinhDangDiem}</span>
                 <button type="submit">Thêm</button>
             </form>
@@ -72,20 +72,20 @@
                     <option>Công nghệ thông tin</option>
                 </select>
                 <input id="input-edit-maSV" name="maSV" type="text" placeholder="Mã Sinh Viên" readonly="readonly"><br>
-                <input id="input-edit-khoa" name="khoa" type="number" placeholder="Khóa"><br>
+                <input id="input-edit-khoa" name="khoa" type="number" placeholder="Khóa"  min="1900" max="2900" required><br>
                 <%-- <span style="color: red">${LoiDinhDangKhoa}</span> --%>
-                <input id="input-edit-ho" name="ho" type="text" placeholder="Họ"><br>
-                <span style="color: red">${LoiDinhDangHo}</span>
-                <input id="input-edit-ten" name="ten" type="text" placeholder="Tên"><br>
-                <span style="color: red">${LoiDinhDangTen}</span>
-                <input id="input-edit-lop" name="lop" type="text" placeholder="Lớp"><br>
-                <span style="color: red">${LoiDinhDangLop}</span>
+                <input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
+                <%-- <span style="color: red">${LoiDinhDangHo}</span> --%>
+                <input id="input-edit-ten" name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
+                <%-- <span style="color: red">${LoiDinhDangTen}</span> --%>
+                <input id="input-edit-lop" name="lop" type="text" placeholder="Lớp" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required><br>
+                <%-- <span style="color: red">${LoiDinhDangLop}</span> --%>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
-                <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ"><br>
-                <span style="color: red">${LoiDinhDangDiaChi}</span>
-                <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
-                <span style="color: red">${LoiDinhDangDiem}</span>
+                <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="50"><br>
+                <%-- <span style="color: red">${LoiDinhDangDiaChi}</span> --%>
+                <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"  min="0" max="4" path="diemTBTL" required><br>
+                <%-- <span style="color: red">${LoiDinhDangDiem}</span> --%>
                 <button type="submit">Sửa</button>
             </form>
             <div class="div-login-bottom" style="height: 50px">
