@@ -34,7 +34,7 @@ public class TeacherController {
 	
 	@RequestMapping("teacher")
 	public String openStudent(ModelMap model, HttpSession ss) {
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		showTeacher(model);
 		return "teacher/teacher";
 	}

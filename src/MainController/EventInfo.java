@@ -44,7 +44,7 @@ public class EventInfo {
 			System.out.print(i.getMaTB()); 
 		}
 		model.addAttribute("tieuBans", tieuBans);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "event/event-info";
 	}
 }

@@ -32,8 +32,8 @@ public class AddProject {
 	SessionFactory factory;
 
 	@RequestMapping("showProject")
-	public String showStudent(ModelMap model, HttpSession session) {
-		model.addAttribute("username", other.checkLogin(session));
+	public String showStudent(ModelMap model, HttpSession ss) {
+		other.checkLogin(ss, model);
 		ShowStudent(model);
 		return "addProject/add-project";
 	}

@@ -66,7 +66,7 @@ public class Subcommittee {
 		model.addAttribute("tieuBanCNTTs", tieuBanCNTTs);
 		model.addAttribute("tieuBanCNDPTs", tieuBanCNDPTs);
 		model.addAttribute("giangViens", giangViens);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "assignment/subcommittee";
 	}
 	

@@ -118,7 +118,7 @@ public class TieuBanController {
 		}
 
 		System.out.println(tenTB);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "tieuban/showtb";
 	}
 }

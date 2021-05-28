@@ -44,7 +44,7 @@ public class CmtStudent {
 			sinhViens.add(i.getSinhVien());
 		}
 		model.addAttribute("sinhViens", sinhViens);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "tieuban/show-student";
 	}
 }
