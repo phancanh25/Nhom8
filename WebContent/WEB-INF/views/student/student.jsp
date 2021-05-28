@@ -80,6 +80,7 @@
                     <option>Công nghệ thông tin</option>
                 </select>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <input id="input-edit-maSV" name="maSV" type="text" placeholder="Mã Sinh Viên" readonly="readonly"><br>
                 <input id="input-edit-khoa" name="khoa" type="number" placeholder="Khóa"  min="1900" max="2900" required><br>
                 <%-- <span style="color: red">${LoiDinhDangKhoa}</span> --%>
@@ -100,6 +101,8 @@
                 <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ"><br>
                 <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
 =======
+=======
+>>>>>>> 16b7d657e9ffe2a00101f65149c79575145def91
                 <input value="2018" name="khoa" type="number" placeholder="Khóa" ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
                 <input value="Phan Văn" name="ho" type="text" placeholder="Họ"><br>
                 <input value="Cảnh" name="ten" type="text" placeholder="Tên"><br>
@@ -108,7 +111,13 @@
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
                 <input value="97 Man Thiện, hiệp phú" name="diaChi" type="text" placeholder="Địa chỉ"><br>
                 <input value="2.5" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
+<<<<<<< HEAD
 >>>>>>> db236bd617adc8de588a26973637865310fdf4ee
+<<<<<<< HEAD
+>>>>>>> tien
+=======
+=======
+>>>>>>> 16b7d657e9ffe2a00101f65149c79575145def91
 >>>>>>> tien
                 <button type="submit">Sửa</button>
             </form>
@@ -177,6 +186,7 @@
 	                    <th>${sinhVien.getKhoa()}</th>
 	                    <th>${sinhVien.getDiemTBTL()}</th>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td>
 	                    <td><a href="javascript:void()" onclick="openEditStudent('${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}',${sinhVien.isPhai()},'${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}',${sinhVien.getDiemTBTL()});" name="${sinhVien.getMaSV()}">Sửa</a></td>
 	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel">Xóa</a></th>
@@ -185,6 +195,11 @@
 	                    <td><a href="javascript:void()" onclick="openEditStudent();" name="${sinhVien.getMaSV()}" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Sửa</a></td>
 	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel" ${role == 1 ?'':'hidden'}>Xóa</a></th>
 >>>>>>> db236bd617adc8de588a26973637865310fdf4ee
+=======
+	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Click</a></td>
+	                    <td><a href="javascript:void()" onclick="openEditStudent();" name="${sinhVien.getMaSV()}" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Sửa</a></td>
+	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel" ${role == 1 ?'':'hidden'}>Xóa</a></th>
+>>>>>>> 16b7d657e9ffe2a00101f65149c79575145def91
             		</tr>
             	</c:forEach>
             	</tbody>
