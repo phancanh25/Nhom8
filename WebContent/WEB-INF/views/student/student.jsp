@@ -118,10 +118,10 @@
         <div class="div-student-content">
         	<p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
           <div class="div-search">
-              <input type="text" placeholder="Tên sinh viên">
-              <input type="text" placeholder="Lớp">
-              <input type="text" placeholder="Khóa">
-              <button>Tìm kiếm</button>
+              <input id="myInput" type="text" placeholder="Search..">
+              <!-- <input type="text" placeholder="Lớp">
+              <input type="text" placeholder="Khóa"> -->
+              <!-- <button>Tìm kiếm</button> -->
               <a href="javascript:void(0)" style="margin-left: 60px;" onclick="openAddStudent();">Thêm sinh viên</a>
           </div>
             <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
@@ -137,6 +137,7 @@
 		                    <th>Điểm TBTL</th>
 		                    <th>Đồ án</th>
 	            </tr>
+	            <tbody id="myTable">
             	<c:forEach items="${sinhViens}" var="sinhVien">
             		<tr style="text-align: center; font-weight: normal; font-size: 13px">
             			<th>${sinhVien.getMaSV()}</th>
@@ -153,7 +154,19 @@
 	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel">Xóa</a></th>
             		</tr>
             	</c:forEach>
+            	</tbody>
             </table>
         </div>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	  $("#myInput").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#myTable tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+	});
+	</script>
 </html>
