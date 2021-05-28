@@ -29,8 +29,8 @@ public class GVPBGrade {
 	@Autowired
 	SessionFactory factory;
 	@RequestMapping("index")
-	public String index(ModelMap model, HttpSession session) {
-		model.addAttribute("username", other.checkLogin(session));
+	public String index(ModelMap model, HttpSession ss) {
+		other.checkLogin(ss, model);
 		ShowStudent(model);
 		
 		return "GVPB/GVPBGrade";

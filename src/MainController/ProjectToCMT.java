@@ -51,7 +51,7 @@ public class ProjectToCMT {
 		
 		model.addAttribute("tieuBans", tieuBans);
 		model.addAttribute("sinhViens", sinhViens);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "ProjectToCMT/prj-to-scmt";
 	}
 	

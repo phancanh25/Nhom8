@@ -1,0 +1,18 @@
+Class other, thêm set attribute role và code
+Thêm modelattribute role và code trong class other và class LoginController
+Tất cả các class đều thay đổi hàm: model.addAttribute("username", other.checkLogin(ss)) ==> other.checkLogin(ss, model)
+
+Thêm trang báo lỗi: /error.htm
+Phân quyền các nút trên thanh menu:
+	Trang chủ: Không cần quyền
+	DSGV: Admin, giảng viên
+	DSSV: Admin, giảng viên, sinh viên
+	Phân công đồ án: Admin, giảng viên
+	DS kỳ bảo vệ: Admin, giảng viên, sinh viên
+	Thống kê: Admin
+(T có thắc mắc: Nếu không có quyền truy cập vào trang đó thì nên ẩn nút vào trang đó hay là hiện trang báo lỗi thì hay hơn ??)
+
+Phân quyền trang danh sách sinh viên:
+	Giảng viên: Chỉ xem
+	Sinh viên: Xem được đồ án của mình, Chỉ sửa được giới tính, họ, tên, ngày sinh, địa chỉ của mình
+	Admin: Full quyền

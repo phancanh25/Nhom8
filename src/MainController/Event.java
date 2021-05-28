@@ -27,7 +27,7 @@ public class Event {
 	
 	@RequestMapping("event")
 	public String openEvent(ModelMap model, HttpSession ss) {
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		showEvent(model);
 		return "event/event";
 	}
