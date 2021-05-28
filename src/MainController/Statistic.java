@@ -35,7 +35,7 @@ public class Statistic {
 	@RequestMapping("piechart")
 	public String piechart(ModelMap model, HttpSession ss) {
 		showPie(model);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "Statistic/pie-chart";	
 	}
 	//file cua Canh
@@ -48,7 +48,7 @@ public class Statistic {
 	@RequestMapping("barchart")
 	public String barchart(ModelMap model, HttpSession ss) {
 		showBar(model);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "Statistic/bar-chart";	
 	}
 
@@ -133,7 +133,7 @@ public class Statistic {
 		model.addAttribute("nam", nam);
 		model.addAttribute("DADat", doAns.size());
 		model.addAttribute("DAKDat", doAn1s.size());
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "Statistic/pie-chart";
 	}	
 }

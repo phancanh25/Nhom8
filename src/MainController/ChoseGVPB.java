@@ -32,7 +32,7 @@ public class ChoseGVPB {
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
 		ShowStudent(model);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "GVPB/addGVPB";
 	}
 	

@@ -38,7 +38,7 @@ public class StudentController {
 	
 	@RequestMapping("student")
 	public String openStudent(ModelMap model, HttpSession ss) {
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		showStudent(model);
 		return "student/student";
 	}
@@ -105,7 +105,7 @@ public class StudentController {
 			session.close();
 		}
 		showStudent(model);
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "student/student";
 	}
 	
@@ -189,7 +189,7 @@ public class StudentController {
 			model.addAttribute("flag", "have");
 			model.addAttribute("doAn", doAn);
 		}
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "student/student-info";
 	}
 	
