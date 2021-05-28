@@ -33,7 +33,7 @@ public class AccountMNG {
 	@RequestMapping("open-account-mng")
 	public String openAccountMNG(ModelMap model, HttpSession ss) {
 		Other other = new Other();
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		Session session = factory.getCurrentSession();
 		String hql = "FROM AccountGV";
 		Query query = session.createQuery(hql);

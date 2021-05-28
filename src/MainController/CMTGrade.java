@@ -32,7 +32,7 @@ public class CMTGrade {
 	SessionFactory factory;
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession session) {
-		model.addAttribute("username", other.checkLogin(session));
+		other.checkLogin(session, model);
 		ShowStudent(model);
 		return "CMT/CMTGrade";
 	}

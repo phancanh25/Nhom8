@@ -40,7 +40,7 @@ public class Assignment {
 		else {
 			System.out.println("bi loi gi roi ");
 		}
-		model.addAttribute("username", other.checkLogin(ss));
+		other.checkLogin(ss, model);
 		return "assignment/assignment";
 	}
 	

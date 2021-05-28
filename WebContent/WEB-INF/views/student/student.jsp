@@ -37,6 +37,7 @@
                     <option>Công nghệ đa phương tiện</option>
                     <option>Công nghệ thông tin</option>
                 </select>
+<<<<<<< HEAD
                 <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV" pattern="^n\d{2}dc[a-z]{2}\d{3}" title="Format MSSV chưa đúng" size="10" required><br>
                 <%-- <span style="color: red">${LoiDinhDangMSSV}</span> --%>
                 <input name="khoa" type="number" placeholder="Khóa" path="khoa" min="1900" max="2900" required><br>
@@ -47,6 +48,13 @@
                 <%-- <span style="color: red">${LoiDinhDangTen}</span> --%>
                 <input name="lop" type="text" placeholder="Lớp" path="lop" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required><br>
                 <span style="color: red">${LoiDinhDangLop}</span>
+=======
+                <input name="maSV" type="text" placeholder="Mã Sinh Viên" required><br>
+                <input name="khoa" type="number" placeholder="Khóa" required><br>
+                <input name="ho" type="text" placeholder="Họ" required><br>
+                <input name="ten" type="text" placeholder="Tên" required><br>
+                <input name="lop" type="text" placeholder="Lớp" required><br>
+>>>>>>> tien
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
                 <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"  size="50"><br>
@@ -71,6 +79,7 @@
                     <option>Công nghệ đa phương tiện</option>
                     <option>Công nghệ thông tin</option>
                 </select>
+<<<<<<< HEAD
                 <input id="input-edit-maSV" name="maSV" type="text" placeholder="Mã Sinh Viên" readonly="readonly"><br>
                 <input id="input-edit-khoa" name="khoa" type="number" placeholder="Khóa"  min="1900" max="2900" required><br>
                 <%-- <span style="color: red">${LoiDinhDangKhoa}</span> --%>
@@ -82,10 +91,25 @@
                 <%-- <span style="color: red">${LoiDinhDangLop}</span> --%>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
+<<<<<<< HEAD
                 <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="50"><br>
                 <%-- <span style="color: red">${LoiDinhDangDiaChi}</span> --%>
                 <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"  min="0" max="4" path="diemTBTL" required><br>
                 <%-- <span style="color: red">${LoiDinhDangDiem}</span> --%>
+=======
+                <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ"><br>
+                <input id="input-edit-diemTBTL" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy"><br>
+=======
+                <input value="2018" name="khoa" type="number" placeholder="Khóa" ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
+                <input value="Phan Văn" name="ho" type="text" placeholder="Họ"><br>
+                <input value="Cảnh" name="ten" type="text" placeholder="Tên"><br>
+                <input value="D18CQAT02-N" name="lop" type="text" placeholder="Lớp" ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
+                <text>Ngày sinh</text>
+                <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
+                <input value="97 Man Thiện, hiệp phú" name="diaChi" type="text" placeholder="Địa chỉ"><br>
+                <input value="2.5" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
+>>>>>>> db236bd617adc8de588a26973637865310fdf4ee
+>>>>>>> tien
                 <button type="submit">Sửa</button>
             </form>
             <div class="div-login-bottom" style="height: 50px">
@@ -96,10 +120,11 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${username==null?'visible':'hidden'}">Login</a>
-                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${username!=null?'visible':'hidden'}">Logout</a>
-                <a href="javascript:void(0)" style="visibility: ${username!=null?'visible':'hidden'}">Hi ${username}</a>
-                <a href="open-account-mng.htm" style="margin-right: 18px;" ${username=='admin'?'':'hidden'}>Quản lý tài khoản</a>
+                
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Login</a>
+                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${user!=null?'visible':'hidden'}">Logout</a>
+                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Hi ${user}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${user=='admin'?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">
@@ -107,11 +132,11 @@
                 <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="./statistic/piechart.htm">Thống kê</a>
-                <a href="event.htm">DS kỳ bảo vệ</a>
-                <a href="assignment.htm">Phân công đồ án</a>
-                <a href="student/student.htm">DSSV</a>
-                <a href="Home/teacher.htm">DSGV</a>
+                <a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+                <a href="${role == 1 || role == 2 || role == 3 ?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
+                <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
+                <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
+                <a href="${role == 1 || role == 2?'teacher/teacher.htm':'error.htm'}" >DSGV</a>
                 <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
@@ -136,6 +161,8 @@
 		                    <th>Khóa</th>
 		                    <th>Điểm TBTL</th>
 		                    <th>Đồ án</th>
+		                    <th>Action</th>
+		                    <th>Action</th>
 	            </tr>
 	            <tbody id="myTable">
             	<c:forEach items="${sinhViens}" var="sinhVien">
@@ -149,9 +176,15 @@
 	                    <th>${sinhVien.getDiaChi()}</th>
 	                    <th>${sinhVien.getKhoa()}</th>
 	                    <th>${sinhVien.getDiemTBTL()}</th>
+<<<<<<< HEAD
 	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td>
 	                    <td><a href="javascript:void()" onclick="openEditStudent('${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}',${sinhVien.isPhai()},'${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}',${sinhVien.getDiemTBTL()});" name="${sinhVien.getMaSV()}">Sửa</a></td>
 	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel">Xóa</a></th>
+=======
+	                    <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Click</a></td>
+	                    <td><a href="javascript:void()" onclick="openEditStudent();" name="${sinhVien.getMaSV()}" ${code == sinhVien.getMaSV() || role == 1 ?'':'hidden'}>Sửa</a></td>
+	                    <th><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel" ${role == 1 ?'':'hidden'}>Xóa</a></th>
+>>>>>>> db236bd617adc8de588a26973637865310fdf4ee
             		</tr>
             	</c:forEach>
             	</tbody>

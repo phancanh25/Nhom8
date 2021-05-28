@@ -41,9 +41,10 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/Home/logout")
-	public String signout(HttpSession session, ModelMap model) {
+	public String signout(HttpSession ss, ModelMap model) {
 		System.out.println("Logout thanh cong");
-		session.removeAttribute("user");
+		ss.removeAttribute("user");
+		ss.removeAttribute("role");
 		return "redirect:/Home/index.htm";
 	}
 	
@@ -58,16 +59,18 @@ public class LoginController {
 		//Neu la tai khoan sinh vien
 		else if(accountGV == null) {
 			if(accountSV.getPassword().equals(password)) {
-				ss.setAttribute("user", username);
-				ss.setAttribute("role", 3);
+				ss.setAttribute("user", accountSV.getSinhVien().getHo() + " " + accountSV.getSinhVien().getTen());
+				ss.setAttribute("code", accountSV.getSinhVien().getMaSV()); // code la ma so sinh vien hoac ma so giang vien
+				ss.setAttribute("role", accountSV.getRole().getMaRole());
 			}
 			else flag = false;
 		}
 		//Neu la tai khoan giang vien
 		else if(accountSV == null) {
 			if(accountGV.getPassword().equals(password)) {
-				ss.setAttribute("user", username);
-				ss.setAttribute("role", 2);
+				ss.setAttribute("user", accountGV.getGiangVien().getHo() + " " + accountGV.getGiangVien().getTen());
+				ss.setAttribute("code", accountGV.getGiangVien().getMaGV()); // code la ma so sinh vien hoac ma so giang vien
+				ss.setAttribute("role", accountGV.getRole().getMaRole());
 			}
 			else flag = false;
 		}
