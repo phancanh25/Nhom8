@@ -14,32 +14,31 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import MainBean.DoAn;
 import MainBean.GiangVien;
-import MainBean.SinhVien;
 import MainBean.TieuBan;
-import other.Other;
+import MainBean.SinhVien;
 
 @Transactional
 @Controller
 @RequestMapping("teacher/")
-
 public class TeacherController {
-	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("teacher")
-	public String openStudent(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+	public String openTeacher(ModelMap model, HttpSession ss) {
 		showTeacher(model);
 		return "teacher/teacher";
 	}
 	
-	public void showTeacher(ModelMap model) {
+	public void showTeacher(ModelMap md) {
 		try {
 			Session session = factory.getCurrentSession();
 			String hql = "FROM GiangVien";
@@ -49,46 +48,148 @@ public class TeacherController {
 			for(GiangVien i : giangViens) {
 				System.out.println(i.getMaGV());
 			}
-			model.addAttribute("giangVien", giangViens);
+			md.addAttribute("giangViens", giangViens);
 		}
 		catch (Exception e) {
 			System.out.println("loi: "+e.getMessage());
 		}
 	}
-	// Thêm giảng viên chỗ này nè
+
+	@RequestMapping("add-teacher")
+	public String addTeacher(ModelMap model,@RequestParam("maGV") String maGV, 
+			@RequestParam("ho") String ho, 
+			@RequestParam("ten") String ten,
+			@RequestParam("phai") boolean phai,
+			@RequestParam("sDT") String sDT,
+			@RequestParam("diaChi") String diaChi, HttpSession ss) {
+		
+		GiangVien giangVien = new GiangVien(maGV, ho, ten, phai, sDT, diaChi, null);
+		System.out.println("ma gv: "+giangVien.getMaGV());
+		System.out.println("ho: "+giangVien.getHo());
+		System.out.println("ten: "+giangVien.getTen());
+		System.out.println("phai: "+giangVien.isPhai());
+		System.out.println("sdt: "+giangVien.getSDT());
+		System.out.println("diachi: "+giangVien.getDiaChi());
+		
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		
+		String hql = "FROM GiangVien";
+		
+		Query q = session.createQuery(hql);
+		List<GiangVien> s = q.list();	
+		try {
+			boolean check = true;
+			model.addAttribute("check",check);
+			if(check) {
+				session.save(giangVien);
+				t.commit();
+				model.addAttribute("message", "Thêm giảng viên thành công");
+				System.out.println("Thêm giảng viên thành công");
+			}
+		}
+		catch (Exception e) {
+			t.rollback();
+			model.addAttribute("message", "Thêm giảng viên thất bại " + e.getMessage());
+			System.out.println("Thêm giảng viên thất bại " + e.getMessage());
+		}
+		finally {
+			session.close();
+		}
+		showTeacher(model);
+		return "teacher/teacher";
+	}
+			
+	public List<GiangVien> getMaGVs() {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM GiangVien";
+		Query query = session.createQuery(hql);
+		List<GiangVien> list = query.list();
+		return list;
+	}
 	
-//	@RequestMapping("add-teacher")
-//	public String addTeacher(ModelMap md, @RequestParam("maGV") String maGV, @RequestParam("ho") String ho, 
-//			@RequestParam("ten") String ten, @RequestParam("phai") String phai, 
-//			@RequestParam("SDT") String SDT, @RequestParam("diaChi") float diaChi) {
-//		List<TieuBan> tieuBans = null;
-//		GiangVien giangVien = new GiangVien(maGV, );
-//		SinhVien sinhVien = new SinhVien("n18dcat004", ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
-//		Session session = factory.openSession();
-//		Transaction t = session.beginTransaction();
-//		
-//		try {
-//			session.save(sinhVien);
-//			t.commit();
-//			md.addAttribute("message", "Thêm sinh viên thành công");
-//			System.out.println("Thêm sinh viên thành công");
-//		}
-//		catch (Exception e) {
-//			t.rollback();
-//			md.addAttribute("message", "Thêm sinh viên thất bại " + e.getMessage());
-//			System.out.println("Thêm sinh viên thất bại " + e.getMessage());
-//		}
-//		finally {
-//			session.close();
-//		}
-////		System.out.println(phai);
-////		System.out.println(chuyenNganh);
-////		System.out.println(khoa);
-////		System.out.println(ho);
-////		System.out.println(ten);
-////		System.out.println(diaChi);
-//		showStudent(md);
-//		return "student/student";
-//	}
+	public GiangVien getMaGV(String maGV) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM GiangVien where maGV = :maGV";
+		Query query = session.createQuery(hql);
+		query.setParameter("maGV", maGV);
+		GiangVien list = (GiangVien) query.list().get(0);
+		return list;
+	}
+
+	public Integer DeleteGV(GiangVien gv) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.delete(gv);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			return 0;
+		} finally {
+			session.close();
+		}
+		return 1;
+	}
 	
+	@RequestMapping(value = "teacher/{MaGV}", params = "ldel")
+	public String delete(ModelMap model, @ModelAttribute("gv") GiangVien gv,
+			@PathVariable("MaGV") String magv) {
+		Integer temp = this.DeleteGV(gv);
+		System.out.println(temp);
+		if (temp != 0) {
+			model.addAttribute("message", "Delete thành công");
+		} else {
+			model.addAttribute("message", "Delete th?t b?i!");
+		}
+		
+		model.addAttribute("giangViens", this.getMaGVs());
+		
+
+		return "teacher/teacher";
+	}
+	
+	@RequestMapping("edit-teacher")
+	public String editTeacher(ModelMap model,@RequestParam("maGV") String maGV, 
+			@RequestParam("ho") String ho, 
+			@RequestParam("ten") String ten,
+			@RequestParam("phai") boolean phai,
+			@RequestParam("sDT") String sDT,
+			@RequestParam("diaChi") String diaChi, HttpSession ss) {
+		
+
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		String hql = "FROM GiangVien WHERE maGV = :magv";
+		Query q = session.createQuery(hql);
+		q.setParameter("magv", maGV);
+		GiangVien giangvien = (GiangVien)q.uniqueResult();
+		giangvien.setHo(ho);
+		giangvien.setTen(ten);
+		giangvien.setPhai(phai);
+		giangvien.setSDT(sDT);
+		giangvien.setDiaChi(diaChi);
+		
+		try {
+			boolean check = true;
+			model.addAttribute("check",check);
+			if(check) {
+				session.update(giangvien);
+				t.commit();
+				model.addAttribute("message", "Sửa giảng viên thành công");
+				System.out.println("Sửa giảng viên thành công");
+			}
+		}
+		catch (Exception e) {
+			t.rollback();
+			model.addAttribute("message", "Sửa giảng viên thất bại " + e.getMessage());
+			System.out.println("Sửa giảng viên thất bại " + e.getMessage());
+		}
+		finally {
+			session.close();
+		}
+		showTeacher(model);
+		return "teacher/teacher";
+	}
+				
 }

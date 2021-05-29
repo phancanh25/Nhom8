@@ -30,8 +30,8 @@
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeAddStudent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Thêm sinh viên</p>
             <form action="student/add-student.htm" method="POST">
-                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
                 <select name="chuyenNganh">
                     <option>An toàn thông tin</option>
                     <option>Công nghệ đa phương tiện</option>
@@ -44,7 +44,7 @@
                 <input name="lop" type="text" placeholder="Lớp" path="lop" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required><br>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
-                <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"  size="50"><br>
+                <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"  size="200"><br>
                 <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" min="0" max="4" path="diemTBTL" required><br>
                 <button type="submit">Thêm</button>
             </form>
@@ -57,8 +57,8 @@
           <!--  SỬA SINH VIÊN ------------------------------- -->
             <p>Sửa sinh viên</p>
             <form action="student/edit-student.htm" method="POST">
-                <label>Nam&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"checked></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"checked></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
                 <select name="chuyenNganh">
                     <option>An toàn thông tin</option>
                     <option>Công nghệ đa phương tiện</option>
@@ -70,7 +70,7 @@
                 <input value="D18CQAT02-N" name="lop" type="text" placeholder="Lớp" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
-                <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="50"><br>
+                <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="200"><br>
                 <input value="2.5" name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" min="0" max="4" path="diemTBTL" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
                 <button type="submit">Sửa</button>
             </form>

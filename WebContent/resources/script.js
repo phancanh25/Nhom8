@@ -16,10 +16,17 @@ function closeAddTeacher(){
     document.getElementById("div-add-teacher").className = "div-add-teacher fadeOutDown";
 }
 
-function openEditTeacher(){
+function openEditTeacher(maGV, ho, ten, phai, sDT, diaChi){
+	document.getElementById("input-edit-maGV").value = maGV;
+	document.getElementById("input-edit-ho").value = ho;
+	document.getElementById("input-edit-ten").value = ten;
+	document.getElementById("input-edit-sDT").value = sDT;
+	document.getElementById("input-edit-diaChi").value = diaChi;
     document.getElementById("div-edit-teacher").style.visibility = "visible";
     document.getElementById("div-edit-teacher").className = "div-edit-teacher fadeInDown";
-    
+}
+function yesNo(){
+	confirm("Xac nhan Delete");
 }
 
 function closeEditTeacher(){
