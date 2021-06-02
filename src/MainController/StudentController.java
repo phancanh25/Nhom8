@@ -197,6 +197,7 @@ public class StudentController {
 		}
 		showStudent(model);
 		other.checkLogin(ss, model);
+		return "student/student";
 	}
 	
 	@RequestMapping("student/{id}")

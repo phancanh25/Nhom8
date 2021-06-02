@@ -83,7 +83,7 @@
 		            		<th>${accountGV.getUsername()}</th>
 		            		<th>${accountGV.getGiangVien().getMaGV()}</th>
 		            		<th>${accountGV.getGiangVien().getHo()} ${accountGV.getGiangVien().getTen()}</th>
-		            		<th>Giảng viên</th>
+		            		<th>${accountGV.getRole().getMaRole() == 1?'Người quản trị':'Giảng viên'}</th>
 		            		<th>
 		            			<button class="btn btn-primary" type="submit" ${accountGV.getUsername()=='admin'?'hidden':''}>Xóa</button>
 		            		</th>

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import MainBean.DoAn;
 import MainBean.GiangVien;
+import MainBean.Lock;
 import MainBean.TieuBan;
 import other.Other;
 
@@ -39,8 +40,10 @@ public class Subcommittee {
 	public String openSCMT(ModelMap model, HttpSession ss) {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		model.addAttribute("year", year);
-		
 		Session session = factory.getCurrentSession();
+		//Kiem tra xem nam nay co lock chua, neu co roi thi an cac nut sua, xoa tieu ban
+		Lock lock = (Lock)(session.get(Lock.class, year));
+		if(lock != null)model.addAttribute("lock", "have");
 		
 		//Tim nhung tieu ban attt nam hien tai
 		String hql = "FROM TieuBan where YEAR(ngay) = "+year+" and chuyenNganh = 'ATTT'";
@@ -165,5 +168,30 @@ public class Subcommittee {
 		return "redirect:subcommittee.htm"; 
 	}
 	
+	@RequestMapping("event-create")
+	public String eventCreate(ModelMap model) {
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Lock lock = new Lock(year, true, true, true, true, true, true, true, true);
+		
+		try {
+			session.save(lock);
+			transaction.commit();
+			System.out.println("Thêm kỳ bảo vệ thành công "+lock.getYear());
+			session.close();
+		}
+		
+		catch (HibernateException e) {
+			transaction.rollback();
+			System.out.println("Thêm kỳ bảo vệ thất bại 	"+ e.getMessage());
+			session.close();
+			model.addAttribute("message", "Thêm kỳ bảo vệ thất bại "+ e.getMessage());
+			return "error/error";
+		}
+		model.addAttribute("message", "Thêm kỳ bảo vệ thất bại ");
+		return "redirect:assignment.htm";
+	}
 	
 }

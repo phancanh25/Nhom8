@@ -184,3 +184,30 @@ function changeAccountType(){
 		document.getElementById("input-account-type").placeholder = "Mã sinh viên";
 	}
 }
+
+//Lock chuc nang trong phan cong do an
+function setLock(button, number){
+	for(i = 0; i < 7; i++){
+			if(i==number-1) continue;
+			document.getElementsByClassName("btn-lock")[i].classList.remove("btn-success");
+			document.getElementsByClassName("btn-lock")[i].classList.add("btn-danger");
+			document.getElementsByClassName("btn-lock")[i].value = "1";
+			document.getElementById("input-action").value = 0;
+			document.getElementsByClassName("btn-lock")[i].innerHTML = "Khóa 🔒";
+	}
+	if(button.value == "1"){
+			document.getElementsByClassName("btn-lock")[number-1].classList.remove("btn-danger");
+			document.getElementsByClassName("btn-lock")[number-1].classList.add("btn-success");
+			document.getElementsByClassName("btn-lock")[number-1].value = "0";
+			document.getElementsByClassName("btn-lock")[number-1].innerHTML = "Mở 🔓";
+			document.getElementById("input-action").value = number;
+	}
+	else{
+			document.getElementsByClassName("btn-lock")[number-1].classList.remove("btn-success");
+			document.getElementsByClassName("btn-lock")[number-1].classList.add("btn-danger");
+			document.getElementsByClassName("btn-lock")[number-1].value = "1";
+			document.getElementsByClassName("btn-lock")[number-1].innerHTML = "Khóa 🔒";
+			document.getElementById("input-action").value = 0;
+	}
+	document.getElementById("btn-confirm").disabled = false;
+}

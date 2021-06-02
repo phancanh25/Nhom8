@@ -82,11 +82,15 @@
 	</div>
 	<div class="div-menu">
 		<div class="div-top-wrapper">
-			<a href="index.htm"> <img src="resources/img/logo.png"
-				class="img-logo">
-			</a> <a href="event.htm">DS kỳ bảo vệ</a> <a href="assignment.htm">Phân
-				công đồ án</a> <a href="student.htm">DSSV</a> <a href="teacher.htm">DSGV</a>
-			<a href="index.htm">Trang chủ</a>
+				<a href="">
+                    <img src="resources/img/logo.png" class="img-logo">
+                </a>
+               	<a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+                <a href="${role == 1 || role == 2 || role == 3 ?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
+                <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
+                <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
+                <a href="${role == 1 || role == 2?'teacher/teacher.htm':'error.htm'}" >DSGV</a>
+                <a href="Home/index.htm">Trang chủ</a>
 		</div>
 	</div>
 	<div class="div-teacher-content">
@@ -98,8 +102,40 @@
 			<hr style="border: 1px #3f8eae solid; margin-top: 0">
 			<ul class="ul-teacher">
 				${message}
-				<li>
-					<div style="height: 100%; margin-bottom: 15px;"
+				<c:forEach var="t" items="${giangViens}">
+					<li>
+						<div class="div-teacher-li">
+	                            <a href="javascript:void()" onclick="openEditTeacher('${t.getMaGV()}','${t.getHo()}','${t.getTen()}',${t.isPhai()},'${t.getSDT()}','${t.getDiaChi()}');" name="${t.getMaGV()}">Sửa</a>
+	                            <a role="button" onclick="yesNo();" href="teacher/teacher/${t.maGV}.htm?ldel">Xóa</a>
+	                            <img src="resources/img/user1.png">
+	                            <div class="div-teacher-info">
+	                                <ul class="ul-teacher-info">
+	                                    <li>
+	                                        <div class="div-patern-info">Họ và tên:</div>
+	                                        <div class="div-data">${t.getHo()} ${t.getTen()}</div>
+	                                    </li>
+	                                    <li>
+	                                        <div class="div-patern-info">Mã GV</div>
+	                                        <div class="div-data">${t.getMaGV()}</div>
+	                                    </li>
+	                                    <li>
+	                                        <div class="div-patern-info">Giới tính</div>
+	                                        <div class="div-data">${t.isPhai()?'Nam':'Nữ'}</div>
+	                                    </li>
+	                                    <li>
+	                                        <div class="div-patern-info">SĐT</div>
+	                                        <div class="div-data">${t.getSDT()}</div>
+	                                    </li>
+	                                    <li>
+	                                        <div class="div-patern-info">Địa chỉ</div>
+	                                        <div class="div-data">${t.getDiaChi()}</div>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+					</li>
+				</c:forEach>
+					<%-- <div style="height: 100%; margin-bottom: 15px;"
 						class="div-teacher-li">
 						<table class="table table-hower">
 							<tr>
@@ -124,7 +160,7 @@
 								</tr>
 							</c:forEach>
 						</table>
-					</div>
+					</div> --%>
 		</div>
 
 		<div class="div-teacher-right">

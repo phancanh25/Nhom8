@@ -5,6 +5,8 @@
     margin: 0 auto;
     padding: 10px;
     overflow: hidden;
+    padding-bottom: 100px;
+    position: relative;
 }
 .div-subcommittee-wrapper{
     width: 90%;
@@ -42,6 +44,10 @@
     background-color: white;
     border: 1px black solid;
     display: none;
+}
+
+.div-subcommittee-add{
+	transform: translate(-50%, 10%);
 }
 
 .div-subcommittee-show, .div-subcommittee-edit{
@@ -130,4 +136,14 @@
 }
 .a-login-quit:hover{
     color: red;
+}
+
+.btn-cancel, .btn-confirm{
+	position: absolute;
+	left: 45%;
+	transform: translate(-50%, 0);
+	bottom: 10px;
+}
+.btn-cancel{
+	left: 58%;
 }
