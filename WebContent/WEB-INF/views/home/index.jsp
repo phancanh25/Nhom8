@@ -29,10 +29,10 @@
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
                 <a href="javascript:void(0)" ${role==1 || role==2 || role == 3?'':'hidden'}	>Role: ${role}</a>
-                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Login</a>
-                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${user!=null?'visible':'hidden'}">Logout</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="width: 90px; visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
+                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
                 <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Hi ${user}</a>
-                <a href="open-account-mng.htm" style="margin-right: 18px;" ${user=='admin'?'':'hidden'}>Quản lý tài khoản</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${role=='1'?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">

@@ -32,7 +32,6 @@ body{
     width: 2px;
     height: 70%;
     margin-top: 8px;
-    cursor: default;
 }
 .div-top a:nth-child(5){
     margin-right: 15px;
@@ -300,7 +299,7 @@ body{
     position: relative;
     width: 96%;
     height: 150px;
-    margin: 0 auto;
+    margin: 20px auto;
     border: 1px #3f8eae solid;
 }
 .teacher-edit{
@@ -308,17 +307,27 @@ body{
     right: 10px;
     top: 5px;
 }
+.div-teacher-li a{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+.div-teacher-li a:nth-child(2){
+	bottom: 5px;
+	top: auto;
+}
+
 .div-teacher-li img{
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     float: left;
     top: 50%;
     transform: translate(0,-50%);
     margin-left: 10px;
 }
 .div-teacher-info{
-    width: 80%;
+    width: 70%;
     height: 90%;
     float: left;
     margin-left: 15px;
@@ -348,7 +357,7 @@ body{
 }
 .div-data{
     margin-left: 0px;
-    width: 40%;
+    max-width: 90%;
     font-size: 13px;
 }
 .ul-teacher-info li:first-child .div-data{
