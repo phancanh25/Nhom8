@@ -64,7 +64,7 @@
 			                <a href="javascript:void(0)" id="current-exam" onclick="expandAssignmentRoadmap();">&#10095; Kỳ bảo vệ năm 2021 </a>
 			                <div class="div-assignment-roadmap">
 			                	<form action="subcommittee.htm" method="POST">
-			                		<button class="btn btn-primary">Bổ sung tiểu ban</button>
+			                		<button class="btn btn-primary" ${role==1?'':'hidden'}>Bổ sung tiểu ban</button>
 			                	</form>
 			                	<form action="set-lock.htm" method="POST">
 				                	<table class="table  table-striped table-bordered" style="height: 200px; background: #F1F6F9;">
