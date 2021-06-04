@@ -58,13 +58,7 @@
         	  <p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
         	  <form action="account-seacrh.htm" method="POST">
 		          <div class="div-search">
-		              <input name="username" type="text" placeholder="Tên tài khoản" style="border: 1px black solid; height: 33px">
-		              <select id="select-account-type" onchange="changeAccountType();" name="type" style="float: left; width: 200px; height: 33px; margin-top: 5px;" >
-		              	<option value="gv" ${type=='gv'?'selected':''}>Giảng viên</option>
-		              	<option value="sv" ${type=='sv'?'selected':''}>Sinh viên</option>
-		              </select>
-		              <input name="ma" type="text" id="input-account-type" placeholder="${type=='gv'?'Mã giảng viên':'Mã sinh viên'}" style="margin-left: 30px; border: 1px black solid; height: 33px">
-		              <button>Tìm kiếm</button>
+		              <input id="myInput" type="text" placeholder="Search.." style="border:solid 1px;">
 		              <a href="javascript:void(0)" style="margin-left: 60px;" onclick="openAccountAdd();">Thêm tài khoản</a>
 		          </div>
 	          </form>
@@ -77,7 +71,9 @@
 	            			<th>Email</th>
 	            			<th></th>
 	            </tr>
+	            <tbody id="myTable">
 	            <c:forEach items="${accountGVs}" var="accountGV">
+	            
 	            	<form action="account-delete.htm" method="POST">
 	            		<input name="type" type="text" value="gv" hidden>
 	            		<input name="username" type="text" value="${accountGV.getUsername()}" hidden>
@@ -93,6 +89,7 @@
 		            	</tr>
 	            	</form>
 	            </c:forEach>
+	            </tbody>
             </table>	
             <table ${type=='sv'?'':'hidden'} border="1" class="table table-striped table-bordered" style="font-size: 16px; border: 2px  #0095FF solid">
 	            <tr style="text-align: center; color: #0096ff">
@@ -121,4 +118,15 @@
         </div>
         
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	  $("#myInput").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#myTable tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+	});
+	</script>
 </html>
