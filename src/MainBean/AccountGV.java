@@ -25,16 +25,20 @@ public class AccountGV {
 	@JoinColumn(name="MaGV")
 	private GiangVien giangVien;
 
+	@Column(name="email")
+	private String email;
+	
 	public AccountGV() {
 		super();
 	}
 
-	public AccountGV(String username, String password, Role role, GiangVien giangVien) {
+	public AccountGV(String username, String password, Role role, GiangVien giangVien, String email) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
 		this.giangVien = giangVien;
+		this.email = email;
 	}
 
 	public String getUsername() {
@@ -68,5 +72,15 @@ public class AccountGV {
 	public void setGiangVien(GiangVien giangVien) {
 		this.giangVien = giangVien;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
 	
 }

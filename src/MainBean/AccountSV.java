@@ -24,17 +24,12 @@ public class AccountSV {
 	@ManyToOne
 	@JoinColumn(name="MaSV")
 	private SinhVien sinhVien;
-
+	
+	@Column(name="email")
+	private String email;
+	
 	public AccountSV() {
 		super();
-	}
-
-	public AccountSV(String username, String password, Role role, SinhVien sinhVien) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.role = role;
-		this.sinhVien = sinhVien;
 	}
 
 	public String getUsername() {
@@ -68,5 +63,22 @@ public class AccountSV {
 	public void setSinhVien(SinhVien sinhVien) {
 		this.sinhVien = sinhVien;
 	}
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public AccountSV(String username, String password, Role role, SinhVien sinhVien, String email) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.sinhVien = sinhVien;
+		this.email = email;
+	}
+
 }

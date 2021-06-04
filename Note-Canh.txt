@@ -1,0 +1,3 @@
+Thêm mail trong bean  AccountGV và AccountSV
+xử lý quên pas trong AccountMNG
+view thì account/forgotPass

@@ -25,6 +25,7 @@
 	        	</select>
 	        	<input name="username" type="text" placeholder="Tên tài khoản">
 	        	<input name="password" type="password" placeholder="Mật khẩu">
+	        	<input name="email" type="text" placeholder="Email">
 	        	<input name="ma" type="text" placeholder="MSSV/MSGV">
 	        	<p class="p-error-add" ${type==''?'hidden':''}>${error}</p>
 	        	<button type="submit">Tạo tài khoản</button>
@@ -73,6 +74,7 @@
 	            			<th>Mã giảng viên</th>
 	            			<th>Họ và tên</th>
 	            			<th>Quyền</th>
+	            			<th>Email</th>
 	            			<th></th>
 	            </tr>
 	            <c:forEach items="${accountGVs}" var="accountGV">
@@ -84,6 +86,7 @@
 		            		<th>${accountGV.getGiangVien().getMaGV()}</th>
 		            		<th>${accountGV.getGiangVien().getHo()} ${accountGV.getGiangVien().getTen()}</th>
 		            		<th>${accountGV.getRole().getMaRole() == 1?'Người quản trị':'Giảng viên'}</th>
+		            		<th>${accountGV.getEmail()} </th>
 		            		<th>
 		            			<button class="btn btn-primary" type="submit" ${accountGV.getUsername()=='admin'?'hidden':''}>Xóa</button>
 		            		</th>
