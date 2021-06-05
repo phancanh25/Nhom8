@@ -13,11 +13,11 @@
 	<form action="forgotpass.htm" method="post">
         <div class="form-group">
           <label for="Ma">MSGV/MSSV</label>
-          <input name="ma" id="Ma" type="text" placeholder="MSSV/MSGV">
+          <input name="ma" id="Ma" type="text" placeholder="MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email">
+          <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
         </div>
         <div><span style="color: red">${message}</span> </div>
           <button type="submit" class="btn btn-primary">Submit</button>

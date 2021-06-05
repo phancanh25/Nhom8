@@ -48,39 +48,7 @@ public class AccountMNG {
 		return "account/account-mng";
 	}
 	
-//	@RequestMapping("account-seacrh")
-//	public String accountSearch(ModelMap model,
-//			@RequestParam("username") String username,
-//			@RequestParam("type") String type,
-//			@RequestParam("ma") String ma) {
-////		System.out.println(username);
-////		System.out.println(type);
-////		System.out.println(ma);
-//		Session session = factory.getCurrentSession();
-//		String hql = "";
-//		if(type.equals("gv")) {
-//			hql = "FROM AccountGV accountGV where 1=1";
-//			if(!username.equals("")) hql += " and accountGV.username like '%" + username + "%'";
-//			if(!ma.equals("")) hql += " and accountGV.giangVien.maGV like '%" + ma + "%'";
-//			Query query = session.createQuery(hql);
-//			List<AccountGV> accountGVs = query.list();
-//			model.addAttribute("type", "gv");
-//			model.addAttribute("error", "");
-//			model.addAttribute("accountGVs", accountGVs);
-//		}
-//		else {
-//			hql = "FROM AccountSV accountSV where 1=1";
-//			if(!username.equals("")) hql += " and accountSV.username like '%" + username + "%'";
-//			if(!ma.equals("")) hql += " and accountSV.sinhVien.maSV like '%" + ma + "%'";
-//			Query query = session.createQuery(hql);
-//			List<AccountSV> accountSVs = query.list();
-//			model.addAttribute("type", "sv");
-//			model.addAttribute("error", "");
-//			model.addAttribute("accountSVs", accountSVs);
-//		}
-//		
-//		return "account/account-mng";
-//	}
+
 	
 	@RequestMapping("account-add")
 	public String accountAdd(ModelMap model,
@@ -279,15 +247,6 @@ public class AccountMNG {
 	{
 
 		boolean check = true;
-//		kiểm tra định dạng email : toicanh25@gmail.com.vn 
-//		if(to.trim().isEmpty()) {
-//			check = false;
-//			model.addAttribute("LoiDinhDangEmail","Email không được để trống"); 
-//		}
-//		else if(!to.trim().matches("\\w+@\\w+(\\.\\w+)+")) {
-//			check = false;
-//			model.addAttribute("LoiDinhDangEmail","Email không hợp lệ"); 
-//		}
 		if(check) {
 			try {
 				String matKhau = "";

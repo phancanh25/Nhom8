@@ -65,7 +65,7 @@
                     <option>Công nghệ thông tin</option>
                 </select>
                 <input value="2018" name="khoa" type="number" placeholder="Khóa" min="1900" max="2900" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
-                <<input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
+                <input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input id="input-edit-ten" name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
                 <input value="D18CQAT02-N" name="lop" type="text" placeholder="Lớp" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
                 <text>Ngày sinh</text>
