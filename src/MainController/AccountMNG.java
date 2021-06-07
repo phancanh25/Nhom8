@@ -33,6 +33,7 @@ import other.Other;
 public class AccountMNG {
 	@Autowired
 	SessionFactory factory;
+	Other other = new Other();
 	
 	@RequestMapping("open-account-mng")
 	public String openAccountMNG(ModelMap model, HttpSession ss) {
@@ -234,6 +235,8 @@ public class AccountMNG {
 		return "account/account-mng";
 	}
 	
+	
+	//Quen mat khau
 	@Autowired
 	JavaMailSender mailer;
 	@RequestMapping(value = "forgotpass",method = RequestMethod.GET)
@@ -242,7 +245,7 @@ public class AccountMNG {
 	}
 	
 	@RequestMapping(value="forgotpass",method = RequestMethod.POST)
-	public String send(ModelMap model,@RequestParam("ma") String maso,@RequestParam("email")String to)
+	public String send(HttpSession ss, ModelMap model,@RequestParam("ma") String maso,@RequestParam("email")String to)
 
 	{
 
@@ -265,11 +268,12 @@ public class AccountMNG {
 					matKhau = (String)q1.uniqueResult();
 				}
 				if(matKhau==null) {
-					model.addAttribute("message","Tài khoản không tồn tại");
+					model.addAttribute("forgotError","Tài khoản không tồn tại");
+					model.addAttribute("forgotFlag", "have");
 				}
 				else {
-					String from = "toicanh25@gmail.com";			
-					String subject="PTITHCM - Forgot mật khẩu";
+					String from = "nguoideptrai001wer@gmail.com";			
+					String subject="PTITHCM - Nhận mật khẩu";
 					String body="Mật khẩu của bạn là "+matKhau;
 					MimeMessage mail = mailer.createMimeMessage();
 					// su dung lop tro giup
@@ -282,14 +286,16 @@ public class AccountMNG {
 					
 					//gui mai
 					mailer.send(mail);
-					model.addAttribute("message","Gửi email thành công !, Vui lòng kiểm tra hộp thư");
+					model.addAttribute("forgotFlag","done");
 				}
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				model.addAttribute("message", e.getMessage());
+			} 
+			catch (Exception e) {
+				model.addAttribute("forgotError","Tài khoản không tồn tại");
+				model.addAttribute("forgotFlag", "have");
 			}			
 		}
-		return "account/forgotPass";
+		other.checkLogin(ss, model);
+		return "home/index";
 	}
 	
 	

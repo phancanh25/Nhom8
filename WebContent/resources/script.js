@@ -7,6 +7,20 @@ function closeLogin(){
     document.getElementById("div-login").className = "div-login fadeOutDown";
 }
 
+function openForgotPass(){
+	document.getElementById("div-login-form").classList.remove("rightIn");
+	document.getElementById("div-login-form").classList.add("leftIn");
+	document.getElementById("div-forgot-form").classList.remove("rightIn");
+	document.getElementById("div-forgot-form").classList.add("leftIn");
+}
+
+function closeForgotPass(){
+	document.getElementById("div-login-form").classList.remove("leftIn");
+	document.getElementById("div-login-form").classList.add("rightIn");
+	document.getElementById("div-forgot-form").classList.remove("leftIn");
+	document.getElementById("div-forgot-form").classList.add("rightIn");
+}
+
 function openAddTeacher(){
     document.getElementById("div-add-teacher").style.visibility = "visible";
     document.getElementById("div-add-teacher").className = "div-add-teacher fadeInDown";
@@ -43,11 +57,14 @@ function closeAddStudent(){
 }
 
 //${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}',${sinhVien.isPhai()},'${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}',${sinhVien.getDiemTBTL()}
-function openEditStudent(maSV, ho, ten, lop, phai, diaChi, khoa, diemTBTL){
+function openEditStudent(maSV, ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL){
+	if(phai=='true') document.getElementById("input-edit-female").checked= true;
+	else document.getElementById("input-edit-male").checked= true;
 	document.getElementById("input-edit-maSV").value = maSV;
 	document.getElementById("input-edit-ho").value = ho;
 	document.getElementById("input-edit-ten").value = ten;
 	document.getElementById("input-edit-lop").value = lop;
+	document.getElementById("input-edit-ngaySinh").value = ngaySinh;
 	document.getElementById("input-edit-diaChi").value = diaChi;
 	document.getElementById("input-edit-khoa").value = khoa;
 	document.getElementById("input-edit-diemTBTL").value = diemTBTL;

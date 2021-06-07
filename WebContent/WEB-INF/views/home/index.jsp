@@ -11,17 +11,31 @@
 <title>Trang chủ</title>
 </head>
 <body>
-        <div class="div-login ${error!=null?'fadeInDown':''}" style="visibility: ${error!=null?'visible':'hidden'}" id="div-login">
-            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
-            <img src="resources/img/logo-lite.png">
-            <form action="./login.htm" method="POST">
-                <input type="text" name="username" placeholder="Tên đăng nhập"><br>
-                <input type="password" name="password" placeholder="Mật khẩu"><br>
-                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
-                <button type="submit">Đăng nhập</button>
-            </form>
-            <div class="div-login-bottom">
-                <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
+        <div class="div-login ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'fadeInDown':''}" style="visibility: ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'visible':'hidden'}" id="div-login">
+            <div id="div-login-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/logo-lite.png">
+	            <form action="./login.htm" method="POST">
+	                <input type="text" name="username" placeholder="Tên đăng nhập"><br>
+	                <input type="password" name="password" placeholder="Mật khẩu"><br>
+	                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
+	                <button type="submit">Đăng nhập</button>
+	            </form>
+	            <div class="div-login-bottom">
+	                <a href="javascript:void(0)" onClick="openForgotPass();">Quên mật khẩu</a>
+	            </div>
+            </div>
+            <div id="div-forgot-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+            	<a href="javascript:void(0)" class="a-login-back" onclick="closeForgotPass();">&#8592</a>
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/forgot-pass.jpg" style="width:150px; height: 130px;">
+	            <p class="error" ${forgotFlag=='have'?'':'hidden'}>${forgotError}</p>
+	            <p class="text-success" ${forgotFlag=='done'?'':'hidden'}>Vui lòng kiểm tra gmail để nhận mật khẩu</p>
+	            <form action="forgotpass.htm" method="POST">
+		            <input name="ma" id="Ma" type="text" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
+		            <input type="email" name="email" id="email" placeholder="Nhập Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
+	                <button type="submit">Lấy lại mật khẩu</button>
+	            </form>
             </div>
         </div>
         <div class="div-top">
