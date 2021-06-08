@@ -48,10 +48,18 @@ public class AddStuToCMT {
 	
 	public void ShowStudent(ModelMap model) {
 		try {
+			int year = Calendar.getInstance().get(Calendar.YEAR);
 			Session session = factory.getCurrentSession();
-			String hql = "FROM SinhVien where diemTBTL >= 2.5 order by diemTBTL DESC";
+			//Loc ra nhung sinh vien du diem tich luy va chua co do an hoac nhung sinh vien da co do an trong nam nay (de chinh sua)
+			String hql = "FROM SinhVien where diemTBTL >= 2.5 ORDER BY diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
+			for(int i = 0 ; i<sinhViens.size(); i++) {
+				if(sinhViens.get(i).getDoAn() != null && sinhViens.get(i).getDoAn().getNam() != year) {
+					sinhViens.remove(i);
+					i -= 1;
+				}
+			}
 			String hql1 = "FROM GiangVien";
 			Query q1 = session.createQuery(hql1);
 			List<GiangVien> giangViens = q1.list();
@@ -65,30 +73,66 @@ public class AddStuToCMT {
 	
 	@RequestMapping("add-stu-to-event")
 	public String addStuToEvent(@RequestParam("student-list") String[] studentList, 
-			@RequestParam("gvhd-list") String[] gvhdList) {
-		Session session = factory.openSession();
+			@RequestParam("student-choose") String[] studentChoose, 
+			@RequestParam("gvhd-list") String[] gvhdList, ModelMap model, HttpSession ss) {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		for(int i =0; i<studentList.length; i++) {
+		System.out.println(gvhdList.length);
+		System.out.println(studentList.length);
+		for(int i = 0 ; i<studentList.length; i++) {
+			Session session = factory.openSession();
 			Transaction transaction = session.beginTransaction();
-			GiangVien gvhd = (GiangVien)(session.get(GiangVien.class, gvhdList[i]));
-			GiangVien gvpb = null;
-			TieuBan tieuBan = null;
-			SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, studentList[i]));
-			DoAn doAn = new DoAn("", "", gvhd, gvpb, (float)0, (float)0, (float)0, (float)0, year, tieuBan, sinhVien);
-			sinhVien.setDoAn(doAn);
-			try {
-				session.save(doAn);
-				session.update(sinhVien);
-				transaction.commit();
+			//Chon sinh vien thi them do an cho sinh vien do
+			if(studentChoose[i].equals("choose")) {
+				SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, studentList[i]));
+				GiangVien gvhd = (GiangVien)(session.get(GiangVien.class, gvhdList[i]));
+				GiangVien gvpb = null;
+				TieuBan tieuBan = null;
+				//Neu sinh vien co do an roi thi next
+				if(sinhVien.getDoAn() != null) continue;
+				DoAn doAn = new DoAn("", "", gvhd, gvpb, (float)0, (float)0, (float)0, (float)0, year, tieuBan, sinhVien);
+				sinhVien.setDoAn(doAn);
+				try {
+					session.save(doAn);
+					session.update(sinhVien);
+					transaction.commit();
+					model.addAttribute("message", "Thông báo: Chọn sinh viên làm đồ án thành công");
+				}
+				catch (HibernateError e) {
+					transaction.rollback();
+					System.out.println("Loi khi luu do an: "+doAn.getMaDA());
+					model.addAttribute("message", "Thông báo: Đã xảy ra lỗi: "+e.getMessage());
+				}
+				finally {
+					session.close();
+				}
 			}
-			catch (HibernateError e) {
-				transaction.rollback();
-				System.out.println("Loi khi luu do an: "+doAn.getMaDA());
+			//Bo chon sinh vien thi xoa do an cua sinh vien do
+			else {
+				SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, studentList[i]));
+				if(sinhVien.getDoAn() == null) continue;
+				DoAn doAn = (DoAn)(session.get(DoAn.class, sinhVien.getDoAn().getMaDA()));
+				DoAn doAnNull = null;
+				sinhVien.setDoAn(doAnNull);
+				try {
+					session.update(sinhVien);
+					session.delete(doAn);
+					transaction.commit();
+					model.addAttribute("message", "Thông báo: Chọn sinh viên làm đồ án thành công");
+				}
+				catch (HibernateError e) {
+					transaction.rollback();
+					System.out.println("Loi khi luu do an: "+doAn.getMaDA());
+					model.addAttribute("message", "Thông báo: Đã xảy ra lỗi: "+e.getMessage());
+				}
+				finally {
+					session.close();
+				}
 			}
 		}
-		session.close();
-
-		return "redirect:../addProject/showProject.htm";
+		
+		ShowStudent(model);
+		other.checkLogin(ss, model);
+		return "addStudent/add-student";
 	}
 	
 	

@@ -1,0 +1,3 @@
+T sửa danh sách kỳ bảo vệ là role 1 và 2 đc xem
+Phân công đồ án làm xong cái chọn sinh viên thực hiện (role 1) với GVHD ra đồ án 
+Chọn sinh viên thực hiện thì chỉ admin làm, và có thể sửa lại còn mấy bước khác thì không

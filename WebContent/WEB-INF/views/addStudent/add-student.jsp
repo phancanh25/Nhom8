@@ -43,7 +43,7 @@
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
                 <a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
-                <a href="${role == 1 || role == 2 || role == 3 ?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
+                <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
                 <a href="${role == 1 || role == 2?'teacher/teacher.htm':'error.htm'}" >DSGV</a>
@@ -52,6 +52,7 @@
         </div>
         <div class="div-add-stu-project">
             <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Chọn sinh viên <code>(Table này dùng sql xuất những sinh viên đủ điều kiện làm đồ án)</code></p>
+            <p style="color: #0058C4; font-weight: bold; margin-left: 50px">${message}</p>
             <div class="div-add-stu-project-wrapper">
            		<form action="addStudent/add-stu-to-event.htm" method="POST">
                 <table class="table table-striped table-bordered table-add-stu-project">
@@ -63,7 +64,7 @@
                         <th>Phái</th>
                         <th>Ngày sinh</th>
                         <th>Khóa</th>
-                        <th>Tốt nghiệp</th>
+                        <th>Điểm TBTL</th>
                         <th>Chọn</th>
                         <th>GVHD</th>
                     </tr>
@@ -76,12 +77,14 @@
 		                    <td>${sinhVien.isPhai()?'Nam':'Nữ'}</td>
 		                    <td>${sinhVien.getNgaySinh()}</td>
 		                    <td>${sinhVien.getKhoa()}</td>
-		                    <td>Chưa tốt nghiệp</td>
-		                    <td><input value="${sinhVien.getMaSV()}" name="student-list" type="checkbox" class="student-check" onchange="check();"></td>
+		                    <td>${sinhVien.getDiemTBTL()}</td>
+		                    <td><input value="${sinhVien.getMaSV()}" type="checkbox" class="student-check" onchange="check();" ${sinhVien.getDoAn() != null?'checked ':''}></td>
+	                        <input class="student-list" value="${sinhVien.getMaSV()}" name="student-list" type="text" hidden/>
+	                        <input class="student-choose" value="" name="student-choose" type="text" hidden/>
 	                        <td>
-	                            <select name="gvhd-list" disabled class="select-teacher">
+	                            <select name="gvhd-list" class="select-teacher" style="${sinhVien.getDoAn() != null?'pointer-events: auto; opacity: 1;':'pointer-events: none; opacity: 0.5'}">
 	                            <c:forEach items="${giangViens}" var="giangVien">
-	                                <option value="${giangVien.getMaGV()}">${giangVien.getHo()} ${giangVien.getTen()}</option>
+	                                <option ${sinhVien.getDoAn().getGVHD().getMaGV() == giangVien.getMaGV()?'selected':'' } value="${giangVien.getMaGV()}">${giangVien.getHo()} ${giangVien.getTen()}</option>
 	                            </c:forEach> 
 	                            </select>
 	                        </td> 

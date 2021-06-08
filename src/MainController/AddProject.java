@@ -34,14 +34,15 @@ public class AddProject {
 	@RequestMapping("showProject")
 	public String showStudent(ModelMap model, HttpSession ss) {
 		other.checkLogin(ss, model);
-		ShowStudent(model);
+		ShowStudent(model, ss);
 		return "addProject/add-project";
 	}
 	
 	@RequestMapping("add-pro-for-stu")
 	public String AddProForStu(@RequestParam("tenDA") String[] listTenDA,
 			@RequestParam("chiTietDA") String[] listCTDA, 
-			@RequestParam("maDA") int[] maDAList) {
+			@RequestParam("maDA") int[] maDAList,
+			ModelMap model, HttpSession ss) {
 		
 		Session session = factory.openSession();
 		for(int i = 0 ; i<maDAList.length; i++) {
@@ -52,28 +53,37 @@ public class AddProject {
 			try {
 				session.update(doAn);
 				transaction.commit();
+				model.addAttribute("message", "Thông báo: Chấm điểm hướng dẫn thành công");
 			}
 			catch (HibernateError e) {
 				transaction.rollback();
 				System.out.println("Loi khi cap nhat do an(buoc 2): "+doAn.getMaDA());
+				model.addAttribute("message", "Thông báo: Đã xảy ra lỗi: "+ e.getMessage());
+			}
+			finally {
+				session.close();
 			}
 		}
-		return "redirect:../GVHD/index.htm";
+		other.checkLogin(ss, model);
+		ShowStudent(model, ss);
+		return "addProject/add-project";
 	}
 	
 	
 	
-	public void ShowStudent(ModelMap md) {
+	public void ShowStudent(ModelMap model, HttpSession ss) {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		try {
 			Session session = factory.getCurrentSession();
-			String hql = "FROM SinhVien sinhVien where sinhVien.diemTBTL >= 2.5 and sinhVien.doAn.nam= "+year+"  order by diemTBTL DESC";
+			String userCode = (String)ss.getAttribute("code");
+			System.out.println("usercode: "+userCode);
+			String hql = "FROM SinhVien where doAn.nam= "+year+" and doAn.GVHD.maGV = '"+userCode+"' order by diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
 			for(SinhVien i : sinhViens) {
 				System.out.println(i.getMaSV());
 			}
-			md.addAttribute("sinhViens", sinhViens);
+			model.addAttribute("sinhViens", sinhViens);
 		}
 		catch (Exception e) {
 			System.out.println("loi: "+e.getMessage());

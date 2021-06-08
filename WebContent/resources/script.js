@@ -113,7 +113,16 @@ function nextPageAddEvent(){
 function check(){
     var list = document.getElementsByClassName("student-check");
     for(i = 0; i<list.length; i++){
-        document.getElementsByClassName("select-teacher")[i].disabled = !list[i].checked;
+        if(list[i].checked){
+        	document.getElementsByClassName("select-teacher")[i].style['pointer-events'] = "auto";
+        	document.getElementsByClassName("select-teacher")[i].style.opacity = "1";
+        	document.getElementsByClassName("student-choose")[i].value = "choose";
+        }
+        else{
+        	document.getElementsByClassName("select-teacher")[i].style.pointerEvents = "none";
+        	document.getElementsByClassName("select-teacher")[i].style.opacity = "0.5";
+        	document.getElementsByClassName("student-choose")[i].value = "";
+        }
     }
 }
 
