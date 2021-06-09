@@ -70,14 +70,12 @@
 	</div>
 	<div class="div-top">
 		<div class="div-top-wrapper">
-			<a href="javascript:void(0)">&#9743 0987-654-321</a> <a
-				href="javascript:void(0)">&#9993 ptithcm@edu.vn</a> <a
-				href="javascript:void(0)" onclick="openLogin();"
-				${username!=""?'hidden':''}>Login</a> <a href="Home/logout.htm"
-				${username==""?'hidden':''}
-				style="margin: 0px; border: none; background: none;">Logout</a> <a
-				href="javascript:void(0)" ${username==""?'hidden':''}>Hi
-				${username}</a>
+				<a href="javascript:void(0)">&#9743 0987-654-321</a>
+                <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
+                <a href="Home/logout.htm" style="margin: 0 -100px 0 10px; border: none; background: none; width: 120px; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
+                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${role==1?'':'hidden'}>Quản lý tài khoản</a>
 		</div>
 	</div>
 	<div class="div-menu">

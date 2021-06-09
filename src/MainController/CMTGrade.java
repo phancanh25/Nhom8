@@ -31,9 +31,8 @@ public class CMTGrade {
 	@Autowired
 	SessionFactory factory;
 	@RequestMapping("index")
-	public String index(ModelMap model, HttpSession session) {
-		other.checkLogin(session, model);
-
+	public String index(ModelMap model, HttpSession ss) {
+		other.checkLogin(ss, model);
 		ShowStudent(model);
 		return "CMT/CMTGrade";
 	}
@@ -41,7 +40,7 @@ public class CMTGrade {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		try {
 			Session session = factory.getCurrentSession();
-			String hql = "FROM SinhVien sinhVien where sinhVien.diemTBTL >= 2.5 and sinhVien.doAn.nam= "+year+" and sinhVien.doAn.diemHD >= 5 and (diemHD + diemPB)/2 >= 5 order by diemTBTL DESC";
+			String hql = "FROM SinhVien where doAn.nam= "+year+" and doAn.tieuBan is not null order by diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
 			for(SinhVien i : sinhViens) {
@@ -56,7 +55,8 @@ public class CMTGrade {
 	
 	@RequestMapping("cmt-grade")
 	public String GVPBGrade(@RequestParam("maDA") int[] maDAList, 
-			@RequestParam("diemCMT") Float[] diemCMTList) {
+			@RequestParam("diemCMT") Float[] diemCMTList,
+			ModelMap model, HttpSession ss) {
 		Session session = factory.openSession();
 		for(int i = 0 ; i<maDAList.length; i++) {
 			Transaction transaction = session.beginTransaction();
@@ -65,14 +65,17 @@ public class CMTGrade {
 			try {
 				session.update(doAn);
 				transaction.commit();
+				model.addAttribute("message", "Thông báo: Chấm điểm tiểu ban thành công");
 			}
 			catch (HibernateError e) {
 				transaction.rollback();
 				System.out.println("Loi khi cham diem huong dan (buoc 7): "+doAn.getMaDA());
+				model.addAttribute("message", "Thông báo: Chấm điểm hướng dẫn thành công");
 			}
 		}
-		return "a";
-//		return "redirect:../ChoseGVPB/index.htm";
+		other.checkLogin(ss, model);
+		ShowStudent(model);
+		return "CMT/CMTGrade";
 	}
 	
 	

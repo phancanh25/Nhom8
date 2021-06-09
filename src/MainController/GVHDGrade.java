@@ -32,31 +32,33 @@ public class GVHDGrade {
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
 		other.checkLogin(ss, model);
-		ShowStudent(model);
+		ShowStudent(model, ss);
 		return "GVHD/GVHDGrade";
 	}
 	
 	
-	public void ShowStudent(ModelMap md) {
+	public void ShowStudent(ModelMap model, HttpSession ss) {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		try {
 			Session session = factory.getCurrentSession();
-			String hql = "FROM SinhVien sinhVien where sinhVien.diemTBTL >= 2.5 and sinhVien.doAn.nam= "+year+"  order by diemTBTL DESC";
+			String userCode = (String)ss.getAttribute("code");
+			String hql = "FROM SinhVien where doAn.nam= "+year+" and doAn.GVHD.maGV = '"+userCode+"' order by diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
 			for(SinhVien i : sinhViens) {
 				System.out.println(i.getMaSV());
 			}
-			md.addAttribute("sinhViens", sinhViens);
+			model.addAttribute("sinhViens", sinhViens);
 		}
 		catch (Exception e) {
 			System.out.println("loi: "+e.getMessage());
 		}
+		
 	}
 	
 	@RequestMapping("gvhd-grade")
 	public String GVHDGrade(@RequestParam("maDA") int[] maDAList, 
-			@RequestParam("diemHD") Float[] diemHDList) {
+			@RequestParam("diemHD") Float[] diemHDList, ModelMap model, HttpSession ss) {
 		Session session = factory.openSession();
 		for(int i = 0 ; i<maDAList.length; i++) {
 			Transaction transaction = session.beginTransaction();
@@ -65,12 +67,16 @@ public class GVHDGrade {
 			try {
 				session.update(doAn);
 				transaction.commit();
+				model.addAttribute("message", "Thông báo: Chấm điểm hướng dẫn thành công");
 			}
 			catch (HibernateError e) {
 				transaction.rollback();
 				System.out.println("Loi khi cham diem huong dan (buoc 3): "+doAn.getMaDA());
+				model.addAttribute("message", "Thông báo: Có lỗi xảy ra: "+e.getMessage());
 			}
 		}
-		return "redirect:../ChoseGVPB/index.htm";
+		other.checkLogin(ss, model);
+		ShowStudent(model, ss);
+		return "GVHD/GVHDGrade";
 	}
 }

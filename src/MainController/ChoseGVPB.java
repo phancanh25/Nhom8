@@ -38,21 +38,21 @@ public class ChoseGVPB {
 	
 	
 	
-	public void ShowStudent(ModelMap md) {
+	public void ShowStudent(ModelMap model) {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		try {
 			Session session = factory.getCurrentSession();
-			String hql = "FROM SinhVien sinhVien where sinhVien.diemTBTL >= 2.5 and sinhVien.doAn.nam= "+year+" and sinhVien.doAn.diemHD >= 5  order by diemTBTL DESC";
+			String hql = "FROM SinhVien where doAn.nam= "+year+" and doAn.diemHD >= 5 order by diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
 			for(SinhVien i : sinhViens) {
 				System.out.println(i.getMaSV());
 			}
-			md.addAttribute("sinhViens", sinhViens);
+			model.addAttribute("sinhViens", sinhViens);
 			String hql1 = "FROM GiangVien";
 			Query q1 = session.createQuery(hql1);
 			List<GiangVien> giangViens = q1.list();
-			md.addAttribute("giangViens", giangViens);
+			model.addAttribute("giangViens", giangViens);
 		}
 		catch (Exception e) {
 			System.out.println("loi: "+e.getMessage());
@@ -61,22 +61,29 @@ public class ChoseGVPB {
 	
 	@RequestMapping("add-gvpb")
 	public String addGVHDG(@RequestParam("maDA") int[] maDAList, 
-			@RequestParam("gvpb-list") String[] gvpbList) {
+			@RequestParam("gvpb-list") String[] gvpbList,
+			ModelMap model, HttpSession ss) {
 		Session session = factory.openSession();
 		for(int i = 0 ; i<maDAList.length; i++) {
 			Transaction transaction = session.beginTransaction();
 			DoAn doAn = (DoAn)(session.get(DoAn.class, maDAList[i]));
-			GiangVien gvpb = (GiangVien)(session.get(GiangVien.class, gvpbList[i]));
+			GiangVien gvpb = null;
+			System.out.println("have");
+			if(!gvpbList[i].equals("none")) gvpb = (GiangVien)(session.get(GiangVien.class, gvpbList[i]));
 			doAn.setGVPB(gvpb);
 			try {
 				session.update(doAn);
 				transaction.commit();
+				model.addAttribute("message", "Thông báo: Chọn giảng viên phản biện thành công");
 			}
 			catch (HibernateError e) {
 				transaction.rollback();
 				System.out.println("Loi khi cham diem huong dan (buoc 4): "+doAn.getMaDA());
+				model.addAttribute("message", "Thông báo: Có lỗi xảy ra: "+e.getMessage());
 			}
 		}
-		return "redirect:../GVPB/index.htm";
+		ShowStudent(model);
+		other.checkLogin(ss, model);
+		return "GVPB/addGVPB";
 	}
 }

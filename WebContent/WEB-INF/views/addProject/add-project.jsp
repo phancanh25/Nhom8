@@ -30,10 +30,10 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Login</a>
-                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${user!=null?'visible':'hidden'}">Logout</a>
-                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Hi ${user}</a>
-                <a href="open-account-mng.htm" style="margin-right: 18px;" ${user=='admin'?'':'hidden'}>Quản lý tài khoản</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
+                <a href="Home/logout.htm" style="margin: 0 -100px 0 10px; border: none; background: none; width: 120px; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
+                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${role==1?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">
@@ -54,7 +54,7 @@
             <p style="color: #0058C4; font-weight: bold; margin-left: 50px">${message}</p>
             <div class="div-add-project-wrapper">
            		<form action="addProject/add-pro-for-stu.htm" method="POST">
-                <table class="table table-striped table-bordered table-add-project">
+                <table class="table table-striped table-bordered table-add-project" style="font-size: 13px;">
                     <tr>
                         <th>MSSV</th>
                         <th>Họ</th>
@@ -79,10 +79,10 @@
 		                    <td>${sinhVien.getKhoa()}</td>
 		                    <td>${sinhVien.getDiemTBTL()}</td>
 	                        <td>
-	                            <input type="text" value="${sinhVien.getDoAn().getGVHD().getHo()} ${sinhVien.getDoAn().getGVHD().getTen()}" disabled><!-- giaovien.ho.ten -->
+	                            <input type="text" value="${sinhVien.getDoAn().getGVHD().getHo()} ${sinhVien.getDoAn().getGVHD().getTen()}" readonly style="opacity: 0.8;"><!-- giaovien.ho.ten -->
 	                        </td>
-	                        <td><input name="tenDA" value="${sinhVien.getDoAn().getTenDA()}" type="text" placeholder="Tên đồ án" required="required"></td>
-	                        <td><textarea name="chiTietDA" cols="20" rows="3" placeholder="Chi tiết" required="required">${sinhVien.getDoAn().getChiTiet()}</textarea></td>
+	                        <td><input style="color: blue; font-weight: bold" name="tenDA" value="${sinhVien.getDoAn().getTenDA()}" type="text" placeholder="Tên đồ án" required="required"></td>
+	                        <td><textarea style="color: blue; font-weight: bold"name="chiTietDA" cols="20" rows="3" placeholder="Chi tiết" required="required">${sinhVien.getDoAn().getChiTiet()}</textarea></td>
 	                        <input name="maDA" type="text" value="${sinhVien.getDoAn().getMaDA()}" hidden>
 	                    </tr>
 					</c:forEach>

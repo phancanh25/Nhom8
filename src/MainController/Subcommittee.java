@@ -194,4 +194,9 @@ public class Subcommittee {
 		return "redirect:assignment.htm";
 	}
 	
+	@RequestMapping("event-cancel")
+	public String cancelAddEvent(){
+		return "redirect:assignment.htm";
+	}
+	
 }

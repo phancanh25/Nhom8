@@ -31,11 +31,10 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                
-                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Login</a>
-                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${user!=null?'visible':'hidden'}">Logout</a>
-                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Hi ${user}</a>
-                <a href="open-account-mng.htm" style="margin-right: 18px;" ${user=='admin'?'':'hidden'}>Quản lý tài khoản</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
+                <a href="Home/logout.htm" style="margin: 0 -100px 0 10px; border: none; background: none; width: 120px; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
+                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${role==1?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">
@@ -52,7 +51,6 @@
             </div>
         </div>
        <div class="div-assignment">
-       	<code>Nếu năm hiện tại đã có tiểu ban thì sẽ hiển thị Kỳ bảo vệ, nếu chưa thì sẽ xuất hiện câu hỏi tạo mới</code>
        	<br>
        		<c:choose>
        			<c:when test="${flag=='none'}">
@@ -61,7 +59,7 @@
        			<c:otherwise>
        				<ul class="ul-assignment">
 			            <li>
-			                <a href="javascript:void(0)" id="current-exam" onclick="expandAssignmentRoadmap();">&#10095; Kỳ bảo vệ năm 2021 </a>
+			                <p style="margin-right: 20px; color: blue;" id="current-exam">&#10095; Kỳ bảo vệ năm 2021 </p>
 			                <div class="div-assignment-roadmap">
 			                	<form action="subcommittee.htm" method="POST">
 			                		<button class="btn btn-primary" ${role==1?'':'hidden'}>Bổ sung tiểu ban</button>
@@ -76,31 +74,31 @@
 				                    	<tr style="padding: 0" ${role==1?'':'hidden'}>
 				                    		<td><a href="addStudent/showStudent.htm" style="pointer-events: ${lock=='1'?'default':'none'};">Chọn SV làm đồ án</a></td>
 				                    		<input type="number" value="1" name="action" id="input-action" hidden>
-				                    		<td><button class="btn btn-lock ${lock=='1'?'btn-success':'btn-danger'}" style="font-size: 13px;" onClick="setLock(this, 1);" type="button" value="${lock=='1'?'0':'1'}" ${role==1?'':'disabled'}>${lock=='1'?'Mở 🔓':'Khóa 🔒'}</button></td>
+				                    		<td><button class="btn btn-lock ${lock=='1'?'btn-success':'btn-danger'}" style="font-size: 13px;" onClick="setLock(this, 1);" type="button" value="${lock=='1'?'0':'1'}">${lock=='1'?'Mở 🔓':'Khóa 🔒'}</button></td>
 				                    	</tr>
 				                    	<tr>
 				                    		<td><a href="addProject/showProject.htm" style="pointer-events: ${lock=='2'?'default':'none'};">GVHD ra đồ án</a></td>
-				                    		<td><button class="btn btn-lock ${lock=='2'?'btn-success':'btn-danger'}" style="font-size: 13px;" onClick="setLock(this, 2);" type="button" value="${lock=='2'?'0':'1'}" ${role==1?'':'disabled'}>${lock=='2'?'Mở 🔓':'Khóa 🔒'}</button></td>
+				                    		<td><button class="btn btn-lock ${lock=='2'?'btn-success':'btn-danger'}" style="${role==1?'':'pointer-events: none;'} font-size: 13px;" onClick="setLock(this, 2);" type="button" value="${lock=='2'?'0':'1'}" >${lock=='2'?'Mở 🔓':'Khóa 🔒'}</button></td>
 				                    	</tr>
 				                    	<tr>
 				                    		<td><a href="GVHD/index.htm" style="pointer-events: ${lock=='3'?'default':'none'};">GVHD chấm điểm</a></td>
-				                    		<td><button class="btn btn-lock ${lock=='3'?'btn-success':'btn-danger'}" style="font-size: 13px;" onClick="setLock(this, 3);" type="button" value="${lock=='3'?'0':'1'}" ${role==1?'':'disabled'}>${lock=='3'?'Mở 🔓':'Khóa 🔒'}</button></td>
+				                    		<td><button class="btn btn-lock ${lock=='3'?'btn-success':'btn-danger'}" style="${role==1?'':'pointer-events: none;'} font-size: 13px;" onClick="setLock(this, 3);" type="button" value="${lock=='3'?'0':'1'}" >${lock=='3'?'Mở 🔓':'Khóa 🔒'}</button></td>
 				                    	</tr>
-				                    	<tr>
+				                    	<tr ${role==1?'':'hidden'}>
 				                    		<td><a href="ChoseGVPB/index.htm" style="pointer-events: ${lock=='4'?'default':'none'};">Phân công GVPB</a></td>
-				                    		<td><button class="btn btn-lock ${lock=='4'?'btn-success':'btn-danger'}" style="font-size: 13px;" onClick="setLock(this, 4);" type="button" value="${lock=='4'?'0':'1'}" ${role==1?'':'disabled'}>${lock=='4'?'Mở 🔓':'Khóa 🔒'}</button></td>
+				                    		<td><button class="btn btn-lock ${lock=='4'?'btn-success':'btn-danger'}" style="${role==1?'':'pointer-events: none;'} font-size: 13px;" onClick="setLock(this, 4);" type="button" value="${lock=='4'?'0':'1'}" >${lock=='4'?'Mở 🔓':'Khóa 🔒'}</button></td>
 				                    	</tr>
 				                    	<tr>
 				                    		<td><a href="GVPB/index.htm" style="pointer-events: ${lock=='5'?'default':'none'};">GVPB chấm điểm</a></td>
-				                    		<td><button class="btn btn-lock ${lock=='5'?'btn-success':'btn-danger'}" style="font-size: 13px;" onClick="setLock(this, 5);" type="button" value="${lock=='5'?'0':'1'}" ${role==1?'':'disabled'}>${lock=='5'?'Mở 🔓':'Khóa 🔒'}</button></td>
+				                    		<td><button class="btn btn-lock ${lock=='5'?'btn-success':'btn-danger'}" style="${role==1?'':'pointer-events: none;'} font-size: 13px;" onClick="setLock(this, 5);" type="button" value="${lock=='5'?'0':'1'}" >${lock=='5'?'Mở 🔓':'Khóa 🔒'}</button></td>
 				                    	</tr>
-				                    	<tr>
+				                    	<tr ${role==1?'':'hidden'}>
 				                    		<td><a href="PTCMT/show-cmt.htm" style="pointer-events: ${lock=='6'?'default':'none'};">Phân công đồ án vào tiểu ban</a></td>
-				                    		<td><button class="btn btn-lock ${lock=='6'?'btn-success':'btn-danger'}" style="font-size: 13px;" onClick="setLock(this, 6);" type="button" value="${lock=='6'?'0':'1'}" ${role==1?'':'disabled'}>${lock=='6'?'Mở 🔓':'Khóa 🔒'}</button></td>
+				                    		<td><button class="btn btn-lock ${lock=='6'?'btn-success':'btn-danger'}" style="${role==1?'':'pointer-events: none;'} font-size: 13px;" onClick="setLock(this, 6);" type="button" value="${lock=='6'?'0':'1'}" >${lock=='6'?'Mở 🔓':'Khóa 🔒'}</button></td>
 				                    	</tr>
-				                    	<tr>
+				                    	<tr ${role==1?'':'hidden'}>
 				                    		<td><a href="CMT/index.htm" style="pointer-events: ${lock=='7'?'default':'none'};">Tiểu ban chấm điểm</a></td>
-				                    		<td><button class="btn btn-lock ${lock=='7'?'btn-success':'btn-danger'}" style="font-size: 13px;" onClick="setLock(this, 7);" type="button" value="${lock=='7'?'0':'1'}" ${role==1?'':'disabled'}>${lock=='7'?'Mở 🔓':'Khóa 🔒'}</button></td>
+				                    		<td><button class="btn btn-lock ${lock=='7'?'btn-success':'btn-danger'}" style="${role==1?'':'pointer-events: none;'} font-size: 13px;" onClick="setLock(this, 7);" type="button" value="${lock=='7'?'0':'1'}" >${lock=='7'?'Mở 🔓':'Khóa 🔒'}</button></td>
 				                    	</tr>
 				                    </table>
 			                    	<button type="submit" id="btn-confirm" class="btn btn-primary btn-confirm" disabled ${role==1?'':'hidden'}>Xác nhận</button>

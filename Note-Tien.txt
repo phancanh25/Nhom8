@@ -1,3 +1,13 @@
 T sửa danh sách kỳ bảo vệ là role 1 và 2 đc xem
-Phân công đồ án làm xong cái chọn sinh viên thực hiện (role 1) với GVHD ra đồ án 
-Chọn sinh viên thực hiện thì chỉ admin làm, và có thể sửa lại còn mấy bước khác thì không
+
+Về phần phân công đồ án:
+Chọn sinh viên & GVHD: role 1(có thể chọn lại những sinh viên đó)
+GVHD ra đề tài: role 1 & 2
+GVHD chấm điểm: role 1 & 2 (giảng viên nào chấm đồ án đó)
+Chọn GVPB: role 1 (chỉ chọn những đồ án có điểm hd >= 5)
+GVPB chấm điểm: role 1 & 2 (giảng viên nào chấm đồ án đó)
+Phân công đồ án vào tiểu ban: role 1 (chỉ chọn những đồ án nào có (điểm hd+điểm pb)/2 >=5)
+Tiểu ban chấm điểm: role 1
+
+Về database, t có design cái điểm tổng nó sẽ tự động tính = (điểm hd + pb + tb )/3
+với sửa chỗ đó trong bean đồ án (cột điểm tổng @Fomula)

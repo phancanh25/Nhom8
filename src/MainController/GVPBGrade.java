@@ -31,21 +31,21 @@ public class GVPBGrade {
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
 		other.checkLogin(ss, model);
-		ShowStudent(model);
-		
+		ShowStudent(model, ss);
 		return "GVPB/GVPBGrade";
 	}
-	public void ShowStudent(ModelMap md) {
+	public void ShowStudent(ModelMap model, HttpSession ss) {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		try {
 			Session session = factory.getCurrentSession();
-			String hql = "FROM SinhVien sinhVien where sinhVien.diemTBTL >= 2.5 and sinhVien.doAn.nam= "+year+" and sinhVien.doAn.diemHD >= 5  order by diemTBTL DESC";
+			String userCode = (String)ss.getAttribute("code");
+			String hql = "FROM SinhVien where doAn.nam= "+year+" and doAn.GVPB is not null order by diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
 			for(SinhVien i : sinhViens) {
 				System.out.println(i.getMaSV());
 			}
-			md.addAttribute("sinhViens", sinhViens);
+			model.addAttribute("sinhViens", sinhViens);
 		}
 		catch (Exception e) {
 			System.out.println("loi: "+e.getMessage());
@@ -54,7 +54,8 @@ public class GVPBGrade {
 	
 	@RequestMapping("gvpb-grade")
 	public String GVPBGrade(@RequestParam("maDA") int[] maDAList, 
-			@RequestParam("diemPB") Float[] diemPBList) {
+			@RequestParam("diemPB") Float[] diemPBList,
+			ModelMap model, HttpSession ss) {
 		Session session = factory.openSession();
 		for(int i = 0 ; i<maDAList.length; i++) {
 			Transaction transaction = session.beginTransaction();
@@ -63,14 +64,16 @@ public class GVPBGrade {
 			try {
 				session.update(doAn);
 				transaction.commit();
+				model.addAttribute("message", "Thông báo: Chấm điểm phản biện thành công");
 			}
 			catch (HibernateError e) {
 				transaction.rollback();
-				System.out.println("Loi khi cham diem huong dan (buoc 5): "+doAn.getMaDA());
+				model.addAttribute("message", "Thông báo: Có lỗi xảy ra: "+e.getMessage());
 			}
 		}
-		return "a";
-//		return "redirect:../ChoseGVPB/index.htm";
+		other.checkLogin(ss, model);
+		ShowStudent(model, ss);
+		return "GVPB/GVPBGrade";
 	}
 	
 }

@@ -30,11 +30,10 @@
             <div class="div-top-wrapper">
                 <a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                
-                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Login</a>
-                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${user!=null?'visible':'hidden'}">Logout</a>
-                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Hi ${user}</a>
-                <a href="open-account-mng.htm" style="margin-right: 18px;" ${user=='admin'?'':'hidden'}>Quản lý tài khoản</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
+                <a href="Home/logout.htm" style="margin: 0 -100px 0 10px; border: none; background: none; width: 120px; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
+                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${role==1?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">
@@ -52,9 +51,10 @@
         </div>
         <div class="div-prj-to-scmt">
             <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Phân công đồ án vào tiểu ban <code>(Table lọc những sinh viên đủ điểm)</code></p>
+            <p style="color: #0058C4; font-weight: bold; margin-left: 50px">${message}</p>
             <div class="div-prj-to-scmt-wrapper">
            		 <form action="PTCMT/add-cmt.htm" method="POST">
-                <table class="table table-striped table-bordered table-prj-to-scmt">
+                <table class="table table-striped table-bordered table-prj-to-scmt" style="font-size: 13px;">
                     <tr>
                         <th>MSSV</th>
                         <th>Họ</th>
@@ -63,7 +63,7 @@
                         <th>Phái</th>
                         <th>Ngày sinh</th>
                         <th>Khóa</th>
-                        <th>Tốt nghiệp</th>
+                        <th>Điểm TBTL</th>
                         <th>GVHD</th>
                         <th>Tên đồ án</th>
                         <th>Chi tiết</th>
@@ -81,21 +81,22 @@
 		                    <td>${sinhVien.isPhai()?'Nam':'Nữ'}</td>
 		                    <td>${sinhVien.getNgaySinh()}</td>
 		                    <td>${sinhVien.getKhoa()}</td>
-		                    <td>Chưa tốt nghiệp</td>
+		                    <td>${sinhVien.getDiemTBTL()}</td>
 	                        <td>
-	                            <input type="text" value="${sinhVien.getDoAn().getGVHD().getHo()} ${sinhVien.getDoAn().getGVHD().getTen()}" disabled><!-- giaovien.ho.ten -->
+	                            <input type="text" value="${sinhVien.getDoAn().getGVHD().getHo()} ${sinhVien.getDoAn().getGVHD().getTen()}" readonly style="opacity: 0.8;"><!-- giaovien.ho.ten -->
 	                        </td>
-	                        <td><input value="${sinhVien.getDoAn().getTenDA()}" name="tenDA" type="text" placeholder="Tên đồ án" readonly></td>
-	                        <td><textarea name="chiTietDA" cols="20" rows="3" placeholder="Chi tiết" readonly>${sinhVien.getDoAn().getChiTiet()}</textarea></td>
-	                        <td><input name="diemHD" step="0.01" type="number" placeholder="Điểm hd" readonly value="${sinhVien.getDoAn().getDiemHD() }"></td>
+	                        <td><input value="${sinhVien.getDoAn().getTenDA()}" name="tenDA" type="text" placeholder="Tên đồ án" readonly style="opacity: 0.8;"></td>
+	                        <td><textarea name="chiTietDA" cols="20" rows="3" placeholder="Chi tiết" readonly style="opacity: 0.8;">${sinhVien.getDoAn().getChiTiet()}</textarea></td>
+	                        <td><input name="diemHD" step="0.01" type="number" placeholder="Điểm hd" readonly style="opacity: 0.8;" value="${sinhVien.getDoAn().getDiemHD() }"></td>
 
                         	<input name="maDA" type="text" value="${sinhVien.getDoAn().getMaDA()}" hidden>
                         	 <td>
-	                            <input type="text" value="${sinhVien.getDoAn().getGVPB().getHo()} ${sinhVien.getDoAn().getGVPB().getTen()}" disabled><!-- giaovien.ho.ten -->
+	                            <input type="text" value="${sinhVien.getDoAn().getGVPB().getHo()} ${sinhVien.getDoAn().getGVPB().getTen()}" readonly style="opacity: 0.8;"><!-- giaovien.ho.ten -->
 	                        </td>
-	                        <td><input name="diemPB" step="0.01" type="number" placeholder="Điểm pb" readonly value="${sinhVien.getDoAn().getDiemPB() }"></td>
+	                        <td><input name="diemPB" step="0.01" type="number" placeholder="Điểm pb" readonly style="opacity: 0.8;" value="${sinhVien.getDoAn().getDiemPB() }"></td>
 	                        <td>
-                            <select name="tieuban-list">
+                            <select style="color: blue" name="tieuban-list">
+                            	<option value="0">Chưa có tiểu ban</option>
                             	<c:forEach items="${tieuBans}" var="tieuBan">
 	                                <option value="${tieuBan.getMaTB()}">${tieuBan.getTenTB()}</option>
 	                            </c:forEach>

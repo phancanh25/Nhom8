@@ -30,11 +30,10 @@
             <div class="div-top-wrapper">
                	<a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
-                
-                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Login</a>
-                <a href="Home/logout.htm" style="margin: 0px;  border: none; background: none; visibility: ${user!=null?'visible':'hidden'}">Logout</a>
-                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Hi ${user}</a>
-                <a href="open-account-mng.htm" style="margin-right: 18px;" ${user=='admin'?'':'hidden'}>Quản lý tài khoản</a>
+                <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
+                <a href="Home/logout.htm" style="margin: 0 -100px 0 10px; border: none; background: none; width: 120px; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
+                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
+                <a href="open-account-mng.htm" style="margin-right: 18px;" ${role==1?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
         <div class="div-menu">
@@ -55,7 +54,7 @@
             <p style="color: #0058C4; font-weight: bold; margin-left: 50px">${message}</p>
             <div class="div-add-stu-project-wrapper">
            		<form action="addStudent/add-stu-to-event.htm" method="POST">
-                <table class="table table-striped table-bordered table-add-stu-project">
+                <table class="table table-striped table-bordered table-add-stu-project" style="font-size: 13px;"> 
                     <tr>
                         <th>MSSV</th>
                         <th>Họ</th>
@@ -82,7 +81,7 @@
 	                        <input class="student-list" value="${sinhVien.getMaSV()}" name="student-list" type="text" hidden/>
 	                        <input class="student-choose" value="" name="student-choose" type="text" hidden/>
 	                        <td>
-	                            <select name="gvhd-list" class="select-teacher" style="${sinhVien.getDoAn() != null?'pointer-events: auto; opacity: 1;':'pointer-events: none; opacity: 0.5'}">
+	                            <select style="color: blue;" name="gvhd-list" class="select-teacher" style="${sinhVien.getDoAn() != null?'pointer-events: auto; opacity: 1;':'pointer-events: none; opacity: 0.5'}">
 	                            <c:forEach items="${giangViens}" var="giangVien">
 	                                <option ${sinhVien.getDoAn().getGVHD().getMaGV() == giangVien.getMaGV()?'selected':'' } value="${giangVien.getMaGV()}">${giangVien.getHo()} ${giangVien.getTen()}</option>
 	                            </c:forEach> 

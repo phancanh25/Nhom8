@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 
 @Entity
 @Table(name="DoAn")
@@ -37,6 +39,8 @@ public class DoAn {
 	private Float diemPB;
 	@Column(name="DiemTB")
 	private Float diemTB;
+	
+	@Formula(value= "(DiemHD + DiemPB + DiemTB)/3")
 	@Column(name="DiemTong")
 	private Float diemTong;
 	@Column(name="Nam")
