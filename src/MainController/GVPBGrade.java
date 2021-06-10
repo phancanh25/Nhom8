@@ -71,6 +71,7 @@ public class GVPBGrade {
 				model.addAttribute("message", "Thông báo: Có lỗi xảy ra: "+e.getMessage());
 			}
 		}
+		session.close();
 		other.checkLogin(ss, model);
 		ShowStudent(model, ss);
 		return "GVPB/GVPBGrade";

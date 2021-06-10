@@ -53,17 +53,15 @@ public class AddProject {
 			try {
 				session.update(doAn);
 				transaction.commit();
-				model.addAttribute("message", "Thông báo: Chấm điểm hướng dẫn thành công");
+				model.addAttribute("message", "Thông báo: Chọn đề tài thành công");
 			}
 			catch (HibernateError e) {
 				transaction.rollback();
 				System.out.println("Loi khi cap nhat do an(buoc 2): "+doAn.getMaDA());
 				model.addAttribute("message", "Thông báo: Đã xảy ra lỗi: "+ e.getMessage());
 			}
-			finally {
-				session.close();
-			}
 		}
+		session.close();
 		other.checkLogin(ss, model);
 		ShowStudent(model, ss);
 		return "addProject/add-project";

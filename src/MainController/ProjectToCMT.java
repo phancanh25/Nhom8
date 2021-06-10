@@ -75,6 +75,7 @@ public class ProjectToCMT {
 				model.addAttribute("message", "Thông báo: Có lỗi xảy ra: "+e.getMessage());
 			}
 		}
+		session.close();
 		other.checkLogin(ss, model);
 		showCMT(model, ss);
 		return "ProjectToCMT/prj-to-scmt";
