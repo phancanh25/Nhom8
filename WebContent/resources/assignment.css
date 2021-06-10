@@ -1,0 +1,31 @@
+.div-assignment{
+    margin: 0 auto;
+    width: 70%;
+    min-height: 100px;
+    max-height: 750px;
+    box-shadow: 0px 10px 20px 0px black;
+    padding-bottom: 50px;
+}
+.div-assignment li{
+    list-style: none;
+    clear: left;
+    margin-top:10px;
+}
+.div-assignment-roadmap{
+    width: 90%;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.table{
+	margin-top:20px;
+}
+
+.btn-danger, .btn-success{
+	width: 80px;
+}
+.btn-confirm{
+	position: absolute;
+	width: 120px;
+	left: 50%;
+	transform: translate(-50%, 0);
+}

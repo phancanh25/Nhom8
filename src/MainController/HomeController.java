@@ -1,6 +1,8 @@
 package MainController;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,18 +12,21 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import MainEntity.SinhVien;
+import MainBean.SinhVien;
+import other.Other;
 
 
 @Transactional
 @Controller
 @RequestMapping("/Home/")
 public class HomeController {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("index")
-	public String index() {
+	public String index(ModelMap model, HttpSession ss) {
+		other.checkLogin(ss, model);
 		return "home/index";	
 	}
 	@RequestMapping("teacher")
@@ -42,11 +47,30 @@ public class HomeController {
 	}
 	@RequestMapping("event-info")
 	public String eventinfo() {
+		
 		return "event/event-info";	
 	}
 	@RequestMapping("student-info")
 	public String studentinfo() {
 		return "student/student-info";	
+	}
+	@RequestMapping("cmt-student") //show committee student
+	public String cmtStudent() {
+		return "tieuban/show-student";	
+	}
+	@RequestMapping("cmt-teacher") //show committee teacher
+	public String cmtTeacher() {
+		return "tieuban/show-teacher";	
+	}
+	
+	@RequestMapping("assignment")
+	public String assignment() {
+		return "assignment/assignment";	
+	}
+	
+	@RequestMapping("statistic")
+	public String chart() {
+		return "Statistic/charts";	
 	}
 	
 	@RequestMapping("showstudent")

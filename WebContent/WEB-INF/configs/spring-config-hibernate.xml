@@ -30,10 +30,10 @@
 	    <property name="hibernateProperties">
 	      <props>        
 	            <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>          
-	            <prop key="hibernate.show_sql">true</prop> <!-- Chỗ này true / false là thê nào vậy thầy -->
+	            <prop key="hibernate.show_sql">true</prop>
 	       </props>
 	    </property>
-		<property name="packagesToScan" value="MainEntity"/>
+		<property name="packagesToScan" value="MainBean"/>
 	</bean>
 	
 	<!-- Transaction Manager -->
