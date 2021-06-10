@@ -44,13 +44,13 @@ public class Assignment {
 			System.out.println("Đã có kỳ bảo vệ");
 			int action = 0;
 			if(lock.isAddStudent()==false) model.addAttribute("lock", "1");
-			if(lock.isAddTeacher1()==false) model.addAttribute("lock", "1");
-			if(lock.isAddProject()==false) model.addAttribute("lock", "2");
-			if(lock.isMark1()==false) model.addAttribute("lock", "3");
-			if(lock.isAddTeacher2()==false) model.addAttribute("lock", "4");
-			if(lock.isMark2()==false) model.addAttribute("lock", "5");
-			if(lock.isToCMT()==false) model.addAttribute("lock", "6");
-			if(lock.isMark3()==false) model.addAttribute("lock", "7");
+			if(lock.isAddTeacher1()==false) model.addAttribute("lock", "2");
+			if(lock.isAddProject()==false) model.addAttribute("lock", "3");
+			if(lock.isMark1()==false) model.addAttribute("lock", "4");
+			if(lock.isAddTeacher2()==false) model.addAttribute("lock", "5");
+			if(lock.isMark2()==false) model.addAttribute("lock", "6");
+			if(lock.isToCMT()==false) model.addAttribute("lock", "7");
+			if(lock.isMark3()==false) model.addAttribute("lock", "8");
 			
 		}
 		other.checkLogin(ss, model);
@@ -65,13 +65,13 @@ public class Assignment {
 		Transaction transaction = session.beginTransaction();
 		Lock lock = (Lock)(session.get(Lock.class, year));
 		lock.setAddStudent(action==1?false:true);
-		lock.setAddTeacher1(action==1?false:true);
-		lock.setAddProject(action==2?false:true);
-		lock.setMark1(action==3?false:true);
-		lock.setAddTeacher2(action==4?false:true);
-		lock.setMark2(action==5?false:true);
-		lock.setToCMT(action==6?false:true);
-		lock.setMark3(action==7?false:true);
+		lock.setAddTeacher1(action==2?false:true);
+		lock.setAddProject(action==3?false:true);
+		lock.setMark1(action==4?false:true);
+		lock.setAddTeacher2(action==5?false:true);
+		lock.setMark2(action==6?false:true);
+		lock.setToCMT(action==7?false:true);
+		lock.setMark3(action==8?false:true);
 		try {
 			session.update(lock);
 			transaction.commit();

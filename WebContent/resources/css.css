@@ -168,7 +168,7 @@ body{
 
 
 
-.div-login, .div-add-teacher, .div-edit-teacher, .div-add-student, .div-edit-student, .div-student-in-event, .div-teacher-in-event{
+.div-login, .div-profile, .div-add-teacher, .div-edit-teacher, .div-add-student, .div-edit-student, .div-student-in-event, .div-teacher-in-event{
     width: 450px;
     height: 400px;
     background-color: white;
@@ -183,6 +183,46 @@ body{
     text-align: center;
     visibility: hidden;
     z-index: 10;
+}
+
+.div-profile{
+	display: block;
+	height: 500px;
+	width: 900px;
+	padding: 20px 10px;
+}
+.div-profile-info, .div-change-pass{
+	width: 48%;
+	height: 100%;
+	border: 1px #7FACFE solid;
+}
+.div-profile-info{
+	float: left;
+	display: block;
+}
+.div-change-pass{
+	margin-left: 4%;
+	float: left;
+	display: block;
+}
+.div-info-permanent, .div-info-change{
+	clear: both;
+	width: 90%;
+	margin: 0 auto;
+	height: 30%;
+	max-height: 40%;
+	margin-top: 10px;
+}
+.div-info-permanent div{
+	margin-left: 50px;
+	text-align: left;
+	float: left;
+}
+.div-info-change{
+	text-align: left;
+}
+.div-info-change a{
+	float: right;
 }
 
 .div-login{
@@ -209,11 +249,11 @@ body{
     height: 100px;
     width: 100px;
 }
-.div-login form{
+.div-login form, .div-profile form{
     width: 100%;
     height: 50%;
 }
-.div-login input, .div-add-teacher input, .div-edit-teacher input, .div-add-student input, .div-edit-student input, .div-student-in-event input{
+.div-login input, .div-profile input, .div-add-teacher input, .div-edit-teacher input, .div-add-student input, .div-edit-student input, .div-student-in-event input{
     width: 80%;
     height: 25%;
     margin-top: 10px;
@@ -228,12 +268,12 @@ body{
 .div-add-student input, .div-edit-student input{
     height: 15%;
 }
-.div-login input:focus, .div-add-teacher input:focus, .div-edit-teacher input:focus, .div-add-student input:focus, .div-edit-student input:focus, .div-student-in-event input:focus{
+.div-login input:focus, .div-profile input:focus, .div-add-teacher input:focus, .div-edit-teacher input:focus, .div-add-student input:focus, .div-edit-student input:focus, .div-student-in-event input:focus{
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
     outline: none;
 }
-.div-login button, .div-add-teacher button, .div-edit-teacher button, .div-add-student button, .div-edit-student button, .div-student-in-event button{
+.div-login button, .div-profile button, .div-add-teacher button, .div-edit-teacher button, .div-add-student button, .div-edit-student button, .div-student-in-event button{
     margin-top: 20px;
     height: 20%;
     width: 40%;
@@ -259,7 +299,7 @@ body{
     overflow: scroll;
 }
 
-.div-login button:hover, .div-add-teacher button:hover, .div-edit-teacher button:hover, .div-add-student button:hover, .div-edit-student button:hover, .div-student-in-event button:hover{
+.div-login button:hover, .div-profile button:hover, .div-add-teacher button:hover, .div-edit-teacher button:hover, .div-add-student button:hover, .div-edit-student button:hover, .div-student-in-event button:hover{
     background-color: #479bc6;
     cursor: pointer;
 }

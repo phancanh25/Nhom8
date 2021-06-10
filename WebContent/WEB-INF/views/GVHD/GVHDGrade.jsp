@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="div-mark1">
-            <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Giảng viên hướng dẫn chấm điểm</p>
+            <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Phân công giảng viên hướng dẫn</p>
             <p style="color: #0058C4; font-weight: bold; margin-left: 50px">${message}</p>
             <div class="div-mark1-wrapper">
             <form action="GVHD/gvhd-grade.htm" method="POST">

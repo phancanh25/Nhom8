@@ -7,6 +7,14 @@ function closeLogin(){
     document.getElementById("div-login").className = "div-login fadeOutDown";
 }
 
+function openChangePass(){
+	document.getElementById("div-profile").style.visibility = "visible";
+    document.getElementById("div-profile").className = "div-profile fadeInDown";
+}
+function closeChangePass(){
+	document.getElementById("div-profile").className = "div-profile fadeOutDown";
+}
+
 function openForgotPass(){
 	document.getElementById("div-login-form").classList.remove("rightIn");
 	document.getElementById("div-login-form").classList.add("leftIn");
@@ -114,13 +122,9 @@ function check(){
     var list = document.getElementsByClassName("student-check");
     for(i = 0; i<list.length; i++){
         if(list[i].checked){
-        	document.getElementsByClassName("select-teacher")[i].style['pointer-events'] = "auto";
-        	document.getElementsByClassName("select-teacher")[i].style.opacity = "1";
         	document.getElementsByClassName("student-choose")[i].value = "choose";
         }
         else{
-        	document.getElementsByClassName("select-teacher")[i].style.pointerEvents = "none";
-        	document.getElementsByClassName("select-teacher")[i].style.opacity = "0.5";
         	document.getElementsByClassName("student-choose")[i].value = "";
         }
     }
@@ -213,7 +217,7 @@ function changeAccountType(){
 
 //Lock chuc nang trong phan cong do an
 function setLock(button, number){
-	for(i = 0; i < 7; i++){
+	for(i = 0; i < 8; i++){
 			if(i==number-1) continue;
 			document.getElementsByClassName("btn-lock")[i].classList.remove("btn-success");
 			document.getElementsByClassName("btn-lock")[i].classList.add("btn-danger");

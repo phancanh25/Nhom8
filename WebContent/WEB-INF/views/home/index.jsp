@@ -11,6 +11,43 @@
 <title>Trang chủ</title>
 </head>
 <body>
+		<div id="div-profile" class="div-profile ${changePassFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null?'visible':'hidden'}">
+			<a href="javascript:void(0)" class="a-login-quit" onclick="closeChangePass();" style="margin-top: -12px;">&times</a>
+			<div class="div-profile-info">
+				<h5 style="color: #2F79FF; margin-top: 20px;">Thông tin tài khoản</h5>
+				<div class="div-info-permanent">
+					<img src="resources/img/user1.png" style="width: 120px; height: 120px; float: left; border: 1px #2F79FF solid; padding: 5px;">
+					<div>
+						<p>Giảng viên</p>
+						<hr style="background: gray;">
+						<p>PTITGV01</p>
+						<hr style="background: gray;">
+						<p>Huỳnh Trọng Thưa</p>
+					</div>
+				</div>	
+				<div class="div-info-change">
+					<hr>
+					<p>Giới tính: Nam <a href="javascript:void()">Sửa</a></p>
+					<hr style="background: gray;">
+					<p>SĐT: 0987654321 <a href="javascript:void()">Sửa</a></p>
+					<hr style="background: gray;">
+					<p>Địa chỉ: 97 Man Thiện, TP Thủ Đức, TP HCM <a href="javascript:void()">Sửa</a></p>
+				</div>
+				<button class="btn-primary" style="width: 200px; height: 40px; margin: 50px auto;">Sửa thông tin</button>
+			</div>
+			<div class="div-change-pass">
+				<img src="resources/img/change-pass.png" style="width:200px; height: 90px; margin:0 auto">
+				<h5 style="color: #2F79FF; text-align: center">Thay đổi mật khẩu</h5>
+				<span ${changePassMsg ==null?'hidden':''} style="color: ${changePassFlag=='wrong'?'red':'#00A213'}">${changePassMsg}</span>
+			            <form action="change-pass.htm" method="POST">
+			                <input type="password" name="oldpass" placeholder="Mật khẩu hiện tại"><br>
+			                <input type="password" name="newpass1" placeholder="Mật khẩu mới"><br>
+			                <input type="password" name="newpass2" placeholder="Nhập lại mật khẩu mới"><br>
+			                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
+			                <button class="btn-primary" type="submit">Đổi mật khẩu</button>
+			            </form>
+			</div>
+		</div>
         <div class="div-login ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'fadeInDown':''}" style="visibility: ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'visible':'hidden'}" id="div-login">
             <div id="div-login-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
 	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
@@ -44,7 +81,7 @@
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
                 <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
                 <a href="Home/logout.htm" style="margin: 0 -100px 0 10px; border: none; background: none; width: 120px; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
-                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
+                <a href="javascript:void(0)" onClick="openChangePass();" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
                 <a href="open-account-mng.htm" style="margin-right: 18px;" ${role==1?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>

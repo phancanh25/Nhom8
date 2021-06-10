@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import MainBean.AccountGV;
 import MainBean.AccountSV;
+import other.Other;
 
 
 @Transactional
@@ -24,6 +25,8 @@ import MainBean.AccountSV;
 public class LoginController {
 	@Autowired
 	SessionFactory factory;
+	
+	Other other = new Other();
 	
 	@RequestMapping("login")
 	public String openIndex(ModelMap model, @RequestParam("username") String username, 
@@ -48,6 +51,7 @@ public class LoginController {
 		return "redirect:/Home/index.htm";
 	}
 	
+	//kiem tra tai khoan
 	public boolean checkLogin(String username, String password, HttpSession ss, ModelMap model) {
 		boolean flag = true;
 		Session session = factory.getCurrentSession();
@@ -58,7 +62,8 @@ public class LoginController {
 		}
 		//Neu la tai khoan sinh vien
 		else if(accountGV == null) {
-			if(accountSV.getPassword().equals(password)) {
+			if(accountSV.getPassword().equals(other.getMd5(password))) {
+				ss.setAttribute("account", accountSV.getUsername());
 				ss.setAttribute("user", accountSV.getSinhVien().getHo() + " " + accountSV.getSinhVien().getTen());
 				ss.setAttribute("code", accountSV.getSinhVien().getMaSV()); // code la ma so sinh vien hoac ma so giang vien
 				ss.setAttribute("role", accountSV.getRole().getMaRole());
@@ -67,7 +72,8 @@ public class LoginController {
 		}
 		//Neu la tai khoan giang vien
 		else if(accountSV == null) {
-			if(accountGV.getPassword().equals(password)) {
+			if(accountGV.getPassword().equals(other.getMd5(password))) {
+				ss.setAttribute("account", accountGV.getUsername());
 				ss.setAttribute("user", accountGV.getGiangVien().getHo() + " " + accountGV.getGiangVien().getTen());
 				ss.setAttribute("code", accountGV.getGiangVien().getMaGV()); // code la ma so sinh vien hoac ma so giang vien
 				ss.setAttribute("role", accountGV.getRole().getMaRole());

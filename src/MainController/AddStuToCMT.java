@@ -74,60 +74,67 @@ public class AddStuToCMT {
 	@RequestMapping("add-stu-to-event")
 	public String addStuToEvent(@RequestParam("student-list") String[] studentList, 
 			@RequestParam("student-choose") String[] studentChoose, 
-			@RequestParam("gvhd-list") String[] gvhdList, ModelMap model, HttpSession ss) {
+			ModelMap model, HttpSession ss) {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		System.out.println(gvhdList.length);
 		System.out.println(studentList.length);
 		for(int i = 0 ; i<studentList.length; i++) {
 			Session session = factory.openSession();
 			Transaction transaction = session.beginTransaction();
+			GiangVien gvhd = null;
+			GiangVien gvpb = null;
+			TieuBan tieuBan = null;
 			//Chon sinh vien thi them do an cho sinh vien do
+			
+			//Neu chon sinh vien
 			if(studentChoose[i].equals("choose")) {
+				//Kiem tra sinh vien do co do an chua, neu chua co thi them, neu co roi thi bo qua
 				SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, studentList[i]));
-				GiangVien gvhd = (GiangVien)(session.get(GiangVien.class, gvhdList[i]));
-				GiangVien gvpb = null;
-				TieuBan tieuBan = null;
-				//Neu sinh vien co do an roi thi next
-				if(sinhVien.getDoAn() != null) continue;
-				DoAn doAn = new DoAn("", "", gvhd, gvpb, (float)0, (float)0, (float)0, (float)0, year, tieuBan, sinhVien);
-				sinhVien.setDoAn(doAn);
-				try {
-					session.save(doAn);
-					session.update(sinhVien);
-					transaction.commit();
-					model.addAttribute("message", "Thông báo: Chọn sinh viên làm đồ án thành công");
-				}
-				catch (HibernateError e) {
-					transaction.rollback();
-					System.out.println("Loi khi luu do an: "+doAn.getMaDA());
-					model.addAttribute("message", "Thông báo: Đã xảy ra lỗi: "+e.getMessage());
-				}
-				finally {
-					session.close();
+				if(sinhVien.getDoAn() == null) {
+					DoAn doAn = new DoAn("", "", gvhd, gvpb, (float)0, (float)0, (float)0, (float)0, year, tieuBan, sinhVien);
+					sinhVien.setDoAn(doAn);
+					try {
+						session.save(doAn);
+						session.update(sinhVien);
+						transaction.commit();
+						model.addAttribute("message", "Thông báo: Chọn sinh viên làm đồ án thành công");
+					}
+					catch (HibernateError e) {
+						transaction.rollback();
+						System.out.println("Loi khi luu do an: "+doAn.getMaDA());
+						model.addAttribute("message", "Thông báo: Đã xảy ra lỗi: "+e.getMessage());
+					}
+					finally {
+						session.close();
+					}
 				}
 			}
-			//Bo chon sinh vien thi xoa do an cua sinh vien do
+			//Neu khong chon sinh vien do (co the la khong chon hoac bo chon)
 			else {
+				//Kiem tra neu sinh vien do da co do an thi xoa di
 				SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, studentList[i]));
-				if(sinhVien.getDoAn() == null) continue;
-				DoAn doAn = (DoAn)(session.get(DoAn.class, sinhVien.getDoAn().getMaDA()));
-				DoAn doAnNull = null;
-				sinhVien.setDoAn(doAnNull);
-				try {
-					session.update(sinhVien);
-					session.delete(doAn);
-					transaction.commit();
-					model.addAttribute("message", "Thông báo: Chọn sinh viên làm đồ án thành công");
+				if(sinhVien.getDoAn() != null) {
+					DoAn doAn = (DoAn)(session.get(DoAn.class, sinhVien.getDoAn().getMaDA()));
+					DoAn doAnNull = null;
+					sinhVien.setDoAn(doAnNull);
+					try {
+						session.update(sinhVien);
+						session.delete(doAn);
+						transaction.commit();
+						model.addAttribute("message", "Thông báo: Chọn sinh viên làm đồ án thành công");
+					}
+					catch (HibernateError e) {
+						transaction.rollback();
+						System.out.println("Loi khi luu do an: "+doAn.getMaDA());
+						model.addAttribute("message", "Thông báo: Đã xảy ra lỗi: "+e.getMessage());
+					}
+					finally {
+						session.close();
+					}
 				}
-				catch (HibernateError e) {
-					transaction.rollback();
-					System.out.println("Loi khi luu do an: "+doAn.getMaDA());
-					model.addAttribute("message", "Thông báo: Đã xảy ra lỗi: "+e.getMessage());
-				}
-				finally {
-					session.close();
-				}
+				
 			}
+			
+			
 		}
 		
 		ShowStudent(model);

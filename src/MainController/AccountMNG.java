@@ -50,7 +50,7 @@ public class AccountMNG {
 	}
 	
 
-	
+	//Tao tai khoan
 	@RequestMapping("account-add")
 	public String accountAdd(ModelMap model,
 			@RequestParam("username") String username, 
@@ -96,7 +96,7 @@ public class AccountMNG {
 				Transaction transaction = session.beginTransaction();
 				GiangVien giangVien = (GiangVien)(session.get(GiangVien.class, ma));
 				Role role = (Role)(session.get(Role.class, 2));
-				AccountGV accountGV = new  AccountGV(username, password, role, giangVien,email);
+				AccountGV accountGV = new  AccountGV(username, other.getMd5(password), role, giangVien,email);
 				try {
 					session.save(accountGV);
 					transaction.commit();
@@ -154,7 +154,7 @@ public class AccountMNG {
 				Transaction transaction = session.beginTransaction();
 				SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, ma));
 				Role role = (Role)(session.get(Role.class, 3));
-				AccountSV accountSV = new AccountSV(username, password, role, sinhVien, email);
+				AccountSV accountSV = new AccountSV(username, other.getMd5(password), role, sinhVien, email);
 				try {
 					session.save(accountSV);
 					transaction.commit();
@@ -293,6 +293,78 @@ public class AccountMNG {
 				model.addAttribute("forgotError","Tài khoản không tồn tại");
 				model.addAttribute("forgotFlag", "have");
 			}			
+		}
+		other.checkLogin(ss, model);
+		return "home/index";
+	}
+	
+	//Doi mat khau
+	@RequestMapping("change-pass")
+	public String changePass(@RequestParam("oldpass") String oldPass,
+			@RequestParam("newpass1") String newPass1,
+			@RequestParam("newpass2") String newPass2,
+			ModelMap model, HttpSession ss) {
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		if((int)(ss.getAttribute("role")) != 3) {
+			AccountGV accountGV = (AccountGV)(session.get(AccountGV.class, (String)(ss.getAttribute("account"))));
+			if(!other.getMd5(oldPass).equals(accountGV.getPassword())) {
+				System.out.println("Mật khẩu cũ không chính xác");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Mật khẩu cũ không chính xác");
+			}
+			else if(!newPass1.equals(newPass2)) {
+				System.out.println("Nhập lại mật khẩu chưa chính xác");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Nhập lại mật khẩu không khớp");
+			}
+			else {
+				try {
+					accountGV.setPassword(other.getMd5(newPass1));
+					session.update(accountGV);
+					transaction.commit();
+					model.addAttribute("changePassFlag", "done");
+					model.addAttribute("changePassMsg", "Đổi mật khẩu thành công");
+				}
+				catch (HibernateException e) {
+					System.out.println("Co loi xay ra khi cap nhat mau khau");
+					model.addAttribute("changePassFlag", "done");
+					model.addAttribute("changePassMsg", "Đã xảy ra lỗi: "+e.getMessage());
+				}
+				finally {
+					session.close();
+				}
+			}
+		}
+		else {
+			AccountSV accountSV = (AccountSV)(session.get(AccountSV.class, (String)(ss.getAttribute("account"))));
+			if(!other.getMd5(oldPass).equals(accountSV.getPassword())) {
+				System.out.println("Mật khẩu cũ không chính xác");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Mật khẩu cũ không chính xác");
+			}
+			else if(!newPass1.equals(newPass2)) {
+				System.out.println("Nhap lai mat khau chua chinh xac");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Nhập lại mật khẩu không khớp");
+			}
+			else {
+				try {
+					accountSV.setPassword(other.getMd5(newPass1));
+					session.update(accountSV);
+					transaction.commit();
+					model.addAttribute("changePassFlag", "done");
+					model.addAttribute("changePassMsg", "Đổi mật khẩu thành công");
+				}
+				catch (HibernateException e) {
+					System.out.println("Co loi xay ra khi cap nhat mau khau");
+					model.addAttribute("changePassFlag", "wrong");
+					model.addAttribute("changePassMsg", "Đã xảy ra lỗi: "+e.getMessage());
+				}
+				finally {
+					session.close();
+				}
+			}
 		}
 		other.checkLogin(ss, model);
 		return "home/index";
