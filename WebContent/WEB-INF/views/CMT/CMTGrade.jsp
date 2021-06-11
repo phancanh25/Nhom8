@@ -47,6 +47,7 @@
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
                 <a href="${role == 1 || role == 2?'teacher/teacher.htm':'error.htm'}" >DSGV</a>
                 <a href="Home/index.htm">Trang chủ</a>
+                <input id="myInput" type="text" placeholder="Search..">
             </div>
         </div>
         <div class="div-mark3">
@@ -73,6 +74,7 @@
                         <th>Tiểu ban</th>
                         <th>Điểm tiểu ban</th>
                     </tr>
+                    <tbody id="myTable">
                     <c:forEach items="${sinhViens}" var="sinhVien">
                     <tr>
                     	<td>${sinhVien.getMaSV()}</td>
@@ -101,10 +103,22 @@
                         	<td><input value="${sinhVien.getDoAn().getDiemTB()}" style="color: blue; font-weight: bold" name="diemCMT" step="0.01" type="number" placeholder="Điểm tiểu ban"></td>
 	                    </tr>
 						</c:forEach>
+						</tbody>
                 </table>
             </div>
             <button type="submit" class="finish-btn btn btn-success" id="btn-success" style="position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
         </div>
         
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </html>

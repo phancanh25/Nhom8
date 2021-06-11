@@ -47,6 +47,7 @@
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
                 <a href="${role == 1 || role == 2?'teacher/teacher.htm':'error.htm'}" >DSGV</a>
                 <a href="Home/index.htm">Trang chủ</a>
+                <input id="myInput" type="text" placeholder="Search..">
             </div>
         </div>
         <div class="div-add-stu-project">
@@ -66,6 +67,7 @@
                         <th>Điểm TBTL</th>
                         <th>Chọn</th>
                     </tr>
+                     <tbody id="myTable">
                     <c:forEach items="${sinhViens}" var="sinhVien">
                     	<tr style="text-align: center; font-weight: normal; font-size: 13px">
 	            			<td>${sinhVien.getMaSV()}</td>
@@ -81,6 +83,7 @@
 	                        <input class="student-choose" value="${sinhVien.getDoAn() == null?'':'choose'}" name="student-choose" type="text" hidden/>
             			</tr>
                     </c:forEach>
+                    </tbody>
                 </table>
                 
             </div>
@@ -89,4 +92,15 @@
         </div>
         
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </html>

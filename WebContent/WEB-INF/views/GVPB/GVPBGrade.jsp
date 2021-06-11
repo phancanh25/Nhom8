@@ -46,7 +46,8 @@
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
                 <a href="${role == 1 || role == 2?'teacher/teacher.htm':'error.htm'}" >DSGV</a>
-                <a href="Home/index.htm">Trang chủ</a>
+                <a href="Home/index.htm">Trang chủ</a>            
+				<input id="myInput" type="text" placeholder="Search..">
             </div>
         </div>
         <div class="div-mark2">
@@ -71,6 +72,8 @@
                         <th>GVPB</th>
                         <th>Điểm phản biện</th>
                     </tr>
+                    <tbody id="myTable">
+
                     <c:forEach items="${sinhViens}" var="sinhVien">
 	                    <tr>
 	                        <td>${sinhVien.getMaSV()}</td>
@@ -95,6 +98,7 @@
 	                        <td><input style="color: blue; font-weight: bold" name="diemPB" value="${sinhVien.getDoAn().getDiemPB()}" step="0.01" type="number" placeholder="Điểm pb" min="0" max="10" title="Từ 0-10, độ chia 0.01" required="required"></td>
 	                    </tr>
 						</c:forEach>
+						</tbody>
 
                 </table>
             </div>
@@ -102,4 +106,15 @@
         </div>
         
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </html>
