@@ -73,6 +73,7 @@ public class CMTGrade {
 				model.addAttribute("message", "Thông báo: Chấm điểm hướng dẫn thành công");
 			}
 		}
+		session.close();
 		other.checkLogin(ss, model);
 		ShowStudent(model);
 		return "CMT/CMTGrade";

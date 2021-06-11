@@ -98,7 +98,7 @@
                             <select style="color: blue" name="tieuban-list">
                             	<option value="0">Chưa có tiểu ban</option>
                             	<c:forEach items="${tieuBans}" var="tieuBan">
-	                                <option value="${tieuBan.getMaTB()}">${tieuBan.getTenTB()}</option>
+	                                <option value="${tieuBan.getMaTB()}" ${tieuBan.getMaTB() == sinhVien.getDoAn().getTieuBan().getMaTB()?'selected':''}>${tieuBan.getTenTB()}</option>
 	                            </c:forEach>
                             </select>
                         

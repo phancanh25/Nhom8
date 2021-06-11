@@ -96,7 +96,7 @@ public class AccountMNG {
 				Transaction transaction = session.beginTransaction();
 				GiangVien giangVien = (GiangVien)(session.get(GiangVien.class, ma));
 				Role role = (Role)(session.get(Role.class, 2));
-				AccountGV accountGV = new  AccountGV(username, other.getMd5(password), role, giangVien,email);
+				AccountGV accountGV = new  AccountGV(username, other.getMd5(password), role, giangVien, email, "");
 				try {
 					session.save(accountGV);
 					transaction.commit();
@@ -154,7 +154,7 @@ public class AccountMNG {
 				Transaction transaction = session.beginTransaction();
 				SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, ma));
 				Role role = (Role)(session.get(Role.class, 3));
-				AccountSV accountSV = new AccountSV(username, other.getMd5(password), role, sinhVien, email);
+				AccountSV accountSV = new AccountSV(username, other.getMd5(password), role, sinhVien, email, "");
 				try {
 					session.save(accountSV);
 					transaction.commit();
@@ -245,36 +245,37 @@ public class AccountMNG {
 	}
 	
 	@RequestMapping(value="forgotpass",method = RequestMethod.POST)
-	public String send(HttpSession ss, ModelMap model,@RequestParam("ma") String maso,@RequestParam("email")String to)
+	public String send(HttpSession ss, ModelMap model,@RequestParam("ma") String maSo,@RequestParam("email")String to)
 
 	{
-
-		boolean check = true;
-		if(check) {
-			try {
-				String matKhau = "";
-				Session s = factory.getCurrentSession();
+		Session session = factory.openSession();
+		final Transaction transaction = session.beginTransaction();
+			ForgotPass: try {
+				String token = other.generateToken();
 				
-				String hql = "SELECT  password FROM AccountGV WHERE giangVien.maGV = :ma and email = :email";
-				Query q = s.createQuery(hql);
-				q.setParameter("ma",maso);	
-				q.setParameter("email",to);
-				matKhau = (String)q.uniqueResult();
-				if(matKhau==null) {
-					String hql1 = "SELECT  password FROM AccountSV WHERE sinhVien.maSV = :ma and email = :email";
-					Query q1 = s.createQuery(hql1);
-					q1.setParameter("ma",maso);	
-					q1.setParameter("email",to);		
-					matKhau = (String)q1.uniqueResult();
+				String hql = "FROM AccountGV WHERE maGV = '"+maSo+"' and email = '"+to+"'";
+				Query q = session.createQuery(hql);
+				AccountGV accountGV = (AccountGV)q.uniqueResult();
+				
+				hql = "FROM AccountSV WHERE maSV = '"+maSo+"' and email = '"+to+"'";
+				q = session.createQuery(hql);
+				AccountSV accountSV = (AccountSV)q.uniqueResult();
+				if(accountGV != null) {
+					accountGV.setToken(other.getMd5(token));
+					session.update(accountGV);
 				}
-				if(matKhau==null) {
+				else if(accountSV != null){
+					accountSV.setToken(other.getMd5(token));
+					session.update(accountSV);
+				}
+				else{
 					model.addAttribute("forgotError","Tài khoản không tồn tại");
 					model.addAttribute("forgotFlag", "have");
-				}
-				else {
+					break ForgotPass;
+				}				
 					String from = "nguoideptrai001wer@gmail.com";			
 					String subject="PTITHCM - Nhận mật khẩu";
-					String body="Mật khẩu của bạn là "+matKhau;
+					String body="Click vào đường link sau để tạo mật khẩu mới: <a href=\"http://localhost:4545/Nhom8/create-new-pass/"+token+".htm\">Tạo mật khẩu mới</a>";
 					MimeMessage mail = mailer.createMimeMessage();
 					// su dung lop tro giup
 					MimeMessageHelper helper = new MimeMessageHelper(mail);
@@ -287,13 +288,16 @@ public class AccountMNG {
 					//gui mai
 					mailer.send(mail);
 					model.addAttribute("forgotFlag","done");
-				}
+					transaction.commit();
 			} 
 			catch (Exception e) {
-				model.addAttribute("forgotError","Tài khoản không tồn tại");
+				transaction.rollback();
+				model.addAttribute("forgotError","Đã có lỗi xảy ra: "+e.getMessage());
 				model.addAttribute("forgotFlag", "have");
 			}			
-		}
+			finally {
+				session.close();
+			}
 		other.checkLogin(ss, model);
 		return "home/index";
 	}

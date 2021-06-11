@@ -28,17 +28,21 @@ public class AccountGV {
 	@Column(name="email")
 	private String email;
 	
+	@Column(name="token")
+	private String token;
+	
 	public AccountGV() {
 		super();
 	}
 
-	public AccountGV(String username, String password, Role role, GiangVien giangVien, String email) {
+	public AccountGV(String username, String password, Role role, GiangVien giangVien, String email, String token) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
 		this.giangVien = giangVien;
 		this.email = email;
+		this.token = token;
 	}
 
 	public String getUsername() {
@@ -79,6 +83,14 @@ public class AccountGV {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	

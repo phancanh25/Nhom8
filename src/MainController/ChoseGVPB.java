@@ -82,6 +82,7 @@ public class ChoseGVPB {
 				model.addAttribute("message", "Thông báo: Có lỗi xảy ra: "+e.getMessage());
 			}
 		}
+		session.close();
 		ShowStudent(model);
 		other.checkLogin(ss, model);
 		return "GVPB/addGVPB";

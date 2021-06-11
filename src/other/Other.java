@@ -3,10 +3,14 @@ package other;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.ModelMap;
+
+import com.mchange.util.Base64Encoder;
 
 public class Other {
 	public void checkLogin(HttpSession ss, ModelMap model) {
@@ -43,6 +47,14 @@ public class Other {
 	        catch (NoSuchAlgorithmException e) {
 	            throw new RuntimeException(e);
 	        }
+	    }
+	    
+	    public static String generateToken() {
+	    	SecureRandom secureRandom = new SecureRandom();
+	    	Base64.Encoder base64Encoder = Base64.getUrlEncoder();
+	        byte[] randomBytes = new byte[24];
+	        secureRandom.nextBytes(randomBytes);
+	        return base64Encoder.encodeToString(randomBytes);
 	    }
 	
 	public Other() {}
