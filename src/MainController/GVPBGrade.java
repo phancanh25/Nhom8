@@ -39,7 +39,7 @@ public class GVPBGrade {
 		try {
 			Session session = factory.getCurrentSession();
 			String userCode = (String)ss.getAttribute("code");
-			String hql = "FROM SinhVien where doAn.nam= "+year+" and doAn.GVPB is not null order by diemTBTL DESC";
+			String hql = "FROM SinhVien where doAn.nam= "+year+" and doAn.GVPB.maGV = '"+userCode+"' order by diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
 			for(SinhVien i : sinhViens) {
