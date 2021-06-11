@@ -8,9 +8,9 @@
 <base href="${pageContext.servletContext.contextPath}/">
 <script src="resources/script.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css.css">
-        <link rel="stylesheet" type="text/css" href="resources/add-gvhd.css">
+        <link rel="stylesheet" type="text/css" href="resources/new-pass.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<title>Chọn giảng viên hướng dẫn</title>
+<title>Tạo mật khẩu mới</title>
 
 </head>
 <body>
@@ -49,48 +49,23 @@
                 <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
-        <div class="div-add-gvhd">
-            <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Phân công giảng viên hướng dẫn <code>(Table dùng sql chỉ lọc ra những sinh viên đủ điểm hướng dẫn)</code></p>
-            <p style="color: #0058C4; font-weight: bold; margin-left: 50px">${message}</p>
-            <div class="div-add-gvhd-wrapper">
-            	<form action="ChoseGVHD/add-gvhd.htm" method="POST">
-                <table class="table table-striped table-bordered table-add-gvhd" style="font-size: 13px;">
-                    <tr>
-                        <th>MSSV</th>
-                        <th>Họ</th>
-                        <th>Tên</th>
-                        <th>Lớp</th>
-                        <th>Phái</th>
-                        <th>Ngày sinh</th>
-                        <th>Khóa</th>
-                        <th>Điểm TBTL</th>
-                        <th>GVHD</th>
-                    </tr>
-                        <c:forEach items="${sinhViens}" var="sinhVien">
-	                    <tr>
-	                        <td>${sinhVien.getMaSV()}</td>
-		                    <td>${sinhVien.getHo()}</td>
-		                    <td>${sinhVien.getTen()}</td>
-		                    <td>${sinhVien.getLop()}</td>
-		                    <td>${sinhVien.isPhai()?'Nam':'Nữ'}</td>
-		                    <td>${sinhVien.getNgaySinh()}</td>
-		                    <td>${sinhVien.getKhoa()}</td>
-		                    <td>${sinhVien.getDiemTBTL()}</td>
-		                    <input class="student-choose" value="" name="student-choose" type="text" hidden/>
-		                    <td>
-	                            <select style="color: blue;" name="gvhd-list" class="select-teacher" style="${sinhVien.getDoAn() != null?'pointer-events: auto; opacity: 1;':'pointer-events: none; opacity: 0.5'}">
-	                            	<option value="none">Chưa có</option>
-		                            <c:forEach items="${giangViens}" var="giangVien">
-		                                <option ${sinhVien.getDoAn().getGVHD().getMaGV() == giangVien.getMaGV()?'selected':'' } value="${giangVien.getMaGV()}">${giangVien.getHo()} ${giangVien.getTen()}</option>
-		                            </c:forEach> 
-	                            </select>
-	                        </td> 
-	                        <input name="maDA" type="text" value="${sinhVien.getDoAn().getMaDA()}" hidden>
-	                    </tr>
-						</c:forEach>
-                </table>
+        <div class="div-new-pass">
+            <div class="div-renew-pass" ${token!='expired'?'':'hidden' }>
+            	<p>Xin chào tài khoản ${account}</p>
+            	<h5 style="text-align: center ;color: ${wrongFlag=='wrong'?'red;':'#00CE40'}">${flagMsg} <a href="Home/index.htm" ${doneFlag==null?'hidden':''}>Trở về trang chủ</a></h5>
+            	<form action="set-new-pass.htm" method="POST">
+            		<input type="text" name="account" value="${account}" hidden/>
+            		<input type="number" name="accountRole" value="${accountRole}" hidden/>
+            		<input type="password" name="newpass1" placeholder="Nhập mật khẩu mới" required="required"/>
+            		<input type="password" name="newpass2" placeholder="Nhập lại mật khẩu mới" required="required"/>
+            		<br/>
+            		<button class="btn-primary" type="submit">Xác nhận</button>
+            	</form>
             </div>
-            <button type="submit" class="finish-btn btn btn-success" id="btn-success" style="position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+            <div class="div-error" ${token=='expired'?'':'hidden' }>
+            	<img src="resources/img/error.png" width="200px" height="200px">
+            	<p>Đường dẫn đã hết hạn</p>
+            </div>
         </div>
         
     </body>

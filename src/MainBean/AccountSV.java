@@ -28,6 +28,9 @@ public class AccountSV {
 	@Column(name="email")
 	private String email;
 	
+	@Column(name="token")
+	private String token;
+	
 	public AccountSV() {
 		super();
 	}
@@ -72,13 +75,24 @@ public class AccountSV {
 		this.email = email;
 	}
 
-	public AccountSV(String username, String password, Role role, SinhVien sinhVien, String email) {
+	public AccountSV(String username, String password, Role role, SinhVien sinhVien, String email, String token) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
 		this.sinhVien = sinhVien;
 		this.email = email;
+		this.token = token;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 
 }

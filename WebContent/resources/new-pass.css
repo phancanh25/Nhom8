@@ -1,0 +1,80 @@
+@charset "ISO-8859-1";
+.div-new-pass{
+    width: 70%;
+    height: 400px;
+    box-shadow: 0px 10px 20px 0px black;
+    margin: 0 auto;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.div-renew-pass, .div-error{
+	margin: 0 auto;
+	width: 100%;
+	height: 100%;
+}
+
+.div-error{
+	text-align: center;
+	font-family: Tahoma, sans-serif;
+	margin-top: 50px;
+}
+.div-error p{
+	font-size:40px;
+	font-weight: bold;
+	background: linear-gradient(180deg, #791307, #C91A07, #FF1A00);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+
+.div-renew-pass p{
+	margin-top: 20px;
+	text-align: center;
+	font-size:	30px;
+	font-weight: bold;
+	background: linear-gradient(180deg, #05172A, #0E4680, #2076D4);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+}
+
+.div-renew-pass form{
+	width: 40%;
+	height: 60%;
+	margin: 0 auto;
+	border: 1px #60B5E0 solid;
+	border-radius: 10px;
+	display: flex;
+	flex-flow: column wrap;
+}
+
+.div-renew-pass input{
+	width: 300px;
+    height: 25%;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: none;
+    background: #DADCDE;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+.div-renew-pass input:focus{
+	background-color: #fff;
+	border-bottom: 2px solid #5fbae9;
+	outline: none;
+}
+
+.div-renew-pass button{
+	margin: 0 auto;
+	width: 40%;
+	height: 40px;
+	border-radius: 10px;
+    border: none;
+    background-color: #58baed;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 10px 20px 0px #d7e6ee;
+    outline: none;
+}
