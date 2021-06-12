@@ -33,7 +33,7 @@ public class AddProject {
 
 	@RequestMapping("showProject")
 	public String showStudent(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		ShowStudent(model, ss);
 		return "addProject/add-project";
 	}
@@ -62,7 +62,7 @@ public class AddProject {
 			}
 		}
 		session.close();
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		ShowStudent(model, ss);
 		return "addProject/add-project";
 	}

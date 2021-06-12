@@ -38,7 +38,7 @@ public class CmtTeacher {
 			System.out.println(i.getMaGV());
 		}
 		model.addAttribute("giangViens", giangViens);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "tieuban/show-teacher";
 	}
 }

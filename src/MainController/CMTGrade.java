@@ -32,7 +32,7 @@ public class CMTGrade {
 	SessionFactory factory;
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		ShowStudent(model);
 		return "CMT/CMTGrade";
 	}
@@ -74,7 +74,7 @@ public class CMTGrade {
 			}
 		}
 		session.close();
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		ShowStudent(model);
 		return "CMT/CMTGrade";
 	}

@@ -38,7 +38,7 @@ public class AccountMNG {
 	@RequestMapping("open-account-mng")
 	public String openAccountMNG(ModelMap model, HttpSession ss) {
 		Other other = new Other();
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		Session session = factory.getCurrentSession();
 		String hql = "FROM AccountGV";
 		Query query = session.createQuery(hql);
@@ -298,7 +298,7 @@ public class AccountMNG {
 			finally {
 				session.close();
 			}
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "home/index";
 	}
 	
@@ -370,7 +370,7 @@ public class AccountMNG {
 				}
 			}
 		}
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "home/index";
 	}
 	

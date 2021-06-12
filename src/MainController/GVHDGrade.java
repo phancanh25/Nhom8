@@ -31,7 +31,7 @@ public class GVHDGrade {
 	
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		ShowStudent(model, ss);
 		return "GVHD/GVHDGrade";
 	}
@@ -75,7 +75,7 @@ public class GVHDGrade {
 				model.addAttribute("message", "Thông báo: Có lỗi xảy ra: "+e.getMessage());
 			}
 		}
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		ShowStudent(model, ss);
 		return "GVHD/GVHDGrade";
 	}

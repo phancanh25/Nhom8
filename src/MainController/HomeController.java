@@ -6,12 +6,16 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import MainBean.AccountSV;
+import MainBean.GiangVien;
 import MainBean.SinhVien;
 import other.Other;
 
@@ -26,7 +30,7 @@ public class HomeController {
 	
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "home/index";	
 	}
 	@RequestMapping("teacher")
@@ -81,5 +85,43 @@ public class HomeController {
 		List<SinhVien> list = query.list();
 		model.addAttribute("students",list);
 		return "home/student-show";	
+	}
+	
+	@RequestMapping("edit-profile")
+	public String editProfile(@RequestParam("edit-gender") boolean editGender,
+			@RequestParam("edit-phone") String editPhone,
+			@RequestParam("edit-address") String editAddress,
+			@RequestParam("edit-role") int editRole,
+			@RequestParam("edit-code") String editCode,
+			ModelMap model, HttpSession ss) {
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			if(editRole == 3) {
+				SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, editCode));
+				sinhVien.setPhai(editGender);
+				sinhVien.setDiaChi(editAddress);
+				session.update(sinhVien);
+				transaction.commit();
+			}
+			else {
+				GiangVien giangVien = (GiangVien)(session.get(GiangVien.class, editCode));
+				giangVien.setPhai(editGender);
+				giangVien.setDiaChi(editAddress);
+				giangVien.setSDT(editPhone);
+				session.update(giangVien);
+				transaction.commit();
+			}
+			model.addAttribute("changeProfileFlag", "Chỉnh sửa thông tin thành công");
+		}
+		catch (Exception e) {
+			model.addAttribute("changeProfileFlag", "Đã có lỗi xảy ra: "+e.getMessage());
+			transaction.rollback();
+		}
+		finally {
+			session.close();
+		}
+		other.checkLogin(ss, model, factory.getCurrentSession());
+		return "home/index";	
 	}
 }

@@ -11,29 +11,38 @@
 <title>Trang chủ</title>
 </head>
 <body>
-		<div id="div-profile" class="div-profile ${changePassFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null?'visible':'hidden'}">
-			<a href="javascript:void(0)" class="a-login-quit" onclick="closeChangePass();" style="margin-top: -12px;">&times</a>
+		<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
+			<a href="javascript:void(0)" class="a-login-quit" onclick="closeProfile();" style="margin-top: -12px;">&times</a>
 			<div class="div-profile-info">
 				<h5 style="color: #2F79FF; margin-top: 20px;">Thông tin tài khoản</h5>
 				<div class="div-info-permanent">
 					<img src="resources/img/user1.png" style="width: 120px; height: 120px; float: left; border: 1px #2F79FF solid; padding: 5px;">
 					<div>
-						<p>Giảng viên</p>
+						<p>${role==3?'Sinh viên':''} ${role==2?'Giảng viên':''} ${role==1?'Quản trị':''}</p>
 						<hr style="background: gray;">
-						<p>PTITGV01</p>
+						<p>${code}</p>
 						<hr style="background: gray;">
-						<p>Huỳnh Trọng Thưa</p>
+						<p>${giangVienPro.getHo()} ${giangVienPro.getTen()} ${sinhVienPro.getHo()} ${sinhVienPro.getTen()}</p>
 					</div>
 				</div>	
 				<div class="div-info-change">
-					<hr>
-					<p>Giới tính: Nam <a href="javascript:void()">Sửa</a></p>
-					<hr style="background: gray;">
-					<p>SĐT: 0987654321 <a href="javascript:void()">Sửa</a></p>
-					<hr style="background: gray;">
-					<p>Địa chỉ: 97 Man Thiện, TP Thủ Đức, TP HCM <a href="javascript:void()">Sửa</a></p>
-				</div>
-				<button class="btn-primary" style="width: 200px; height: 40px; margin: 50px auto;">Sửa thông tin</button>
+					<form action="Home/edit-profile.htm" method="POST">
+						<input type="number" value="${role}" name="edit-role" hidden/>
+						<input type="text" value="${code}" name="edit-code" hidden>
+						<hr>
+						<p>Giới tính:
+							<select name="edit-gender" value="${giangVienPro.isPhai()}${sinhVienPro.isPhai()}">
+								<option value="${0}" ${giangVienPro.isPhai() == false || sinhVienPro.isPhai() == false?'selected':''}>Nam</option>
+								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nữ</option>
+							</select>
+						<p id="p-phone" ${giangVienPro == null?'hidden':''} style="border-bottom: 1px gray solid">SĐT: ${giangVienPro.getSDT()} <a href="javascript:void()" onClick="editPhone('${giangVienPro.getSDT()}')">Sửa</a></p>
+						<input value="${giangVienPro.getSDT()}" name="edit-phone" style="width: 100%; margin-bottom:10px; margin-top: 0px; " type="text" spellcheck="false" id="input-phone" spellcheck="false" hidden>
+						<p id="p-address" style="border-bottom: 1px gray solid">Địa chỉ: ${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}<a href="javascript:void()" onClick="editAddress('${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}')">Sửa</a></p>
+						<input value="${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}"name="edit-address" style="width: 100%; margin-top: 10px;" type="text" spellcheck="false" id="input-address" spellcheck="false" hidden>
+					</div>
+					<span ${changeProfileFlag == null?'hidden':''}" style="color: blue;">${changeProfileFlag}</span>
+					<button class="btn-primary" type="submit" style="width: 200px; height: 40px; margin: 10px auto;">Sửa thông tin</button>
+					</form>
 			</div>
 			<div class="div-change-pass">
 				<img src="resources/img/change-pass.png" style="width:200px; height: 90px; margin:0 auto">
@@ -53,7 +62,7 @@
 	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
 	            <img src="resources/img/logo-lite.png">
 	            <form action="./login.htm" method="POST">
-	                <input type="text" name="username" placeholder="Tên đăng nhập"><br>
+	                <input type="text" spellcheck="false" name="username" placeholder="Tên đăng nhập"><br>
 	                <input type="password" name="password" placeholder="Mật khẩu"><br>
 	                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
 	                <button type="submit">Đăng nhập</button>
@@ -69,7 +78,7 @@
 	            <p class="error" ${forgotFlag=='have'?'':'hidden'}>${forgotError}</p>
 	            <p class="text-success" ${forgotFlag=='done'?'':'hidden'}>Vui lòng kiểm tra gmail để nhận mật khẩu</p>
 	            <form action="forgotpass.htm" method="POST">
-		            <input name="ma" id="Ma" type="text" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
+		            <input name="ma" id="Ma" type="text" spellcheck="false" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
 		            <input type="email" name="email" id="email" placeholder="Nhập Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
 	                <button type="submit">Lấy lại mật khẩu</button>
 	            </form>
@@ -81,7 +90,7 @@
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
                 <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
                 <a href="Home/logout.htm" style="margin: 0 -100px 0 10px; border: none; background: none; width: 120px; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
-                <a href="javascript:void(0)" onClick="openChangePass();" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
+                <a href="javascript:void(0)" onClick="openProfile();" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
                 <a href="open-account-mng.htm" style="margin-right: 18px;" ${role==1?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
