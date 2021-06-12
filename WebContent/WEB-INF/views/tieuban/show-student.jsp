@@ -35,8 +35,8 @@
 						<hr>
 						<p>Giới tính:
 							<select name="edit-gender" value="${giangVienPro.isPhai()}${sinhVienPro.isPhai()}">
-								<option value="${0}" ${giangVienPro.isPhai() == false || sinhVienPro.isPhai() == false?'selected':''}>Nam</option>
-								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nữ</option>
+								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nam</option>
+								<option value="${0}" ${giangVienPro.isPhai() == false || sinhVienPro.isPhai() == false?'selected':''}>Nữ</option>
 							</select>
 						<p id="p-phone" ${giangVienPro == null?'hidden':''} style="border-bottom: 1px gray solid">SĐT: ${giangVienPro.getSDT()} <a href="javascript:void()" onClick="editPhone('${giangVienPro.getSDT()}')">Sửa</a></p>
 						<input value="${giangVienPro.getSDT()}" name="edit-phone" style="width: 100%; margin-bottom:10px; margin-top: 0px; " type="text" spellcheck="false" id="input-phone" spellcheck="false" hidden>
@@ -98,9 +98,7 @@
         <div class="div-student-content">
         	<p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
           <div class="div-search">
-              <input type="text" placeholder="Tên sinh viên">
-              <input type="text" placeholder="Lớp">
-              <input type="text" placeholder="Khóa">
+              <input id="myInput" type="text" placeholder="Search..">
               <button>Tìm kiếm</button>
           </div>
             <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
@@ -117,13 +115,14 @@
 		                    <th>Đồ án</th>
 		                    
 	            </tr>
+	            <tbody id="myTable">
             	<c:forEach items="${sinhViens}" var="sinhVien">
             		<tr style="text-align: center; font-weight: normal; font-size: 13px">
             			<th>${sinhVien.getMaSV()}</th>
 	                    <th>${sinhVien.getHo()}</th>
 	                    <th>${sinhVien.getTen()}</th>
 	                    <th>${sinhVien.getLop()}</th>
-	                    <th>${sinhVien.isPhai()?'Nữ':'Nam'}</th>
+	                    <th>${sinhVien.isPhai()?'Nam':'Nữ'}</th>
 	                    <th>${sinhVien.getNgaySinh()}</th>
 	                    <th>${sinhVien.getDiaChi()}</th>
 	                    <th>${sinhVien.getKhoa()}</th>
@@ -131,7 +130,19 @@
 	                    <td><a target="_blank" href="student/student/${sinhVien.getMaSV()}.htm" >Click</a></td>
             		</tr>
             	</c:forEach>
+            	</tbody>
             </table>
         </div>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </html>

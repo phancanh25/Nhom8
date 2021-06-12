@@ -34,8 +34,8 @@
 						<hr>
 						<p>Giới tính:
 							<select name="edit-gender" value="${giangVienPro.isPhai()}${sinhVienPro.isPhai()}">
-								<option value="${0}" ${giangVienPro.isPhai() == false || sinhVienPro.isPhai() == false?'selected':''}>Nam</option>
-								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nữ</option>
+								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nam</option>
+								<option value="${0}" ${giangVienPro.isPhai() == false || sinhVienPro.isPhai() == false?'selected':''}>Nữ</option>
 							</select>
 						<p id="p-phone" ${giangVienPro == null?'hidden':''} style="border-bottom: 1px gray solid">SĐT: ${giangVienPro.getSDT()} <a href="javascript:void()" onClick="editPhone('${giangVienPro.getSDT()}')">Sửa</a></p>
 						<input value="${giangVienPro.getSDT()}" name="edit-phone" style="width: 100%; margin-bottom:10px; margin-top: 0px; " type="text" spellcheck="false" id="input-phone" spellcheck="false" hidden>
@@ -155,7 +155,7 @@
 	                                    </li>
 	                                    <li>
 	                                        <div class="div-patern-info">Giới tính</div>
-	                                        <div class="div-data">${t.isPhai()?'Nữ':'Nam'}</div>
+	                                        <div class="div-data">${t.isPhai()?'Nam':'Nữ'}</div>
 	                                    </li>
 	                                    <li>
 	                                        <div class="div-patern-info">SĐT</div>

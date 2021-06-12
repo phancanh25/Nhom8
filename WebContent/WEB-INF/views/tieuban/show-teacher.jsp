@@ -98,8 +98,7 @@
         <div class="div-student-content">
         	<p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
           <div class="div-search">
-              <input type="text" placeholder="Mã giảng viên">
-              <input type="text" placeholder="Tên giảng viên">
+              <input id="myInput" type="text" placeholder="Search..">
               <button>Tìm kiếm</button>
           </div>
             <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
@@ -112,6 +111,7 @@
 		                    <th>Địa chỉ</th>
 		                    
 	            </tr>
+	            <tbody id="myTable">
             	<c:forEach items="${giangViens}" var="giangVien">
             		<tr style="text-align: center; font-weight: bold; font-size: 13px">
             				<td>${giangVien.getMaGV()}</td>
@@ -122,7 +122,19 @@
             				<td>${giangVien.getDiaChi()}</td>
             		</tr>
             	</c:forEach>
+            	</tbody>
             </table>
         </div>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </html>

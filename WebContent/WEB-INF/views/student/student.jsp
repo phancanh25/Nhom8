@@ -73,13 +73,13 @@
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeAddStudent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Thêm sinh viên</p>
             <form action="student/add-student.htm" method="POST">
-                <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV" pattern="^n\d{2}dc[a-z]{2}\d{3}" title="Format MSSV chưa đúng" size="10" required><br>
+                <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV" pattern="^N\d{2}DC[A-Z]{2}\d{3}" title="Format MSSV chưa đúng" size="10" required><br>
                 <input name="khoa" type="number" placeholder="Khóa" path="khoa" min="1900" max="2900" required><br>
                 <input name="ho" type="text" placeholder="Họ" path="ho" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input name="ten" type="text" placeholder="Tên" path="ten" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
                 <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
                 <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
-                <input name="lop" type="text" placeholder="Lớp" path="lop" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required><br>
+                <input name="lop" type="text" placeholder="Lớp" path="lop" pattern="^D\d{2}CQ[A-Z]{2}\d{2}-N$" title="Format lớp chưa đúng" size="11" required><br>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
                 <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"  size="200"><br>

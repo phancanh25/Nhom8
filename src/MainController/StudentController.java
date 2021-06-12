@@ -74,32 +74,43 @@ public class StudentController {
 		GiangVien GVHD = null;
 		GiangVien GVPB = null;
 		DoAn doAn = null;
-		SinhVien sinhVien = new SinhVien(maSV.toUpperCase(), ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
+		SinhVien sinhVien = new SinhVien(maSV, ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL,doAn);
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
-		
-		String hql = "FROM SinhVien";
-		
-		Query q = session.createQuery(hql);
-		List<SinhVien> s = q.list();	
-		try {
-			boolean check = true;
-			model.addAttribute("check",check);
-			if(check) {
-				session.save(sinhVien);
-				t.commit();
-				model.addAttribute("message", "Thêm sinh viên thành công");
-				System.out.println("Thêm sinh viên thành công");
+//		//Check trùng mssv
+		String hql0 = "FROM SinhVien WHERE maSV = :maSV";
+		Query q0  = session.createQuery(hql0);
+		q0.setParameter("maSV", sinhVien.getMaSV());
+		SinhVien sv0 = (SinhVien)q0.uniqueResult();	
+		if(!(sv0 == null)) {
+			model.addAttribute("message","Mã số sinh viên đã tồn tại !!!");
+		}
+		else {
+			//Thêm sinh viên
+			String hql = "FROM SinhVien";
+			Query q = session.createQuery(hql);
+			List<SinhVien> s = q.list();
+			try {
+				boolean check = true;
+				model.addAttribute("check",check);
+				if(check) {
+					session.save(sinhVien);
+					t.commit();
+					model.addAttribute("message", "Thêm sinh viên thành công");
+					System.out.println("Thêm sinh viên thành công");
+				}
+			}
+			catch (Exception e) {
+				t.rollback();
+				model.addAttribute("message", "Thêm sinh viên thất bại " + e.getMessage());
+				System.out.println("Thêm sinh viên thất bại " + e.getMessage());
+				
+			}
+			finally {
+				session.close();
 			}
 		}
-		catch (Exception e) {
-			t.rollback();
-			model.addAttribute("message", "Thêm sinh viên thất bại " + e.getMessage());
-			System.out.println("Thêm sinh viên thất bại " + e.getMessage());
-		}
-		finally {
-			session.close();
-		}
+		
 		showStudent(model);
 		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "student/student";

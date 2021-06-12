@@ -120,11 +120,11 @@ public class Statistic {
 		Session session = factory.getCurrentSession();
 		int namSelect = Integer.parseInt(nam);  
 
-		String hql = "from DoAn where diemHD >= 5 and (diemHD + diemPB)/2 >= 5 and nam =" + namSelect;
+		String hql = "from DoAn where diemTong >=5 and nam =" + namSelect;
 		Query q = session.createQuery(hql);
 		List<DoAn> doAns = q.list();
 		
-		String hql1 = "from DoAn where (diemHD < 5 or (diemHD + diemPB)/2 < 5) and nam =" + namSelect;
+		String hql1 = "from DoAn where diemTong <5 and nam =" + namSelect;
 		Query q1 = session.createQuery(hql1);
 		List<DoAn> doAn1s = q1.list();
 		
