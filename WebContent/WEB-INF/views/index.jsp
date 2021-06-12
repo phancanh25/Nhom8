@@ -11,7 +11,7 @@
 <title>Trang chủ</title>
 </head>
 <body>
-	${message}
+c
         <div class="div-login" id="div-login">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
             <img src="resources/img/logo-lite.png">

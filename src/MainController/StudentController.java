@@ -41,7 +41,7 @@ public class StudentController {
 	
 	@RequestMapping("student")
 	public String openStudent(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		showStudent(model);
 		return "student/student";
 	}
@@ -64,7 +64,7 @@ public class StudentController {
 	}
 	
 	@RequestMapping("add-student")
-	public String addStudent(ModelMap model,@RequestParam("maSV") String maSV, @RequestParam("phai") boolean phai, @RequestParam("chuyenNganh") String chuyenNganh,
+	public String addStudent(ModelMap model,@RequestParam("maSV") String maSV, @RequestParam("phai") boolean phai,
 			@RequestParam("khoa") int khoa, @RequestParam("ho") String ho, 
 			@RequestParam("ten") String ten, @RequestParam("lop") String lop, 
 			@RequestParam("ngaySinh") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngaySinh, 
@@ -82,8 +82,6 @@ public class StudentController {
 		
 		Query q = session.createQuery(hql);
 		List<SinhVien> s = q.list();	
-		System.out.println("in gi coi");
-		System.out.println(sinhVien.getMaSV());
 		try {
 			boolean check = true;
 			model.addAttribute("check",check);
@@ -103,7 +101,7 @@ public class StudentController {
 			session.close();
 		}
 		showStudent(model);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "student/student";
 	}
 	
@@ -196,20 +194,12 @@ public class StudentController {
 			session.close();
 		}
 		showStudent(model);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "student/student";
 	}
 	
 	@RequestMapping("student/{id}")
 	public String openCmtStudent(ModelMap model, @PathVariable("id") String maSV, HttpSession ss) {
-		if(ss.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			model.addAttribute("username", ss.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			model.addAttribute("username", "");
-		}
 		Session session = factory.getCurrentSession();
 		SinhVien sinhVien = (SinhVien)(session.get(SinhVien.class, maSV));
 		DoAn doAn = sinhVien.getDoAn();
@@ -220,7 +210,7 @@ public class StudentController {
 			model.addAttribute("flag", "have");
 			model.addAttribute("doAn", doAn);
 		}
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "student/student-info";
 	}
 	

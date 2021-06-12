@@ -14,6 +14,52 @@
 
 </head>
 <body>
+		<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
+			<a href="javascript:void(0)" class="a-login-quit" onclick="closeProfile();" style="margin-top: -12px;">&times</a>
+			<div class="div-profile-info">
+				<h5 style="color: #2F79FF; margin-top: 20px;">Thông tin tài khoản</h5>
+				<div class="div-info-permanent">
+					<img src="resources/img/user1.png" style="width: 120px; height: 120px; float: left; border: 1px #2F79FF solid; padding: 5px;">
+					<div>
+						<p>${role==3?'Sinh viên':''} ${role==2?'Giảng viên':''} ${role==1?'Quản trị':''}</p>
+						<hr style="background: gray;">
+						<p>${code}</p>
+						<hr style="background: gray;">
+						<p>${giangVienPro.getHo()} ${giangVienPro.getTen()} ${sinhVienPro.getHo()} ${sinhVienPro.getTen()}</p>
+					</div>
+				</div>	
+				<div class="div-info-change">
+					<form action="Home/edit-profile.htm" method="POST">
+						<input type="number" value="${role}" name="edit-role" hidden/>
+						<input type="text" value="${code}" name="edit-code" hidden>
+						<hr>
+						<p>Giới tính:
+							<select name="edit-gender" value="${giangVienPro.isPhai()}${sinhVienPro.isPhai()}">
+								<option value="${0}" ${giangVienPro.isPhai() == false || sinhVienPro.isPhai() == false?'selected':''}>Nam</option>
+								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nữ</option>
+							</select>
+						<p id="p-phone" ${giangVienPro == null?'hidden':''} style="border-bottom: 1px gray solid">SĐT: ${giangVienPro.getSDT()} <a href="javascript:void()" onClick="editPhone('${giangVienPro.getSDT()}')">Sửa</a></p>
+						<input value="${giangVienPro.getSDT()}" name="edit-phone" style="width: 100%; margin-bottom:10px; margin-top: 0px; " type="text" spellcheck="false" id="input-phone" spellcheck="false" hidden>
+						<p id="p-address" style="border-bottom: 1px gray solid">Địa chỉ: ${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}<a href="javascript:void()" onClick="editAddress('${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}')">Sửa</a></p>
+						<input value="${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}"name="edit-address" style="width: 100%; margin-top: 10px;" type="text" spellcheck="false" id="input-address" spellcheck="false" hidden>
+					</div>
+					<span ${changeProfileFlag == null?'hidden':''}" style="color: blue;">${changeProfileFlag}</span>
+					<button class="btn-primary" type="submit" style="width: 200px; height: 40px; margin: 10px auto;">Sửa thông tin</button>
+					</form>
+			</div>
+			<div class="div-change-pass">
+				<img src="resources/img/change-pass.png" style="width:200px; height: 90px; margin:0 auto">
+				<h5 style="color: #2F79FF; text-align: center">Thay đổi mật khẩu</h5>
+				<span ${changePassMsg ==null?'hidden':''} style="color: ${changePassFlag=='wrong'?'red':'#00A213'}">${changePassMsg}</span>
+			            <form action="change-pass.htm" method="POST">
+			                <input type="password" name="oldpass" placeholder="Mật khẩu hiện tại"><br>
+			                <input type="password"  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8}$" title="Mật khẩu bạn nhập vào chưa đủ mạnh" name="newpass1" placeholder="Mật khẩu mới"><br>
+			                <input type="password" name="newpass2" placeholder="Nhập lại mật khẩu mới"><br>
+			                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
+			                <button class="btn-primary" type="submit">Đổi mật khẩu</button>
+			            </form>
+			</div>
+		</div>
         <div class="div-login" id="div-login">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
             <img src="resources/img/logo-lite.png">
@@ -28,11 +74,11 @@
         </div>
         <div class="div-top">
             <div class="div-top-wrapper">
-               	<a href="javascript:void(0)">&#9743 0987-654-321</a>
+            	<a href="javascript:void(0)">&#9743 0987-654-321</a>
                 <a href="javascript:void(0)">&#9993 ptithcm@edu.vn</a>
                 <a href="javascript:void(0)" onclick="openLogin();" style="visibility: ${user==null?'visible':'hidden'}">Đăng nhập</a>
                 <a href="Home/logout.htm" style="margin: 0 -100px 0 10px; border: none; background: none; width: 120px; visibility: ${user!=null?'visible':'hidden'}">Đăng xuất</a>
-                <a href="javascript:void(0)" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
+                <a href="javascript:void(0)" onClick="openProfile();" style="margin-right: 10px; visibility: ${user!=null?'visible':'hidden'}">Xin chào ${user}</a>
                 <a href="open-account-mng.htm" style="margin-right: 18px;" ${role==1?'':'hidden'}>Quản lý tài khoản</a>
             </div>
         </div>
@@ -53,25 +99,25 @@
         	<c:choose>
         		<c:when test="${flag=='have'}">
 	        		<div class="div-project-info">
-	            		<tr style="text-align: center; font-weight: normal; font-size: 13px">
-	            			<p>Thông tin đồ án</p>
-			                <p class="project-title p-first">Tên đồ án: ${doAn.getTenDA()}</p>
-			                <p class="project-user p-second">Sinh viên thực hiện: ${doAn.getSinhVien().getHo()}  ${doAn.getSinhVien().getTen()}</p>
-			               <%--  <p class="project-teacher p-third">Giảng viên hướng dẫn: ${doAn.getGVHD().getTenGV()}</p> --%>
-			                <p class="p-fourth">Điểm hướng dẫn: ${doAn.getDiemHD()}</p>
-			                <p class="p-fifth">Điểm phản biện: ${doAn.getDiemPB()}</p>
-			                <p class="p-sixth">Điểm tiểu ban: ${doAn.getDiemTB()}</p>
-			                <p class="p-seventh">Xếp loại tốt nghiệp: Giỏi</p>
-		                   <%--  <td><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm">Click</a></td> --%>
-		                 
-	            		</tr>
-		                
+	        			<p class="p-project-title">Thông tin đồ án</p>
+	        			<p class="p-project-name">Đồ án tốt nghiệp: ${doAn.getTenDA()}</p>
+	        			<div class="div-project-main">
+			                <p class="tam">Sinh viên thực hiện: ${doAn.getSinhVien().getHo()}  ${doAn.getSinhVien().getTen()}</p>
+			                <p>Điểm hướng dẫn: ${doAn.getDiemHD()}</p>
+			                <p>Điểm phản biện: ${doAn.getDiemPB()}</p>
+			                <p>Điểm tiểu ban: ${doAn.getDiemTB()}</p>
+			                <p>Điểm tổng: ${String.format("%.2f", doAn.getDiemTong())}</p>
+			                <p>GV hướng dẫn: ${doAn.getGVHD().getHo()} ${doAn.getGVHD().getTen()}</p>
+			                <p>GV phản biện: ${doAn.getGVPB().getHo()} ${doAn.getGVPB().getTen()}</p>
+			                <p>Xếp loại: ${doAn.getDiemTong()>=8?'Giỏi':doAn.getDiemTong()>=6.5?'Khá':'Trung bình'}
+	        			</div>
+	        			<p class="p-project-more"><i>Chi tiết:</i> ${doAn.getChiTiet()}</p>
 		            </div>
         		</c:when>
         		<c:otherwise>
-        			<div class="div-project-info" style="margin-top: 20px;">
-		                <p>Sinh viên này chưa có đồ án</p>
-		                <img src="resources/img/no-project.png" style="width: 220px; height: 200px; margin-top: 100px;">
+        			<div class="div-project-info" style="margin-top: 20px; text-align: center;">
+		                <p class="p-project-title">Sinh viên này chưa có đồ án</p>
+		                <img src="resources/img/no-project.png" class="center" style="width: 220px; height: 200px; margin: 50px auto">
 		            </div>
         		</c:otherwise>
         	</c:choose>

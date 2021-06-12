@@ -1,0 +1,12 @@
+những thứ cần làm:
+	Sửa font chữ trong code (mấy cái utf-8 lỗi font hôm bữa)
+	Danh sách sinh viên: 
+		Phần thêm sinh viên: Check mã và lớp nên để chữ hoa (input pattern)
+		Kiểm tra mã sinh viên tồn tại, nếu tồn tại thì trả về message: Mã sinh viên bị trùng
+	 
+	Bên biểu đồ tròn chưa chính xác (t thấy chỉ toàn 100% đạt)
+
+	Xem DSGV & DSSV ở DS kỳ bảo vệ: chưa có tìm kiếm
+
+	Test dùm tao phần danh sách kỳ bảo vệ có lỗi gì ko, click vào xem các tiểu ban có đúng chưa
+	

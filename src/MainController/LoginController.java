@@ -48,6 +48,8 @@ public class LoginController {
 		System.out.println("Logout thanh cong");
 		ss.removeAttribute("user");
 		ss.removeAttribute("role");
+		ss.removeAttribute("account");
+		ss.removeAttribute("code");
 		return "redirect:/Home/index.htm";
 	}
 	

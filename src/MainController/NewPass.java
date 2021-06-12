@@ -48,7 +48,7 @@ public class NewPass {
 		else{
 			model.addAttribute("token","expired");
 		}				
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "account/new-pass";
 	}
 	
@@ -95,7 +95,7 @@ public class NewPass {
 		}
 		model.addAttribute("account", account);
 		model.addAttribute("accountRole", accountRole);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "account/new-pass";
 	}
 }

@@ -32,7 +32,7 @@ public class ChoseGVPB {
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
 		ShowStudent(model);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "GVPB/addGVPB";
 	}
 	
@@ -84,7 +84,7 @@ public class ChoseGVPB {
 		}
 		session.close();
 		ShowStudent(model);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "GVPB/addGVPB";
 	}
 }

@@ -35,14 +35,14 @@ public class AddStuToCMT {
 	
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "addStudent/add-student";	
 	}
 	
 	@RequestMapping("showStudent")
 	public String showStudent(ModelMap model, HttpSession ss) {
 		ShowStudent(model);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "addStudent/add-student";
 	}
 	
@@ -138,7 +138,7 @@ public class AddStuToCMT {
 		}
 		
 		ShowStudent(model);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "addStudent/add-student";
 	}
 	

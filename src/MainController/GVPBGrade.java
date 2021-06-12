@@ -30,7 +30,7 @@ public class GVPBGrade {
 	SessionFactory factory;
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		ShowStudent(model, ss);
 		return "GVPB/GVPBGrade";
 	}
@@ -72,7 +72,7 @@ public class GVPBGrade {
 			}
 		}
 		session.close();
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		ShowStudent(model, ss);
 		return "GVPB/GVPBGrade";
 	}

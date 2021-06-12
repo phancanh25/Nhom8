@@ -33,7 +33,7 @@ public class ProjectToCMT {
 	
 	@RequestMapping("show-cmt")
 	public String openCMT(ModelMap model, HttpSession ss) {
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		showCMT(model, ss);
 		return "ProjectToCMT/prj-to-scmt";
 	}
@@ -76,7 +76,7 @@ public class ProjectToCMT {
 			}
 		}
 		session.close();
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		showCMT(model, ss);
 		return "ProjectToCMT/prj-to-scmt";
 	}

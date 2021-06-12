@@ -53,7 +53,7 @@ public class Assignment {
 			if(lock.isMark3()==false) model.addAttribute("lock", "8");
 			
 		}
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "assignment/assignment";
 	}
 	

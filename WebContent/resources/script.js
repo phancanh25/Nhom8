@@ -7,12 +7,25 @@ function closeLogin(){
     document.getElementById("div-login").className = "div-login fadeOutDown";
 }
 
-function openChangePass(){
+function openProfile(){
 	document.getElementById("div-profile").style.visibility = "visible";
     document.getElementById("div-profile").className = "div-profile fadeInDown";
 }
-function closeChangePass(){
+function closeProfile(){
 	document.getElementById("div-profile").className = "div-profile fadeOutDown";
+}
+
+function editAddress(diaChi){
+	document.getElementById("p-address").hidden = true;
+	document.getElementById("input-address").hidden = false;
+	document.getElementById("input-address").value = diaChi;
+	document.getElementById("input-address").focus();
+}
+function editPhone(phone){
+	document.getElementById("p-phone").hidden = true;
+	document.getElementById("input-phone").hidden = false;
+	document.getElementById("input-phone").value = phone;
+	document.getElementById("input-phone").focus();
 }
 
 function openForgotPass(){

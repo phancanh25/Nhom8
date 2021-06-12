@@ -118,7 +118,7 @@ public class TieuBanController {
 		}
 
 		System.out.println(tenTB);
-		other.checkLogin(ss, model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "tieuban/showtb";
 	}
 }
