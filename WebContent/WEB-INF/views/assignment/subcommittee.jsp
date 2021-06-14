@@ -64,7 +64,6 @@
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'div-subcommittee-add');">&times</a>
             <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Thêm tiểu ban (giờ chọn CH bị lỗi)</p>
             <form action="scmt-add.htm" method="POST">
-            	<input name="maTB" type="number" placeholder="Mã tiểu ban(Tạm thời)" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
 	            <input name="tenTB" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">
 	            <!-- step = 2 o duoi la gi??  -->
 	            <input name="gio" type="time" step="2" class="form-control" style="width: 200px; margin-left: 50px; display: inline;">

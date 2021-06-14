@@ -74,7 +74,7 @@ public class Subcommittee {
 	}
 	
 	@RequestMapping("scmt-add")
-	public String scmtAdd(@RequestParam("select") String[] select, @RequestParam("maTB") int maTB, 
+	public String scmtAdd(@RequestParam("select") String[] select, 
 			@RequestParam("tenTB") String tenTB, 
 			@RequestParam("khoa") int khoa, @RequestParam("diaDiem") String diaDiem,
 			@RequestParam("ngay") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngay, 
@@ -91,7 +91,7 @@ public class Subcommittee {
 			GiangVien giangVien = (GiangVien)(session.get(GiangVien.class, i));
 			giangViens.add(giangVien);
 		}
-		TieuBan tieuBan = new TieuBan<>(maTB, tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
+		TieuBan tieuBan = new TieuBan<>(tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
 		try {
 			session.save(tieuBan);
 			transaction.commit();
@@ -104,24 +104,11 @@ public class Subcommittee {
 		finally {
 			session.close();
 		}
-		
-		session = factory.getCurrentSession();
-		TieuBan tam = (TieuBan)(session.get(TieuBan.class, maTB));
-		System.out.println("day ne: ");
-		List<GiangVien> gvTams = tam.getGiangViens();
-		for(GiangVien i: gvTams) {
-			System.out.println(i.getMaGV());
-		}
-		
 		return "redirect:subcommittee.htm";
 	}
 	
 	@RequestMapping("scmt-edit")
 	public String scmtEdit(@RequestParam("select") String[] select, @RequestParam("maTB") int maTB) {
-//		System.out.println("matb ne: "+maTB);
-//		for(String i: select) {
-//			System.out.println(i);
-//		}
 		Session session = factory.openSession();
 		Transaction transaction = session.beginTransaction();
 		TieuBan tieuBan = (TieuBan)(session.get(TieuBan.class, maTB));

@@ -144,6 +144,9 @@ public class HomeController {
 		List<Lock> events = query.list();
 		model.addAttribute("events", events);
 	}
-	
+	@RequestMapping("tieubantam")
+	public String showtb() {
+		return "tieuban/showtb";
+	}
 	
 }

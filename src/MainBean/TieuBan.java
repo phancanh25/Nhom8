@@ -28,6 +28,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="TieuBan")
 public class TieuBan<ChiTietTieuBan> {
 	@Id
+	@GeneratedValue
 	@Column(name="MaTB")
 	private int maTB;
 	
@@ -155,11 +156,9 @@ public class TieuBan<ChiTietTieuBan> {
 		this.giangViens = giangViens;
 	}
 
-
-	public TieuBan(int maTB, String tenTB, String chuyenNganh, Date ngay, Date gio, String diaDiem, int khoa,
-			List<DoAn> doAn, List<GiangVien> giangViens) {
+	public TieuBan(String tenTB, String chuyenNganh, Date ngay, Date gio, String diaDiem, int khoa, List<DoAn> doAn,
+			List<GiangVien> giangViens) {
 		super();
-		this.maTB = maTB;
 		this.tenTB = tenTB;
 		this.chuyenNganh = chuyenNganh;
 		this.ngay = ngay;

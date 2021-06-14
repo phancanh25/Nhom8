@@ -91,7 +91,7 @@ public class TieuBanController {
 	
 	
 	@RequestMapping("add-tieuban")
-	public String addTieuBan(ModelMap model, @RequestParam("maTB") int maTB, @RequestParam("tenTB") String tenTB,
+	public String addTieuBan(ModelMap model, @RequestParam("tenTB") String tenTB,
 			@RequestParam("chuyenNganh") String chuyenNganh,
 			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay,
 			@RequestParam("gio") @DateTimeFormat(pattern = "hh:mm:ss") Time gio,
@@ -101,7 +101,7 @@ public class TieuBanController {
 		List<DoAn> doAns = null;
 		List<GiangVien> giangViens = null;
 
-		TieuBan tieuBan = new TieuBan(maTB, tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
+		TieuBan tieuBan = new TieuBan(tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {

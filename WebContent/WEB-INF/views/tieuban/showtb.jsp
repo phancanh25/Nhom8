@@ -78,7 +78,6 @@
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeAddStudent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Thêm tiểu ban</p>
             <form action="tieuban/add-tieuban.htm" method="POST">
-            	<input name="maTB" type="number" placeholder="Mã tiểu ban"><br>
                 <input name="tenTB" type="text" placeholder="Tên Tiểu ban"><br>
                 <select name="chuyenNganh">
                     <option>An toàn thông tin</option>
