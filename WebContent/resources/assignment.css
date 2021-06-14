@@ -5,16 +5,21 @@
     max-height: 750px;
     box-shadow: 0px 10px 20px 0px black;
     padding-bottom: 50px;
+    display: block;
 }
 .div-assignment li{
     list-style: none;
     clear: left;
     margin-top:10px;
 }
+
 .div-assignment-roadmap{
     width: 90%;
     margin-left: 10px;
     margin-bottom: 10px;
+}
+.ul-assignment{
+	margin-top: -30px;
 }
 .table{
 	margin-top:20px;
@@ -29,3 +34,102 @@
 	left: 50%;
 	transform: translate(-50%, 0);
 }
+
+#div-release{
+	position: fixed;
+	width: 800px;
+	height: 420px;
+	left: 50%; 
+	transform: translate(-50%,0);
+	background: white;
+	z-index: 10;
+	border-radius: 10px;
+	box-shadow: 5px 5px 5px 5px gray;
+	margin-top: 100px;
+	transform: translate(-50%, -150%);
+}
+.div-release-title, .div-release-detail-title{
+	background: blue;
+	color: white;
+	text-align: center;
+	height: 30px;
+    line-height: 30px;
+    color: white;
+    font-size: 18px;
+    background: #3f8eae;
+    border-radius: 10px 10px 0 0;
+}
+.div-add-img, .div-release-detail{
+	float: left;
+	margin-left: 50px;
+}
+.div-add-img{
+	width: 200px;
+	height: 250px;
+	cursor: pointer;
+	padding: 0;
+}
+.div-add-img img{
+	width: 100%;
+	height: 99%;
+	cursor: pointer;
+}
+
+.div-add-img:hover img{
+	opacity: 0.7;
+}
+
+.div-release-detail{
+	width: 450px;
+	height: 250px;
+}
+.div-release-detail textarea{
+	width: 100%;
+	height: 89%;
+	margin-top: -21px;
+	border: 1px black solid;
+	outline: none;
+	resize: none;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+.div-release-detail texarea:focus{
+	outline: none;
+	border: 1px blue solid;
+}
+
+.btn-confirm-release-event{
+	background: #364DB6;
+	left: 50%; 
+	transform: translate(-50%,0); 
+	border-radius: 5px;  
+	bottom: 20px; 
+	height: 40px; 
+	width: 180px; 
+	position: absolute;
+	color: white;
+	font-size: 18px;
+}
+.btn-confirm-release-event:hover{
+	background: #405DE0;
+}
+
+/* @keyframes fadeInDown{
+	0%{
+		transform: translate(-50%,-300%);
+	}
+	100%{
+		transform: translate(-50%, 0%);
+	}
+}
+
+@keyframes fadeOutUp{
+	0%{
+		transform: translate(-50%, 0%);
+	}
+	100%{
+		transform: translate(-50%,-300%);
+	}
+}
+
+.fadeInDown */

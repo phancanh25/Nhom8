@@ -1,5 +1,6 @@
 package MainController;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import MainBean.Lock;
 import MainBean.TieuBan;
@@ -30,6 +32,12 @@ public class Assignment {
 	
 	@RequestMapping("assignment")
 	public String openAssignment(ModelMap model, HttpSession ss) {
+		showLock(model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
+		return "assignment/assignment";
+	}
+	
+	public void showLock(ModelMap model) {
 		//Kiem tra xem ton tai tieu ban nam hien tai chua
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		model.addAttribute("year", year);
@@ -51,10 +59,11 @@ public class Assignment {
 			if(lock.isMark2()==false) model.addAttribute("lock", "6");
 			if(lock.isToCMT()==false) model.addAttribute("lock", "7");
 			if(lock.isMark3()==false) model.addAttribute("lock", "8");
-			
 		}
-		other.checkLogin(ss, model, factory.getCurrentSession());
-		return "assignment/assignment";
+		//Kiem tra xem ky bao ve da duoc cong bo chua (hoan thanh chua)
+		if(lock.getDetail() != null) {
+			model.addAttribute("release", "done");
+		}
 	}
 	
 	@RequestMapping("set-lock")
@@ -82,10 +91,44 @@ public class Assignment {
 			transaction.rollback();
 			System.out.println("Cập nhật lock thất bại "+e.getMessage());
 			session.close();
-			model.addAttribute("message", "Thêm kỳ bảo vệ thất bại "+ e.getMessage());
+			model.addAttribute("wrongFlag", "wrong");
+			model.addAttribute("message", "Thông báo: Đã có lỗi xảy ra: "+ e.getMessage());
 			return "error/error";
 		}
 		
+		return "redirect:assignment.htm";
+	}
+	
+	
+	@RequestMapping("release-event")
+	public String releaseEvent(ModelMap model, HttpSession ss,
+			@RequestParam("img-release-event") MultipartFile file,
+			@RequestParam("textarea-detail") String detail) {
+		byte[] picture = null;
+		try {
+			picture = file.getBytes();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		Lock lock = (Lock)(session.get(Lock.class, year));
+		lock.setPicture(picture);
+		lock.setDetail(detail);
+		try {
+			session.update(lock);
+			transaction.commit();
+		}
+		catch(HibernateException e) {
+			transaction.rollback();
+			model.addAttribute("wrongFlag", "wrong");
+			model.addAttribute("message", "Thông báo: Đã có lỗi xảy ra: "+ e.getMessage());
+			return "error/error";
+		}
+		finally {
+			session.close();
+		}
 		return "redirect:assignment.htm";
 	}
 	

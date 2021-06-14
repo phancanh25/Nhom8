@@ -73,7 +73,7 @@
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeAddStudent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Thêm sinh viên</p>
             <form action="student/add-student.htm" method="POST">
-                <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV" pattern="^N\d{2}DC[A-Z]{2}\d{3}" title="Format MSSV chưa đúng" size="10" required><br>
+                <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV" pattern="^N\d{2}DC[A-Z]{2}\d{3}" title="Format MSSV chưa đúng. Mẫu: N18DCAT001" size="10" required><br>
                 <input name="khoa" type="number" placeholder="Khóa" path="khoa" min="1900" max="2900" required><br>
                 <input name="ho" type="text" placeholder="Họ" path="ho" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input name="ten" type="text" placeholder="Tên" path="ten" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
@@ -139,43 +139,49 @@
         <div class="div-student-content">
         	<p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
           <div class="div-search">
-               <input id="myInput" type="text" placeholder="Search..">
+          	<label>
+          		Tìm kiếm &nbsp;
+          		<input id="myInput" type="text" placeholder="Search..">
+          	</label>
               <button class="btn-primary" onclick="openAddStudent();" style="margin-left: 40px; width: 150px; height: 30px;">Thêm sinh viên</button>
           </div>
-            <table border="1" class="table table-striped table-bordered" style="font-size: 16px;">
-	            <tr style="text-align: center; color: #0096ff">
-	            			<th>MSSV</th>
-		                    <th>Họ</th>
-		                    <th>Tên</th>
-		                    <th>Lớp</th>
-		                    <th>Phái</th>
-		                    <th>Ngày sinh</th>
-		                    <th>Địa chỉ</th>
-		                    <th>Khóa</th>
-		                    <th>Điểm TBTL</th>
-		                    <th> ${role==3?'hidden':''}Đồ án</th>
-		                    <th ${role==1?'':'hidden'}>Action</th>
-		                    <th ${role==1?'':'hidden'}>Action</th>
-	            </tr>
-	            <tbody id="myTable">
-            	<c:forEach items="${sinhViens}" var="sinhVien">
-            		<tr style="text-align: center; font-weight: normal; font-size: 13px">
-            			<th>${sinhVien.getMaSV()}</th>
-	                    <th>${sinhVien.getHo()}</th>
-	                    <th>${sinhVien.getTen()}</th>
-	                    <th>${sinhVien.getLop()}</th>
-	                    <th>${sinhVien.isPhai()?'Nữ':'Nam'}</th>
-	                    <th>${sinhVien.getNgaySinh()}</th>
-	                    <th>${sinhVien.getDiaChi()}</th>
-	                    <th>${sinhVien.getKhoa()}</th>
-	                    <th>${sinhVien.getDiemTBTL()}</th>
-	                    <td ${role == 3 ?'hidden':''}><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" >Click</a></td>
-	                    <td ${role == 1 ?'':'hidden'}><a href="javascript:void()" onclick="openEditStudent('${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}', '${sinhVien.getNgaySinh()}', '${sinhVien.isPhai()}','${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}','${sinhVien.getDiemTBTL()}');" name="${sinhVien.getMaSV()}">Sửa</a></td>
-	                    <th ${role == 1 ?'':'hidden'}><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel" >Xóa</a></th>
-            		</tr>
-            	</c:forEach>
-            	</tbody>
-            </table>
+          <div class="div-student-table-border">
+	          	<table class="table table-striped table-bordered" style="font-size: 16px; border: 1px #41A2FF solid; ">
+		            <tr style="text-align: center; color: #0096ff">
+		            			<th>MSSV</th>
+			                    <th>Họ</th>
+			                    <th>Tên</th>
+			                    <th>Lớp</th>
+			                    <th>Phái</th>
+			                    <th>Ngày sinh</th>
+			                    <th>Địa chỉ</th>
+			                    <th>Khóa</th>
+			                    <th>Điểm TBTL</th>
+			                    <th> ${role==3?'hidden':''}Đồ án</th>
+			                    <th ${role==1?'':'hidden'}>Action</th>
+			                    <th ${role==1?'':'hidden'}>Action</th>
+		            </tr>
+		            <tbody id="myTable">
+	            	<c:forEach items="${sinhViens}" var="sinhVien">
+	            		<tr style="text-align: center; font-weight: normal; font-size: 13px">
+	            			<th>${sinhVien.getMaSV()}</th>
+		                    <th>${sinhVien.getHo()}</th>
+		                    <th>${sinhVien.getTen()}</th>
+		                    <th>${sinhVien.getLop()}</th>
+		                    <th>${sinhVien.isPhai()?'Nữ':'Nam'}</th>
+		                    <th>${sinhVien.getNgaySinh()}</th>
+		                    <th>${sinhVien.getDiaChi()}</th>
+		                    <th>${sinhVien.getKhoa()}</th>
+		                    <th>${sinhVien.getDiemTBTL()}</th>
+		                    <td ${role == 3 ?'hidden':''}><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" >Click</a></td>
+		                    <td ${role == 1 ?'':'hidden'}><a href="javascript:void()" onclick="openEditStudent('${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}', '${sinhVien.getNgaySinh()}', '${sinhVien.isPhai()}','${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}','${sinhVien.getDiemTBTL()}');" name="${sinhVien.getMaSV()}">Sửa</a></td>
+		                    <th ${role == 1 ?'':'hidden'}><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel" >Xóa</a></th>
+	            		</tr>
+	            	</c:forEach>
+	            	</tbody>
+	            </table>
+          </div>
+            
         </div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

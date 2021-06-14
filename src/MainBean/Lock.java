@@ -1,8 +1,11 @@
 package MainBean;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -35,13 +38,20 @@ public class Lock {
 	
 	@Column(name="Mark3")
 	private boolean mark3;
+	
+	@Lob
+	@Column(name="Picture")
+	private byte[] picture;
+	
+	@Column(name="Detail")
+	private String detail;
 
 	public Lock() {
 		super();
 	}
 
 	public Lock(int year, boolean addStudent, boolean addTeacher1, boolean addProject, boolean mark1,
-			boolean addTeacher2, boolean mark2, boolean toCMT, boolean mark3) {
+			boolean addTeacher2, boolean mark2, boolean toCMT, boolean mark3, byte[] picture, String detail) {
 		super();
 		this.year = year;
 		this.addStudent = addStudent;
@@ -52,6 +62,8 @@ public class Lock {
 		this.mark2 = mark2;
 		this.toCMT = toCMT;
 		this.mark3 = mark3;
+		this.picture = picture;
+		this.detail = detail;
 	}
 
 	public int getYear() {
@@ -125,6 +137,37 @@ public class Lock {
 	public void setMark3(boolean mark3) {
 		this.mark3 = mark3;
 	}
+
+	public byte[] getPicture() {
+		return picture;
+	}
+
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+	
+	//chuyen hinh saang base64 de xuat hinh
+	 public String getBase64Photo() {
+		   String base64DataString = null;
+		   if(this.picture != null) {
+			   byte[] encode = java.util.Base64.getEncoder().encode(this.getPicture());
+			   try {
+				   base64DataString = new String(encode, "UTF-8");
+			   }
+			   catch(UnsupportedEncodingException e) {
+				   System.out.println("Lỗi khi chuyển base64 hình ảnh: "+e.getMessage());
+			   }
+		   }
+		   return base64DataString;
+	   }
 	
 	
 }

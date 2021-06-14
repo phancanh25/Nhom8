@@ -174,7 +174,9 @@ public class Subcommittee {
 		Session session = factory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Lock lock = new Lock(year, true, true, true, true, true, true, true, true);
+		byte[] picture = null;
+		String detail = null;
+		Lock lock = new Lock(year, false, true, true, true, true, true, true, true, picture, detail);
 		
 		try {
 			session.save(lock);

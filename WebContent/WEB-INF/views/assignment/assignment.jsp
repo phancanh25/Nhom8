@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <base href="${pageContext.servletContext.contextPath}/">
-<script src="resources/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="resources/script.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css.css">
         <link rel="stylesheet" type="text/css" href="resources/assignment.css">
@@ -15,6 +16,27 @@
 
 </head>
 <body>
+	<div id="div-release">
+		<form action="release-event.htm" method="POST" enctype="multipart/form-data">
+			<a href="javascript:void(0)" class="a-login-quit" onclick="closeRelease();" style="margin-top: -12px; color: white;">&times</a>
+			<p class="div-release-title">Công bố kết quả kỳ bảo vệ đồ án tốt nghiệp 2021</p>
+			<div class="div-add-img">
+				<label style="width: 100%; height: 100%">
+					<img id="img-release" src="resources/img/add-img.png">
+					<input type="file" name="img-release-event" id="input-img-release-event" accept="*.png/*.jpg" onChange="showReleaseImg(event);" style="opacity: 0; height: 1px;" required="required">
+				</label>
+			</div>
+			<div class="div-release-detail">
+				<p class="div-release-detail-title">Chi tiết</p>
+				<textarea name="textarea-detail" rows="8" cols="45" maxlength="560" required="required"></textarea>
+			</div>
+			<p id="p-img-error" hidden style="clear: both; margin-left: 50px; color: red; font-style: italic;">File không đúng định dạng!</p>
+			<p style="font-style: italic; position: absolute; left: 50%; transform: translate(-40%,0); bottom: 50px; width: 600px">
+				(*) Sau khi xác nhận các chức năng dưới đây sẽ không còn hiệu lực nữa
+			</p>
+			<button type="submit" id="btn-confirm-release-event" class="btn-confirm-release-event" disabled="disabled">Xác nhận</button>
+		</form>
+	</div>
 		<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
 			<a href="javascript:void(0)" class="a-login-quit" onclick="closeProfile();" style="margin-top: -12px;">&times</a>
 			<div class="div-profile-info">
@@ -97,6 +119,7 @@
             </div>
         </div>
        <div class="div-assignment">
+       <p id="p-message" ${message==null?'hidden':''} style="color: ${wrongFlag==null?'green':'red'}; font-style: italic; line-height: 20px; margin: 10px 0 20px 45px; display: inline-block;">${message}</p>
        	<br>
        		<c:choose>
        			<c:when test="${flag=='none'}">
@@ -108,10 +131,20 @@
 			                <p style="margin-right: 20px; color: blue;" id="current-exam">&#10095; Kỳ bảo vệ năm 2021 </p>
 			                <div class="div-assignment-roadmap">
 			                	<form action="subcommittee.htm" method="POST">
-			                		<button class="btn btn-primary" ${role==1?'':'hidden'}>Bổ sung tiểu ban</button>
+			                		<button ${release =='done'?'hidden':''} class="btn btn-primary" ${role==1?'':'hidden'} type="submit">Bổ sung tiểu ban</button>
+			                		<input type="checkbox" id="input-event-finish" ${lock==null?'checked':''} hidden/>
+			                		<button ${release =='done'?'hidden':''} class="btn btn-success" ${role==1?'':'hidden'} type="button" style="width: 146px;" onClick="checkOpenRelease();">Công bố kết quả</button>
+			                		<p ${release == 'done'?'':'hidden'} class="bg-success text-white" style="display: inline; padding: 5px 10px 5px 10px; border-radius: 10px;">Kết quả kỳ bảo vệ đồ án tốt nghiệp đã được công bố</p>
 			                	</form>
+			                	<c:if test="${release == 'done'}">
+			                		<script>
+			                			$(function () {
+			                				$("#table-event-action :button").prop("disabled", true);
+			                			   });
+			                		</script>
+			                	</c:if>
 			                	<form action="set-lock.htm" method="POST">
-				                	<table class="table  table-striped table-bordered" style="height: 200px; background: #F1F6F9;">
+				                	<table id="table-event-action" class="table  table-striped table-bordered" style="height: 200px; background: #F1F6F9;">
 				                    	<tr>
 				                    		<th>Giai đoạn</th>
 				                    		<th style="width: 100px">Trạng thái</th>

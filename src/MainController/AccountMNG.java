@@ -45,7 +45,29 @@ public class AccountMNG {
 		List<AccountGV> accountGVs = query.list();
 		model.addAttribute("type", "gv");
 		model.addAttribute("accountGVs", accountGVs);
-		model.addAttribute("error", "");
+		return "account/account-mng";
+	}
+	
+	@RequestMapping("account-seacrh")
+	public String accountSearch(ModelMap model,
+			@RequestParam("type") String type) {
+		Session session = factory.getCurrentSession();
+		String hql = "";
+		if(type.equals("gv")) {
+			hql = "FROM AccountGV accountGV where 1=1";
+			Query query = session.createQuery(hql);
+			List<AccountGV> accountGVs = query.list();
+			model.addAttribute("type", "gv");
+			model.addAttribute("accountGVs", accountGVs);
+		}
+		else {
+			hql = "FROM AccountSV accountSV where 1=1";
+			Query query = session.createQuery(hql);
+			List<AccountSV> accountSVs = query.list();
+			model.addAttribute("type", "sv");
+			model.addAttribute("accountSVs", accountSVs);
+		}
+		
 		return "account/account-mng";
 	}
 	
