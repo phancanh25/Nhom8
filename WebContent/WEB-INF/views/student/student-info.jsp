@@ -109,7 +109,7 @@
 			                <p>Điểm tổng: ${String.format("%.2f", doAn.getDiemTong())}</p>
 			                <p>GV hướng dẫn: ${doAn.getGVHD().getHo()} ${doAn.getGVHD().getTen()}</p>
 			                <p>GV phản biện: ${doAn.getGVPB().getHo()} ${doAn.getGVPB().getTen()}</p>
-			                <p>Xếp loại: ${doAn.getDiemTong()>=8?'Giỏi':doAn.getDiemTong()>=6.5?'Khá':'Trung bình'}
+			                <p>Xếp loại: ${doAn.getDiemTong()>=8?'Giỏi':doAn.getDiemTong()>=6.5?'Khá':doAn.getDiemTong()>=5?'Trung bình':'Không đạt'}</p>
 	        			</div>
 	        			<p class="p-project-more"><i>Chi tiết:</i> ${doAn.getChiTiet()}</p>
 		            </div>

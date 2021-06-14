@@ -254,3 +254,55 @@ function setLock(button, number){
 	}
 	document.getElementById("btn-confirm").disabled = false;
 }
+
+/*Cong bo ket qua bao ve do an nam xxxx*/
+//Kiem tra xem co the cong bo duoc chua (dieu kien: toan bo chuc nang phai duoc khoa)
+function checkOpenRelease(){
+	var finished = document.getElementById("input-event-finish").checked;
+	if(finished == false){
+		document.getElementById("p-message").innerHTML = "Kỳ bảo vệ cần được hoàn thành trước khi công bố kết quả!";
+		document.getElementById("p-message").style.color = "red";
+		document.getElementById("p-message").hidden = false;
+	}
+	else{
+		document.getElementById("p-message").hidden = true;
+		openRelease();
+	}
+}
+
+function openRelease(){
+	document.getElementById("div-release").classList.remove("fadeOutDown");
+	document.getElementById("div-release").classList.add("fadeInDown");
+}
+function closeRelease(){
+	document.getElementById("div-release").classList.remove("fadeInDown");
+	document.getElementById("div-release").classList.add("fadeOutDown");
+}
+
+function showReleaseImg(event) {
+	var type = event.target.files[0].type;
+	if(type != 'image/png' && type!= 'image/jpeg'){
+		document.getElementById("p-img-error").hidden = false;
+		document.getElementById("btn-confirm-release-event").disabled = true;
+		return;
+	}
+	else{
+		document.getElementById("p-img-error").hidden = true;
+	}
+    var output = document.getElementById('img-release');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+    document.getElementById("btn-confirm-release-event").disabled = false;
+ }
+ 
+ function openImgEventRelease(){
+ 	document.getElementById("div-img-event-release").classList.remove("fadeOutDown");
+ 	document.getElementById("div-img-event-release").classList.add("fadeInDown");
+ }
+  function closeImgEventRelease(){
+ 	document.getElementById("div-img-event-release").classList.remove("fadeInDown");
+ 	document.getElementById("div-img-event-release").classList.add("fadeOutDown");
+ }
+  

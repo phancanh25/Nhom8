@@ -59,13 +59,13 @@
 			            </form>
 			</div>
 		</div>
-		<div class="div-account-add ${error!=''?'fadeInDown2':''}" id="div-account-add" style="display: ${error!=''?'block':'hidden'}">
+		<div class="div-account-add ${error!=null?'fadeInDown2':''}" id="div-account-add" style="display: ${error!=null?'block':'hidden'}">
         	<a href="javascript:void()" onclick="closeAccountAdd();" class="a-quit">
         		&times
         	</a>
         	<form action="account-add.htm" method="POST">
 	        	<p class="p-title-add">Thêm tài khoản</p>
-	        	<select name="type" style="width: 60%; margin: 0 auto 10px; text-align: center;">
+	        	<select style="height: 30px;" name="type" style="width: 60%; margin: 0 auto 10px; text-align: center;">
 	        		<option value="gv" ${type=='gv'?'selected':''}>Giảng viên</option>
 	        		<option value="sv" ${type=='sv'?'selected':''}>Sinh viên</option>
 	        	</select>
@@ -104,8 +104,12 @@
         	  <p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
         	  <form action="account-seacrh.htm" method="POST">
 		          <div class="div-search">
-		              <input id="myInput" type="text" placeholder="Search.." style="border:solid 1px;">
-		              <a href="javascript:void(0)" style="margin-left: 60px;" onclick="openAccountAdd();">Thêm tài khoản</a>
+		          	  <select onchange="this.form.submit()" id="select-account-type" onchange="changeAccountType();" name="type" style="float: left; width: 200px; height: 33px; margin-top: 5px;" >
+		              	<option value="gv" ${type=='gv'?'selected':''}>Giảng viên</option>
+		              	<option value="sv" ${type=='sv'?'selected':''}>Sinh viên</option>
+		              </select>
+		              <input id="myInput" type="text" placeholder="Search.." style="border:solid 1px; margin-left: 50px; height: 33px;">
+		              <a href="javascript:void(0)" style="line-height: 20px; margin-left: 60px;" onclick="openAccountAdd();">Thêm tài khoản</a>
 		          </div>
 	          </form>
             <table ${type=='gv'?'':'hidden'} border="1" class="table table-striped table-bordered" style="font-size: 16px; border: 2px  #0095FF solid">
@@ -117,7 +121,7 @@
 	            			<th>Email</th>
 	            			<th></th>
 	            </tr>
-	            <tbody id="myTable">
+	            <tbody class="myTable">
 	            <c:forEach items="${accountGVs}" var="accountGV">
 	            
 	            	<form action="account-delete.htm" method="POST">
@@ -145,6 +149,7 @@
 	            			<th>Quyền</th>
 	            			<th>Xóa</th>
 	            </tr>
+	            <tbody class="myTable">
 	            <c:forEach items="${accountSVs}" var="accountSV">
 	            	<form action="account-delete.htm" method="POST">
 	            		<input name="type" type="text" value="sv" hidden>
@@ -160,6 +165,7 @@
 		            	</tr>
 	            	</form>
 	            </c:forEach>
+	            </tbody>
             </table>	
         </div>
         
@@ -169,7 +175,7 @@
 	$(document).ready(function(){
 	  $("#myInput").on("keyup", function() {
 	    var value = $(this).val().toLowerCase();
-	    $("#myTable tr").filter(function() {
+	    $(".myTable tr").filter(function() {
 	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 	    });
 	  });

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,9 +63,9 @@
             <div id="div-login-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
 	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
 	            <img src="resources/img/logo-lite.png">
-	            <form action="./login.htm" method="POST">
-	                <input type="text" spellcheck="false" name="username" placeholder="Tên đăng nhập"><br>
-	                <input type="password" name="password" placeholder="Mật khẩu"><br>
+	            <form action="Home/login.htm" method="POST">
+	                <input type="text" spellcheck="false" name="username" placeholder="Tên đăng nhập" required="required"><br>
+	                <input type="password" name="password" placeholder="Mật khẩu" required="required"><br>
 	                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
 	                <button type="submit">Đăng nhập</button>
 	            </form>
@@ -109,34 +111,15 @@
         </div>
         <div class="div-home">
             <ul class="ul-home">
-                <li>
-                    <a href="javascript:void(0)"><h4>Danh sách sinh viên tốt nghiệp 2018</h4></a>
-                    <div class="div-content">
-                        <img src="resources/img/img-content1.png">
-                        <p>Trước đó, vào sáng 19/3, tại Trụ sở Chính phủ, Phó Thủ tướng Vũ Đức Đam, Trưởng Ban Chỉ đạo Quốc gia phòng, chống dịch COVID-19 đã chủ trì cuộc họp về “hộ chiếu vaccine COVID-19”. Theo Bộ trưởng Bộ Y tế Nguyễn Thanh Long, từ góc độ tiếp cận của ngành Y tế, “hộ chiếu vaccine COVID-19” thực chất là giấy chứng nhận đã tiêm chủng đầy đủ hai mũi vaccine ngừa COVID-19, được điều chỉnh theo Luật Phòng, chống bệnh truyền nhiễm và Điều lệ kiểm dịch Y tế quốc tế...</p>
-                    </div> 
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><h4>Danh sách sinh viên tốt nghiệp 2018</h4></a>
-                    <div class="div-content">
-                        <img src="resources/img/img-content1.png">
-                        <p>Trước đó, vào sáng 19/3, tại Trụ sở Chính phủ, Phó Thủ tướng Vũ Đức Đam, Trưởng Ban Chỉ đạo Quốc gia phòng, chống dịch COVID-19 đã chủ trì cuộc họp về “hộ chiếu vaccine COVID-19”. Theo Bộ trưởng Bộ Y tế Nguyễn Thanh Long, từ góc độ tiếp cận của ngành Y tế, “hộ chiếu vaccine COVID-19” thực chất là giấy chứng nhận đã tiêm chủng đầy đủ hai mũi vaccine ngừa COVID-19, được điều chỉnh theo Luật Phòng, chống bệnh truyền nhiễm và Điều lệ kiểm dịch Y tế quốc tế...</p>
-                    </div> 
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><h4>Danh sách sinh viên tốt nghiệp 2018</h4></a>
-                    <div class="div-content">
-                        <img src="resources/img/img-content1.png">
-                        <p>Trước đó, vào sáng 19/3, tại Trụ sở Chính phủ, Phó Thủ tướng Vũ Đức Đam, Trưởng Ban Chỉ đạo Quốc gia phòng, chống dịch COVID-19 đã chủ trì cuộc họp về “hộ chiếu vaccine COVID-19”. Theo Bộ trưởng Bộ Y tế Nguyễn Thanh Long, từ góc độ tiếp cận của ngành Y tế, “hộ chiếu vaccine COVID-19” thực chất là giấy chứng nhận đã tiêm chủng đầy đủ hai mũi vaccine ngừa COVID-19, được điều chỉnh theo Luật Phòng, chống bệnh truyền nhiễm và Điều lệ kiểm dịch Y tế quốc tế...</p>
-                    </div> 
-                </li>
-                <li>
-                    <a href="javascript:void(0)"><h4>Danh sách sinh viên tốt nghiệp 2018</h4></a>
-                    <div class="div-content">
-                        <img src="resources/img/img-content1.png">
-                        <p>Trước đó, vào sáng 19/3, tại Trụ sở Chính phủ, Phó Thủ tướng Vũ Đức Đam, Trưởng Ban Chỉ đạo Quốc gia phòng, chống dịch COVID-19 đã chủ trì cuộc họp về “hộ chiếu vaccine COVID-19”. Theo Bộ trưởng Bộ Y tế Nguyễn Thanh Long, từ góc độ tiếp cận của ngành Y tế, “hộ chiếu vaccine COVID-19” thực chất là giấy chứng nhận đã tiêm chủng đầy đủ hai mũi vaccine ngừa COVID-19, được điều chỉnh theo Luật Phòng, chống bệnh truyền nhiễm và Điều lệ kiểm dịch Y tế quốc tế...</p>
-                    </div> 
-                </li>
+            	<c:forEach items="${events}" var="event">
+            		<li>
+            			<a href="./event/${event.getYear()}.htm" target="_blank"><h4>Danh sách sinh viên tốt nghiệp năm ${event.getYear()}</h4></a>
+            			<div class="div-content">
+	                        <img src="data:image/png;base64,${event.getBase64Photo()}" alt="thongbao" />
+	                        <p>${event.getDetail()}</p>
+	                    </div> 
+            		</li>
+            	</c:forEach>
             </ul>
         </div>
     </body>
