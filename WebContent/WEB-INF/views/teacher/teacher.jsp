@@ -155,12 +155,17 @@
 			<div class="div-department">
 				<a href="javascript:void(0)" onclick="openAddTeacher();"
 				style="text-decoration: underline; color: white; text-align: center; position: absolute; top: 8px; right: 20px">Thêm giảng viên</a>
+				<label>
+          			Tìm kiếm &nbsp;
+          		<input id="myInput" type="text" placeholder="Search..">
+          		</label>
 				<p>Danh sách giảng viên</p>
 			</div>
 			<hr style="border: 1px #3f8eae solid; margin-top: 0">
 			<ul class="ul-teacher">
 				<p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
 				<table id="table-teacher" style="width: 100%;">
+					<tbody id="myTable">
 					<c:forEach var="t" items="${giangViens}">
 						<tr>
 							<td>
@@ -199,20 +204,19 @@
 							</td>
 						</tr>
 					</c:forEach>
+					</tbody>
 				</table>
 		</div>
-
-		<!-- <div class="div-teacher-right">
-			<p class="p-teacher-title">CHUYÊN NGÀNH</p>
-			<a href="javascript:void(0)">An toàn thông tin</a>
-			<hr>
-			<a href="javascript:void(0)">Công nghệ đa phương tiện</a>
-			<hr>
-			<a href="javascript:void(0)">Công nghệ thông tin</a>
-			<hr>
-			<a href="javascript:void(0)" onclick="openAddTeacher();"
-				style="text-decoration: underline; text-align: center; margin: 0; margin-top: 50px">Thêm
-				giảng viên</a>
-		</div> -->
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	  $("#myInput").on("keyup", function() {
+	    var value = $(this).val().toLowerCase();
+	    $("#myTable tr").filter(function() {
+	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	    });
+	  });
+	});
+	</script>
 </html>
