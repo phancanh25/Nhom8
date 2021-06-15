@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <base href="${pageContext.servletContext.contextPath}/">
+<link rel="shortcut icon" href="resources/img/logo-lite.png" />
 <script src="resources/script.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css.css">
 <link rel="stylesheet"
@@ -13,6 +14,13 @@
 <title>Giảng viên</title>
 </head>
 <body>
+	<div class="div-delete-teacher-confirm" id="div-delete-teacher-confirm">
+		<form id="form-delete-teacher-confirm" action="" method="POST">
+			<p style="text-align: center; color:teal; font-weight: bold;">Bạn có chắc chắn xóa giảng viên này?</p>
+			<button type="submit" style="position: absolute; left:80px;" class="btn btn-success" >Đồng ý</button>
+			<button type="button" style="position: absolute; right:80px;" class="btn btn-danger" onclick="closeDeleteTeacherConfirm();">Hủy</button>
+		</form>
+	</div>
 	<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
 			<a href="javascript:void(0)" class="a-login-quit" onclick="closeProfile();" style="margin-top: -12px;">&times</a>
 			<div class="div-profile-info">
@@ -59,34 +67,50 @@
 			            </form>
 			</div>
 		</div>
-	<div class="div-login" id="div-login">
-		<a href="javascript:void(0)" class="a-login-quit"
-			onclick="closeLogin();">&times</a> <img
-			src="resources/img/logo-lite.png">
-		<form>
-			<input type="text" placeholder="Tên đăng nhập"><br> <input
-				type="password" placeholder="Mật khẩu"><br>
-			<button>Đăng nhập</button>
-		</form>
-	</div>
+	<div class="div-login ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'fadeInDown':''}" style="visibility: ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'visible':'hidden'}" id="div-login">
+            <div id="div-login-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/logo-lite.png">
+	            <form action="Home/login.htm" method="POST">
+	                <input type="text" spellcheck="false" name="username" placeholder="Tên đăng nhập" required="required"><br>
+	                <input type="password" name="password" placeholder="Mật khẩu" required="required"><br>
+	                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
+	                <button type="submit">Đăng nhập</button>
+	            </form>
+	            <div class="div-login-bottom">
+	                <a href="javascript:void(0)" onClick="openForgotPass();">Quên mật khẩu</a>
+	            </div>
+            </div>
+            <div id="div-forgot-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+            	<a href="javascript:void(0)" class="a-login-back" onclick="closeForgotPass();">&#8592</a>
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/forgot-pass.jpg" style="width:150px; height: 130px;">
+	            <p class="error" ${forgotFlag=='have'?'':'hidden'}>${forgotError}</p>
+	            <p class="text-success" ${forgotFlag=='done'?'':'hidden'}>Vui lòng kiểm tra gmail để nhận mật khẩu</p>
+	            <form action="forgotpass.htm" method="POST">
+		            <input name="ma" id="Ma" type="text" spellcheck="false" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
+		            <input type="email" name="email" id="email" placeholder="Nhập Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
+	                <button type="submit">Lấy lại mật khẩu</button>
+	            </form>
+            </div>
+        </div>
 	<div class="div-add-teacher ${check==false?'fadeInDown':''}" id="div-add-teacher"
-		style="height: 80%; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
+		style="height: 60%; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
 		<a href="javascript:void(0)" class="a-login-quit"
 			onclick="closeAddTeacher();" style="color: white; margin-top: -10px;">&times</a>
 		<p>Thêm giảng viên</p>
 		<form action="teacher/add-teacher.htm" method="POST">
-			<input name="maGV" type="text" placeholder="Mã Giảng Viên" pattern="PTITGV\d{2}" title="Format MGV chưa đúng" size="8" required><br>
 			<input name="ho" type="text" placeholder="Họ"  pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
 			<input name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br> 
 			<label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label>&nbsp&nbsp&nbsp
 			<label>Nữ&nbsp&nbsp<input checked="checked" type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label>&nbsp&nbsp&nbsp 
-			<input name="sDT" type="text" placeholder="Số điện thoại" size="10" pattern="^0\d{9}" title="Format SDT chưa đúng !!!"><br>
-			<input name="diaChi" type="text" placeholder="Địa chỉ" size="200"><br>
+			<input name="sDT" type="text" placeholder="Số điện thoại" size="10" pattern="^0\d{9}" title="Format SDT chưa đúng !!!" required="required"><br>
+			<input name="diaChi" type="text" placeholder="Địa chỉ" size="200" required="required"><br>
 			<button type="submit">Thêm</button>
 		</form>
 	</div>
 	<div class="div-edit-teacher ${check==false?'fadeInDown':''}" id="div-edit-teacher"
-		style="height: 650px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
+		style="height: 590px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
 		<a href="javascript:void(0)" class="a-login-quit"
 			onclick="closeEditTeacher();"
 			style="color: white; margin-top: -10px;">&times</a>
@@ -95,10 +119,10 @@
                	<br><input id="input-edit-maGV" name="maGV" type="text" placeholder="Mã Giảng Viên" readonly="readonly"><br>              
                 <input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input id="input-edit-ten" name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
-                <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"checked></label> &nbsp&nbsp&nbsp
-           		<input id="input-edit-sDT" name="sDT" type="text" placeholder="Số Điện Thoại" size="10" pattern="^0\d{9}" title="Format SDT chưa đúng !!!"><br>
-           	    <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="200"><br>
+                <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"checked required="required"></label> &nbsp&nbsp&nbsp
+           		<input id="input-edit-sDT" name="sDT" type="text" placeholder="Số Điện Thoại" size="10" pattern="^0\d{9}" title="Format SDT chưa đúng !!!" required="required"><br>
+           	    <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="200" required="required"><br>
                 <button type="submit">Sửa</button>
             </form>
 	</div>
@@ -130,46 +154,52 @@
 		<div class="div-teacher-left">
 			<div class="div-department">
 				<a href="javascript:void(0)" onclick="openAddTeacher();"
-				style="text-decoration: underline; text-align: center; position: absolute; top: 8px; right: 20px">Thêm
-				giảng viên</a>
+				style="text-decoration: underline; color: white; text-align: center; position: absolute; top: 8px; right: 20px">Thêm giảng viên</a>
 				<p>Danh sách giảng viên</p>
 			</div>
 			<hr style="border: 1px #3f8eae solid; margin-top: 0">
 			<ul class="ul-teacher">
-				${message}
-				<c:forEach var="t" items="${giangViens}">
-					<li>
-						<div class="div-teacher-li">
-	                            <a href="javascript:void()" onclick="openEditTeacher('${t.getMaGV()}','${t.getHo()}','${t.getTen()}',${t.isPhai()},'${t.getSDT()}','${t.getDiaChi()}');" name="${t.getMaGV()}">Sửa</a>
-	                            <a role="button" onclick="yesNo();" href="teacher/teacher/${t.maGV}.htm?ldel">Xóa</a>
-	                            <img src="resources/img/user1.png">
-	                            <div class="div-teacher-info">
-	                                <ul class="ul-teacher-info">
-	                                    <li>
-	                                        <div class="div-patern-info">Họ và tên:</div>
-	                                        <div class="div-data">${t.getHo()} ${t.getTen()}</div>
-	                                    </li>
-	                                    <li>
-	                                        <div class="div-patern-info">Mã GV</div>
-	                                        <div class="div-data">${t.getMaGV()}</div>
-	                                    </li>
-	                                    <li>
-	                                        <div class="div-patern-info">Giới tính</div>
-	                                        <div class="div-data">${t.isPhai()?'Nam':'Nữ'}</div>
-	                                    </li>
-	                                    <li>
-	                                        <div class="div-patern-info">SĐT</div>
-	                                        <div class="div-data">${t.getSDT()}</div>
-	                                    </li>
-	                                    <li>
-	                                        <div class="div-patern-info">Địa chỉ</div>
-	                                        <div class="div-data">${t.getDiaChi()}</div>
-	                                    </li>
-	                                </ul>
-	                            </div>
-	                        </div>
-					</li>
-				</c:forEach>
+				<p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
+				<table id="table-teacher" style="width: 100%;">
+					<c:forEach var="t" items="${giangViens}">
+						<tr>
+							<td>
+								<li style="width: 100%">
+									<div class="div-teacher-li">
+											
+				                            <a href="javascript:void()" onclick="openEditTeacher('${t.getMaGV()}','${t.getHo()}','${t.getTen()}',${t.isPhai()},'${t.getSDT()}','${t.getDiaChi()}');" name="${t.getMaGV()}">Sửa</a>
+				                            <a href="javascript:void()" role="button" onClick="openDeleteTeacherConfirm('${t.getMaGV()}');">Xóa</a>
+				                            <img src="resources/img/user1.png">
+				                            <div class="div-teacher-info">
+				                                <ul class="ul-teacher-info">
+				                                    <li>
+				                                        <div class="div-patern-info">Họ và tên:</div>
+				                                        <div class="div-data">${t.getHo()} ${t.getTen()}</div>
+				                                    </li>
+				                                    <li>
+				                                        <div class="div-patern-info">Mã GV</div>
+				                                        <div class="div-data">${t.getMaGV()}</div>
+				                                    </li>
+				                                    <li>
+				                                        <div class="div-patern-info">Giới tính</div>
+				                                        <div class="div-data">${t.isPhai()?'Nam':'Nữ'}</div>
+				                                    </li>
+				                                    <li>
+				                                        <div class="div-patern-info">SĐT</div>
+				                                        <div class="div-data">${t.getSDT()}</div>
+				                                    </li>
+				                                    <li>
+				                                        <div class="div-patern-info">Địa chỉ</div>
+				                                        <div class="div-data">${t.getDiaChi()}</div>
+				                                    </li>
+				                                </ul>
+				                            </div>
+				                        </div>
+								</li>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
 		</div>
 
 		<!-- <div class="div-teacher-right">

@@ -37,15 +37,18 @@ public class AccountMNG {
 	
 	@RequestMapping("open-account-mng")
 	public String openAccountMNG(ModelMap model, HttpSession ss) {
-		Other other = new Other();
 		other.checkLogin(ss, model, factory.getCurrentSession());
+		showAccount(model);
+		return "account/account-mng";
+	}
+	
+	public void showAccount(ModelMap model) {
 		Session session = factory.getCurrentSession();
 		String hql = "FROM AccountGV";
 		Query query = session.createQuery(hql);
 		List<AccountGV> accountGVs = query.list();
 		model.addAttribute("type", "gv");
 		model.addAttribute("accountGVs", accountGVs);
-		return "account/account-mng";
 	}
 	
 	@RequestMapping("account-seacrh")
@@ -74,7 +77,7 @@ public class AccountMNG {
 
 	//Tao tai khoan
 	@RequestMapping("account-add")
-	public String accountAdd(ModelMap model,
+	public String accountAdd(ModelMap model, HttpSession ss,
 			@RequestParam("username") String username, 
 			@RequestParam("password") String password,
 			@RequestParam("ma") String ma,
@@ -90,14 +93,14 @@ public class AccountMNG {
 				AccountGV accountGV = (AccountGV)(session.get(AccountGV.class, username));
 				AccountSV accountSV = (AccountSV)(session.get(AccountSV.class, username));
 				if(accountGV != null || accountSV != null) {
-					model.addAttribute("error","TÃªn tÃ i khoáº£n Ä‘Ã£ tá»“n táº¡i");
+					model.addAttribute("accountError","Tên tài khoản đã tồn tại");
 					flag = false;
 					break;
 				}
 				//Kiá»ƒm tra mÃ£ giáº£ng viÃªn Ä‘Ãºng chÆ°a
 				GiangVien gv = (GiangVien)(session.get(GiangVien.class, ma));
 				if(gv==null) {
-					model.addAttribute("error","KhÃ´ng tÃ¬m tháº¥y mÃ£ giáº£ng viÃªn "+ma);
+					model.addAttribute("accountError","Không tìm thấy mã giảng viên "+ma);
 					flag = false;
 					break;
 				}
@@ -108,7 +111,7 @@ public class AccountMNG {
 		        query.setMaxResults(1);
 				AccountGV accountGV2 = (AccountGV)query.uniqueResult();
 				if(accountGV2!=null) {
-					model.addAttribute("error","Giáº£ng viÃªn "+ma+" Ä‘Ã£ cÃ³ tÃ i khoáº£n: "+accountGV2.getUsername());
+					model.addAttribute("accountError","Giảng viên "+ma+" đã có tài khoản: "+accountGV2.getUsername());
 					flag = false;
 					break;
 				}
@@ -122,24 +125,20 @@ public class AccountMNG {
 				try {
 					session.save(accountGV);
 					transaction.commit();
-					model.addAttribute("error", "");
-					model.addAttribute("message", "ThÃªm tÃ i khoáº£n giáº£ng viÃªn thÃ nh cÃ´ng");
+					model.addAttribute("message", "Thêm tài khoản giảng viên thành công!");
 				}
 				catch(HibernateException e){
 					transaction.rollback();
-					model.addAttribute("message", "ThÃªm tÃ i khoáº£n giáº£ng viÃªn tháº¥t báº¡i "+e.getMessage());
+					model.addAttribute("message", "Thêm tài khoản giảng viên thất bại: "+e.getMessage());
 				}
 				finally {
 					session.close();
 					
 				}
 			}
-			session = factory.getCurrentSession();
-			hql = "FROM AccountGV";
-			Query q = session.createQuery(hql);
-			List<AccountGV> accountGVs = q.list();
-			model.addAttribute("type", "gv");
-			model.addAttribute("accountGVs", accountGVs);
+			other.checkLogin(ss, model, factory.getCurrentSession());
+			showAccount(model);
+			return "account/account-mng";
 		}
 		//Neu la them sinh vien
 		else {
@@ -148,25 +147,25 @@ public class AccountMNG {
 				AccountSV accountSV = (AccountSV)(session.get(AccountSV.class, username));
 				AccountGV accountGV = (AccountGV)(session.get(AccountGV.class, username));
 				if(accountSV != null || accountGV != null) {
-					model.addAttribute("error","TÃªn tÃ i khoáº£n Ä‘Ã£ tá»“n táº¡i");
+					model.addAttribute("accountError","Tên tài khoản đã tồn tại!");
 					flag = false;
 					break;
 				}
 				//Kiá»ƒm tra mÃ£ sinh viÃªn Ä‘Ãºng chÆ°a
 				SinhVien sv = (SinhVien)(session.get(SinhVien.class, ma));
 				if(sv==null) {
-					model.addAttribute("error","KhÃ´ng tÃ¬m tháº¥y mÃ£ sinh viÃªn "+ma);
+					model.addAttribute("accountError","Không tìm thấy mã sinh viên: "+ma);
 					flag = false;
 					break;
 				}
-				//Náº¿u mÃ£ sinh viÃªn Ä‘Ãºng kiá»ƒm tra xem sinh viÃªn nÃ y cÃ³ tÃ i khoáº£n chÆ°a
+				//Nếu có mã sinh viên thì kiểm tra sinh viên này có tài khoản chưa
 				hql = "FROM AccountSV where sinhVien.maSV = '" + ma + "'";
 				Query query = session.createQuery(hql);
 				query.setFirstResult(0);
 		        query.setMaxResults(1);
 				AccountSV accountSV2 = (AccountSV)query.uniqueResult();
 				if(accountSV2!=null) {
-					model.addAttribute("error","Sinh viÃªn "+ma+" Ä‘Ã£ cÃ³ tÃ i khoáº£n: "+accountSV2.getUsername());
+					model.addAttribute("accountError","Sinh viên "+ma+" đã có tài khoản: "+accountSV2.getUsername());
 					flag = false;
 					break;
 				}
@@ -180,32 +179,29 @@ public class AccountMNG {
 				try {
 					session.save(accountSV);
 					transaction.commit();
-					model.addAttribute("error", "");
-					model.addAttribute("message", "ThÃªm tÃ i khoáº£n sinh viÃªn thÃ nh cÃ´ng");
+					model.addAttribute("message", "Thêm tài khoản sinh viên thành công!");
 				}
 				catch(HibernateException e){
 					transaction.rollback();
-					model.addAttribute("message", "ThÃªm tÃ i khoáº£n sinh viÃªn tháº¥t báº¡i "+e.getMessage());
+					model.addAttribute("message", "Thêm tài khoản sinh viên thất bại: "+e.getMessage());
 				}
 				finally {
 					session.close();
 					
 				}
 			}
-			session = factory.getCurrentSession();
-			hql = "FROM AccountSV";
-			Query q = session.createQuery(hql);
-			List<AccountSV> accountSVs = q.list();
-			model.addAttribute("type", "sv");
-			model.addAttribute("accountSVs", accountSVs);
+			other.checkLogin(ss, model, factory.getCurrentSession());
+			showAccount(model);
+			return "account/account-mng";
 		}
-		return "account/account-mng";
 	}
 	
 	@RequestMapping("account-delete")
-	public String accountDelete(ModelMap model,
+	public String accountDelete(ModelMap model, HttpSession ss,
 			@RequestParam("username") String username,
 			@RequestParam("type") String type) {
+		System.out.println("username: "+username);
+		System.out.println("type: "+type);
 		if(type.equals("gv")) {
 			Session session = factory.openSession();
 			Transaction transaction = session.beginTransaction();
@@ -213,22 +209,18 @@ public class AccountMNG {
 			try {
 				session.delete(accountGV);
 				transaction.commit();
-				model.addAttribute("message", "XÃ³a thÃ nh cÃ´ng tÃ i khoáº£n "+username);
+				model.addAttribute("message", "Xóa thành công tài khoản "+username);
 			}
 			catch (HibernateException e) {
 				transaction.rollback();
-				model.addAttribute("message", "XÃ³a tháº¥t báº¡i tÃ i khoáº£n "+username);
+				model.addAttribute("message", "Xóa thất bại tài khoản "+username+": "+e.getMessage());
 			}
 			finally {
 				session.close();
 			}
-			session = factory.getCurrentSession();
-			String hql = "FROM AccountGV";
-			Query q = session.createQuery(hql);
-			List<AccountGV> accountGVs = q.list();
-			model.addAttribute("type", "gv");
-			model.addAttribute("error", "");
-			model.addAttribute("accountGVs", accountGVs);
+			other.checkLogin(ss, model, factory.getCurrentSession());
+			showAccount(model);
+			return "account/account-mng";
 		}
 		else {
 			Session session = factory.openSession();
@@ -237,24 +229,19 @@ public class AccountMNG {
 			try {
 				session.delete(accountSV);
 				transaction.commit();
-				model.addAttribute("message", "XÃ³a thÃ nh cÃ´ng tÃ i khoáº£n "+username);
+				model.addAttribute("message", "Xóa thành công tài khoản "+username);
 			}
 			catch (HibernateException e) {
 				transaction.rollback();
-				model.addAttribute("message", "XÃ³a tháº¥t báº¡i tÃ i khoáº£n "+username);
+				model.addAttribute("message", "Xóa thất bại tài khoản "+username+": "+e.getMessage());
 			}
 			finally {
 				session.close();
 			}
-			session = factory.getCurrentSession();
-			String hql = "FROM AccountSV";
-			Query q = session.createQuery(hql);
-			List<AccountSV> accountSVs = q.list();
-			model.addAttribute("type", "sv");
-			model.addAttribute("error", "");
-			model.addAttribute("accountSVs", accountSVs);
+			other.checkLogin(ss, model, factory.getCurrentSession());
+			showAccount(model);
+			return "account/account-mng";
 		}
-		return "account/account-mng";
 	}
 	
 	
@@ -396,5 +383,49 @@ public class AccountMNG {
 		return "home/index";
 	}
 	
+	//Nang/ha quyen
+	@RequestMapping("change-role")
+	public String changeRole(@RequestParam("username") String username, ModelMap model, HttpSession ss) {
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		AccountGV accountGV = (AccountGV)(session.get(AccountGV.class, username));
+		if(accountGV.getRole().getMaRole() == 1) { //ha quyen
+			Role role = (Role)(session.get(Role.class, 2));
+			accountGV.setRole(role);
+			try {
+				session.update(accountGV);
+				transaction.commit();
+				model.addAttribute("message", "Hạ quyền thành công tài khoản "+username);
+			}
+			catch(HibernateException e) {
+				transaction.rollback();
+				model.addAttribute("message", "Đã có lỗi xảy ra: "+e.getMessage());
+				return "error/error";
+			}
+			finally {
+				session.close();
+			}
+		}
+		else { //nang quyen
+			Role role = (Role)(session.get(Role.class, 1));
+			accountGV.setRole(role);
+			try {
+				session.update(accountGV);
+				transaction.commit();
+				model.addAttribute("message", "Nâng quyền thành công tài khoản "+username);
+			}
+			catch(HibernateException e) {
+				transaction.rollback();
+				model.addAttribute("message", "Đã có lỗi xảy ra: "+e.getMessage());
+				return "error/error";
+			}
+			finally {
+				session.close();
+			}
+		}
+		other.checkLogin(ss, model, factory.getCurrentSession());
+		showAccount(model);
+		return "account/account-mng";
+	}
 	
 }

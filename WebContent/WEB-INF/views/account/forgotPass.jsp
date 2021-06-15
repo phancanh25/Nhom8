@@ -6,6 +6,7 @@
 <html>
 <head>
 <base href="${pageContext.servletContext.contextPath}/">
+<link rel="shortcut icon" href="resources/img/logo-lite.png" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>

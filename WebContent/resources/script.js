@@ -60,6 +60,17 @@ function openEditTeacher(maGV, ho, ten, phai, sDT, diaChi){
     document.getElementById("div-edit-teacher").style.visibility = "visible";
     document.getElementById("div-edit-teacher").className = "div-edit-teacher fadeInDown";
 }
+
+function openDeleteTeacherConfirm(maGV){
+	document.getElementById("form-delete-teacher-confirm").action = "teacher/teacher/"+maGV+".htm?ldel";
+ 	document.getElementById("div-delete-teacher-confirm").classList.remove("fadeOutDown");
+ 	document.getElementById("div-delete-teacher-confirm").classList.add("fadeInDown");
+ }
+   function closeDeleteTeacherConfirm(){
+ 	document.getElementById("div-delete-teacher-confirm").classList.remove("fadeInDown");
+ 	document.getElementById("div-delete-teacher-confirm").classList.add("fadeOutDown");
+ }
+
 function yesNo(){
 	confirm("Xac nhan Delete");
 }
@@ -76,6 +87,16 @@ function openAddStudent(){
 function closeAddStudent(){
     document.getElementById("div-add-student").className = "div-add-student fadeOutDown";
 }
+
+function openDeleteStudentConfirm(maSV){
+	document.getElementById("form-delete-student-confirm").action = "student/student/"+maSV+".htm?ldel";
+ 	document.getElementById("div-delete-student-confirm").classList.remove("fadeOutDown");
+ 	document.getElementById("div-delete-student-confirm").classList.add("fadeInDown");
+ }
+   function closeDeleteStudentConfirm(){
+ 	document.getElementById("div-delete-student-confirm").classList.remove("fadeInDown");
+ 	document.getElementById("div-delete-student-confirm").classList.add("fadeOutDown");
+ }
 
 //${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}',${sinhVien.isPhai()},'${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}',${sinhVien.getDiemTBTL()}
 function openEditStudent(maSV, ho, ten, lop, ngaySinh, phai, diaChi, khoa, diemTBTL){
@@ -228,6 +249,17 @@ function changeAccountType(){
 	}
 }
 
+function openDeleteAccountConfirm(type,username){
+	document.getElementById("input-delete-account-confirm-type").value = type;
+	document.getElementById("input-delete-account-confirm-username").value = username;
+ 	document.getElementById("div-delete-account-confirm").classList.remove("fadeOutDown");
+ 	document.getElementById("div-delete-account-confirm").classList.add("fadeInDown");
+}
+function closeDeleteAccountConfirm(){
+ 	document.getElementById("div-delete-account-confirm").classList.remove("fadeInDown");
+ 	document.getElementById("div-delete-account-confirm").classList.add("fadeOutDown");
+}
+
 //Lock chuc nang trong phan cong do an
 function setLock(button, number){
 	for(i = 0; i < 8; i++){
@@ -304,5 +336,14 @@ function showReleaseImg(event) {
   function closeImgEventRelease(){
  	document.getElementById("div-img-event-release").classList.remove("fadeInDown");
  	document.getElementById("div-img-event-release").classList.add("fadeOutDown");
+ }
+ 
+ function openCancelRelease(){
+ 	document.getElementById("div-cancel-release").classList.remove("fadeOutDown");
+ 	document.getElementById("div-cancel-release").classList.add("fadeInDown");
+ }
+   function closeCancelRelease(){
+ 	document.getElementById("div-cancel-release").classList.remove("fadeInDown");
+ 	document.getElementById("div-cancel-release").classList.add("fadeOutDown");
  }
   

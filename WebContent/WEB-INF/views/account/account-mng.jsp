@@ -5,6 +5,7 @@
 <html>
 <head>
 <base href="${pageContext.servletContext.contextPath}/">
+<link rel="shortcut icon" href="resources/img/logo-lite.png" />
 <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="resources/css.css">
         <link rel="stylesheet" type="text/css" href="resources/account-mng.css">
@@ -13,6 +14,42 @@
 <title>Quản lý tài khoản</title>
 </head>
 <body>
+		<div class="div-delete-account-confirm" id="div-delete-account-confirm">
+			<form id="form-delete-account-confirm" action="account-delete.htm" method="POST">
+				<input type="text" name="type" id="input-delete-account-confirm-type" hidden>
+				<input type="text" name="username" id="input-delete-account-confirm-username" hidden>
+				<p style="text-align: center; color:teal; font-weight: bold;">Bạn có chắc chắn xóa tài khoản này?</p>
+				<button type="submit" style="position: absolute; left:80px;" class="btn btn-success" >Đồng ý</button>
+				<button type="button" style="position: absolute; right:80px;" class="btn btn-danger" onclick="closeDeleteAccountConfirm();">Hủy</button>
+			</form>
+		</div>
+		<div class="div-login ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'fadeInDown':''}" style="visibility: ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'visible':'hidden'}" id="div-login">
+            <div id="div-login-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/logo-lite.png">
+	            <form action="Home/login.htm" method="POST">
+	                <input type="text" spellcheck="false" name="username" placeholder="Tên đăng nhập" required="required"><br>
+	                <input type="password" name="password" placeholder="Mật khẩu" required="required"><br>
+	                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
+	                <button type="submit">Đăng nhập</button>
+	            </form>
+	            <div class="div-login-bottom">
+	                <a href="javascript:void(0)" onClick="openForgotPass();">Quên mật khẩu</a>
+	            </div>
+            </div>
+            <div id="div-forgot-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+            	<a href="javascript:void(0)" class="a-login-back" onclick="closeForgotPass();">&#8592</a>
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/forgot-pass.jpg" style="width:150px; height: 130px;">
+	            <p class="error" ${forgotFlag=='have'?'':'hidden'}>${forgotError}</p>
+	            <p class="text-success" ${forgotFlag=='done'?'':'hidden'}>Vui lòng kiểm tra gmail để nhận mật khẩu</p>
+	            <form action="forgotpass.htm" method="POST">
+		            <input name="ma" id="Ma" type="text" spellcheck="false" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
+		            <input type="email" name="email" id="email" placeholder="Nhập Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
+	                <button type="submit">Lấy lại mật khẩu</button>
+	            </form>
+            </div>
+        </div>
 		<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
 			<a href="javascript:void(0)" class="a-login-quit" onclick="closeProfile();" style="margin-top: -12px;">&times</a>
 			<div class="div-profile-info">
@@ -59,7 +96,7 @@
 			            </form>
 			</div>
 		</div>
-		<div class="div-account-add ${error!=null?'fadeInDown2':''}" id="div-account-add" style="display: ${error!=null?'block':'hidden'}">
+		<div class="div-account-add ${accountError!=null?'fadeInDown2':''}" id="div-account-add" style="display: ${accountError!=null?'block':'hidden'}">
         	<a href="javascript:void()" onclick="closeAccountAdd();" class="a-quit">
         		&times
         	</a>
@@ -69,11 +106,12 @@
 	        		<option value="gv" ${type=='gv'?'selected':''}>Giảng viên</option>
 	        		<option value="sv" ${type=='sv'?'selected':''}>Sinh viên</option>
 	        	</select>
+	        	<br/>
 	        	<input name="username" type="text" placeholder="Tên tài khoản">
 	        	<input name="password" type="password" placeholder="Mật khẩu">
 	        	<input name="email" type="text" placeholder="Email">
 	        	<input name="ma" type="text" placeholder="MSSV/MSGV">
-	        	<p class="p-error-add" ${type==''?'hidden':''}>${error}</p>
+	        	<p class="p-error-add" ${type==''?'hidden':''}>${accountError}</p>
 	        	<button type="submit">Tạo tài khoản</button>
         	</form>
         </div>
@@ -96,7 +134,7 @@
                 <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
-                <a href="${role == 1 || role == 2?'teacher/teacher.htm':'error.htm'}" >DSGV</a>
+                <a href="${role == 1 || role == 2?'teacher/teacher.htm':'error.htm'}">DSGV</a>
                 <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
@@ -117,27 +155,33 @@
 	            			<th>Tài khoản</th>
 	            			<th>Mã giảng viên</th>
 	            			<th>Họ và tên</th>
-	            			<th>Quyền</th>
 	            			<th>Email</th>
+	            			<th>Quyền</th>
+	            			<th ${account == 'admin'?'':'hidden'}>Thao tác</th>
 	            			<th></th>
 	            </tr>
 	            <tbody class="myTable">
 	            <c:forEach items="${accountGVs}" var="accountGV">
-	            
-	            	<form action="account-delete.htm" method="POST">
 	            		<input name="type" type="text" value="gv" hidden>
 	            		<input name="username" type="text" value="${accountGV.getUsername()}" hidden>
-		            	<tr style="text-align: center; font-weight: normal; font-size: 13px">
+	            		<!-- Khong hien thi tai khoan admin -->
+		            	<tr style="text-align: center; font-weight: normal; font-size: 13px" ${accountGV.getUsername()=='admin'?'hidden':''}>
 		            		<th>${accountGV.getUsername()}</th>
 		            		<th>${accountGV.getGiangVien().getMaGV()}</th>
 		            		<th>${accountGV.getGiangVien().getHo()} ${accountGV.getGiangVien().getTen()}</th>
-		            		<th>${accountGV.getRole().getMaRole() == 1?'Người quản trị':'Giảng viên'}</th>
 		            		<th>${accountGV.getEmail()} </th>
+		            		<th>${accountGV.getRole().getMaRole() == 1?'Người quản trị':'Giảng viên'}</th>
+		            		<th ${account == 'admin'?'':'hidden'}>
+		            			<form action="">
+			            			<input type="text" name="username" value="${accountGV.getUsername()}" hidden>
+			            			<button ${accountGV.getRole().getMaRole() == 1?'hidden':''} style="font-size: 13px; width: 97px;" class="btn btn-success">Nâng quyền</button>
+			            			<button ${accountGV.getRole().getMaRole() == 1?'':'hidden'} style="font-size: 13px; width: 97px;" class="btn btn-danger">Hạ quyền</button>
+		            			</form>
+		            		</th>
 		            		<th>
-		            			<button class="btn btn-primary" type="submit" ${accountGV.getUsername()=='admin'?'hidden':''}>Xóa</button>
+		            			<button class="btn btn-primary" onClick="openDeleteAccountConfirm('gv','${accountGV.getUsername()}');" ${account!='admin' &&  accountGV.getRole().getMaRole() == 1?'disabled':''}>Xóa</button>
 		            		</th>
 		            	</tr>
-	            	</form>
 	            </c:forEach>
 	            </tbody>
             </table>	
@@ -151,7 +195,6 @@
 	            </tr>
 	            <tbody class="myTable">
 	            <c:forEach items="${accountSVs}" var="accountSV">
-	            	<form action="account-delete.htm" method="POST">
 	            		<input name="type" type="text" value="sv" hidden>
 	            		<input name="username" type="text" value="${accountSV.getUsername()}" hidden>
 		            	<tr style="text-align: center; font-weight: normal; font-size: 13px">
@@ -160,10 +203,9 @@
 		            		<th>${accountSV.getSinhVien().getHo()} ${accountSV.getSinhVien().getTen()}</th>
 		            		<th>Sinh viên</th>
 		            		<th>
-		            			<button class="btn btn-primary" type="submit">Xóa</button>
+		            			<button class="btn btn-primary" onClick="openDeleteAccountConfirm('sv','${accountSV.getUsername()}');">Xóa</button>
 		            		</th>
 		            	</tr>
-	            	</form>
 	            </c:forEach>
 	            </tbody>
             </table>	

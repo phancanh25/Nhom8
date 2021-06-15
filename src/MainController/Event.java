@@ -40,9 +40,10 @@ public class Event {
 	
 	public void showEvent(ModelMap md) {
 		Session session = factory.getCurrentSession();
-		String hql = "select year(ngay) from TieuBan\r\n"
-				+ "group by year(ngay)\r\n"
-				+ "order by year(ngay) DESC";
+//		String hql = "select year(ngay) from TieuBan\r\n"
+//				+ "group by year(ngay)\r\n"
+//				+ "order by year(ngay) DESC";
+		String hql = "select year FROM Lock where detail is not null order by year DESC";
 		Query query = session.createQuery(hql);
 		List<Integer> years = query.list();
 		md.addAttribute("years", years);

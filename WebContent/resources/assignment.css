@@ -40,7 +40,6 @@
 	width: 800px;
 	height: 420px;
 	left: 50%; 
-	transform: translate(-50%,0);
 	background: white;
 	z-index: 10;
 	border-radius: 10px;
@@ -114,22 +113,21 @@
 	background: #405DE0;
 }
 
-/* @keyframes fadeInDown{
-	0%{
-		transform: translate(-50%,-300%);
-	}
-	100%{
-		transform: translate(-50%, 0%);
-	}
+.div-cancel-release{
+	z-index: 1;
+    position: fixed;
+    left: 50%;
+    margin-top: 100px;
+	transform: translate(-50%, -200%);
+   	width: 30%;
+    height: 100px;
+    background-color: white;
+    border: 1px black solid;
+    border-radius: 5px;
+    padding-bottom: 50px;
 }
 
-@keyframes fadeOutUp{
-	0%{
-		transform: translate(-50%, 0%);
-	}
-	100%{
-		transform: translate(-50%,-300%);
-	}
-}
 
-.fadeInDown */
+    
+    
+   

@@ -49,6 +49,10 @@ public class Assignment {
 			model.addAttribute("flag", "none");
 		}
 		else {
+			//Kiem tra xem ky bao ve da duoc cong bo chua (hoan thanh chua)
+			if(lock.getDetail() != null) {
+				model.addAttribute("release", "done");
+			}
 			System.out.println("Đã có kỳ bảo vệ");
 			int action = 0;
 			if(lock.isAddStudent()==false) model.addAttribute("lock", "1");
@@ -60,10 +64,7 @@ public class Assignment {
 			if(lock.isToCMT()==false) model.addAttribute("lock", "7");
 			if(lock.isMark3()==false) model.addAttribute("lock", "8");
 		}
-		//Kiem tra xem ky bao ve da duoc cong bo chua (hoan thanh chua)
-		if(lock.getDetail() != null) {
-			model.addAttribute("release", "done");
-		}
+		
 	}
 	
 	@RequestMapping("set-lock")
@@ -121,6 +122,33 @@ public class Assignment {
 			transaction.commit();
 		}
 		catch(HibernateException e) {
+			transaction.rollback();
+			model.addAttribute("wrongFlag", "wrong");
+			model.addAttribute("message", "Thông báo: Đã có lỗi xảy ra: "+ e.getMessage());
+			return "error/error";
+		}
+		finally {
+			session.close();
+		}
+		return "redirect:assignment.htm";
+	}
+	
+	@RequestMapping("cancel-release")
+	public String cancelRelease(ModelMap model) {
+		System.out.println("Vao ham ne");
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		Lock lock = (Lock)(session.get(Lock.class, year));
+		byte[] picture = null;
+		String detail = null;
+		lock.setPicture(picture);
+		lock.setDetail(detail);
+		try {
+			session.update(lock);
+			transaction.commit();
+		}
+		catch (HibernateException e) {
 			transaction.rollback();
 			model.addAttribute("wrongFlag", "wrong");
 			model.addAttribute("message", "Thông báo: Đã có lỗi xảy ra: "+ e.getMessage());
