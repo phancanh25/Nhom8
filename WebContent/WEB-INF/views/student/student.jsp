@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <base href="${pageContext.servletContext.contextPath}/">
+<link rel="shortcut icon" href="resources/img/logo-lite.png" />
 <script src="resources/script.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css.css">
         <link rel="stylesheet" type="text/css" href="resources/student-css.css">
@@ -14,6 +15,13 @@
 
 </head>
 <body>
+		<div class="div-delete-student-confirm" id="div-delete-student-confirm">
+			<form id="form-delete-student-confirm" action="" method="POST">
+				<p style="text-align: center; color:teal; font-weight: bold;">Bạn có chắc chắn xóa sinh viên này?</p>
+				<button type="submit" style="position: absolute; left:80px;" class="btn btn-success" >Đồng ý</button>
+				<button type="button" style="position: absolute; right:80px;" class="btn btn-danger" onclick="closeDeleteStudentConfirm();">Hủy</button>
+			</form>
+		</div>
 		<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
 			<a href="javascript:void(0)" class="a-login-quit" onclick="closeProfile();" style="margin-top: -12px;">&times</a>
 			<div class="div-profile-info">
@@ -60,52 +68,64 @@
 			            </form>
 			</div>
 		</div>
-        <div class="div-login" id="div-login">
-            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
-            <img src="resources/img/logo-lite.png">
-            <form>
-                <input type="text" placeholder="Tên đăng nhập"><br>
-                <input type="password" placeholder="Mật khẩu"><br>
-                <button>Đăng nhập</button>
-            </form>
+        <div class="div-login ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'fadeInDown':''}" style="visibility: ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'visible':'hidden'}" id="div-login">
+            <div id="div-login-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/logo-lite.png">
+	            <form action="Home/login.htm" method="POST">
+	                <input type="text" spellcheck="false" name="username" placeholder="Tên đăng nhập" required="required"><br>
+	                <input type="password" name="password" placeholder="Mật khẩu" required="required"><br>
+	                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
+	                <button type="submit">Đăng nhập</button>
+	            </form>
+	            <div class="div-login-bottom">
+	                <a href="javascript:void(0)" onClick="openForgotPass();">Quên mật khẩu</a>
+	            </div>
+            </div>
+            <div id="div-forgot-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+            	<a href="javascript:void(0)" class="a-login-back" onclick="closeForgotPass();">&#8592</a>
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/forgot-pass.jpg" style="width:150px; height: 130px;">
+	            <p class="error" ${forgotFlag=='have'?'':'hidden'}>${forgotError}</p>
+	            <p class="text-success" ${forgotFlag=='done'?'':'hidden'}>Vui lòng kiểm tra gmail để nhận mật khẩu</p>
+	            <form action="forgotpass.htm" method="POST">
+		            <input name="ma" id="Ma" type="text" spellcheck="false" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
+		            <input type="email" name="email" id="email" placeholder="Nhập Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
+	                <button type="submit">Lấy lại mật khẩu</button>
+	            </form>
+            </div>
         </div>
-        <div class="div-add-student" id="div-add-student" style="height: 650px; margin-top: 50px">
+        <div class="div-add-student" id="div-add-student" style="height: 550px; margin-top: 50px">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeAddStudent();" style="color: white; margin-top: -10px;">&times</a>
             <p>Thêm sinh viên</p>
             <form action="student/add-student.htm" method="POST">
-                <input name="maSV" type="text" placeholder="Mã Sinh Viên" path="maSV" pattern="^N\d{2}DC[A-Z]{2}\d{3}" title="Format MSSV chưa đúng. Mẫu: N18DCAT001" size="10" required><br>
                 <input name="khoa" type="number" placeholder="Khóa" path="khoa" min="1900" max="2900" required><br>
                 <input name="ho" type="text" placeholder="Họ" path="ho" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input name="ten" type="text" placeholder="Tên" path="ten" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
-                <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nam&nbsp&nbsp<input checked type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
                 <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
                 <input name="lop" type="text" placeholder="Lớp" path="lop" pattern="^D\d{2}CQ[A-Z]{2}\d{2}-N$" title="Format lớp chưa đúng" size="11" required><br>
                 <text>Ngày sinh</text>
-                <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh">
-                <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"  size="200"><br>
+                <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh" required="required">
+                <input name="diaChi" type="text" placeholder="Địa chỉ" path="diaChi"  size="200" required="required"><br>
                 <input name="diemTBTL" step=0.01 type="number" placeholder="Điểm trung bình tích lũy" min="0" max="4" path="diemTBTL" required><br>
                 <button type="submit" style="width: 200px; height: 40px; margin-top: 5px;">Thêm</button>
             </form>
         </div>
         
         
-        <div class="div-edit-student" id="div-edit-student" style="height: 650px; margin-top: 50px">
+        <div class="div-edit-student" id="div-edit-student" style="height: 590px; margin-top: 50px">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeEditStudent();" style="color: white; margin-top: -10px;">&times</a>
           <!--  SỬA SINH VIÊN ------------------------------- -->
             <p>Sửa sinh viên</p>
             <form action="student/edit-student.htm" method="POST">
             	<input id="input-edit-maSV" type="text" name="maSV" hidden/>
-                <label>Nam&nbsp&nbsp<input id="input-edit-female" type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"checked></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input id="input-edit-male" type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
-                <select name="chuyenNganh">
-                    <option>An toàn thông tin</option>
-                    <option>Công nghệ đa phương tiện</option>
-                    <option>Công nghệ thông tin</option>
-                </select>
+                <label>Nam&nbsp&nbsp<input id="input-edit-male" type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input id="input-edit-female" type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
                 <input id="input-edit-khoa" name="khoa" type="number" min="1900" max="2900" required ${role==1?'':'readonly style="background: #DEE0E1"'} required><br>
                 <input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input id="input-edit-ten" name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
-                <input id="input-edit-lop" name="lop" type="text" placeholder="Lớp" pattern="^d\d{2}cq[a-z]{2}\d{2}-n$" title="Format lớp chưa đúng" size="11" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
+                <input id="input-edit-lop" name="lop" type="text" placeholder="Lớp" pattern="^D\d{2}CQ[A-Z]{2}\d{2}-N$" title="Format lớp chưa đúng" size="11" required ${role==1?'':'readonly style="background: #DEE0E1"'}><br>
                 <text>Ngày sinh</text>
                 <input id="input-edit-ngaySinh" name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;">
                 <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="200"><br>
@@ -136,6 +156,7 @@
                 <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
+        <p class="p-dssv">DANH SÁCH SINH VIÊN</p>
         <div class="div-student-content">
         	<p style="color: green; font-weight: bold; font-size: 15px">${message}</p>
           <div class="div-search">
@@ -175,7 +196,7 @@
 		                    <th>${sinhVien.getDiemTBTL()}</th>
 		                    <td ${role == 3 ?'hidden':''}><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" >Click</a></td>
 		                    <td ${role == 1 ?'':'hidden'}><a href="javascript:void()" onclick="openEditStudent('${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}', '${sinhVien.getNgaySinh()}', '${sinhVien.isPhai()}','${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}','${sinhVien.getDiemTBTL()}');" name="${sinhVien.getMaSV()}">Sửa</a></td>
-		                    <th ${role == 1 ?'':'hidden'}><a role="button" href="student/student/${sinhVien.maSV}.htm?ldel" >Xóa</a></th>
+		                    <th ${role == 1 ?'':'hidden'}><a role="button" href="javascript:void(0)" onClick="openDeleteStudentConfirm('${sinhVien.getMaSV()}');">Xóa</a></th>
 	            		</tr>
 	            	</c:forEach>
 	            	</tbody>

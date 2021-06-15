@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<base href="${pageContext.servletContext.contextPath}/">
+<link rel="shortcut icon" href="resources/img/logo-lite.png" />
 <title>Error</title>
 <link rel="stylesheet" href="/Nhom8/resources/error/css.css" >
 <link rel="stylesheet" href="/Nhom8/resources/error/style.css" >

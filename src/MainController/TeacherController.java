@@ -23,17 +23,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import MainBean.DoAn;
 import MainBean.GiangVien;
 import MainBean.TieuBan;
+import other.Other;
 import MainBean.SinhVien;
 
 @Transactional
 @Controller
 @RequestMapping("teacher/")
 public class TeacherController {
+	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
 	
 	@RequestMapping("teacher")
 	public String openTeacher(ModelMap model, HttpSession ss) {
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		showTeacher(model);
 		return "teacher/teacher";
 	}
@@ -56,14 +59,14 @@ public class TeacherController {
 	}
 
 	@RequestMapping("add-teacher")
-	public String addTeacher(ModelMap model,@RequestParam("maGV") String maGV, 
+	public String addTeacher(ModelMap model,
 			@RequestParam("ho") String ho, 
 			@RequestParam("ten") String ten,
 			@RequestParam("phai") boolean phai,
 			@RequestParam("sDT") String sDT,
 			@RequestParam("diaChi") String diaChi, HttpSession ss) {
 		
-		GiangVien giangVien = new GiangVien(maGV, ho, ten, phai, sDT, diaChi, null);
+		GiangVien giangVien = new GiangVien(other.createMaxCode(false, factory.getCurrentSession()), ho, ten, phai, sDT, diaChi, null);
 		System.out.println("ma gv: "+giangVien.getMaGV());
 		System.out.println("ho: "+giangVien.getHo());
 		System.out.println("ten: "+giangVien.getTen());
@@ -96,6 +99,7 @@ public class TeacherController {
 		finally {
 			session.close();
 		}
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		showTeacher(model);
 		return "teacher/teacher";
 	}
@@ -133,7 +137,8 @@ public class TeacherController {
 	}
 	
 	@RequestMapping(value = "teacher/{MaGV}", params = "ldel")
-	public String delete(ModelMap model, @ModelAttribute("gv") GiangVien gv,
+	public String delete(HttpSession ss, ModelMap model, 
+			@ModelAttribute("gv") GiangVien gv,
 			@PathVariable("MaGV") String magv) {
 		Integer temp = this.DeleteGV(gv);
 		System.out.println(temp);
@@ -145,7 +150,8 @@ public class TeacherController {
 		
 		model.addAttribute("giangViens", this.getMaGVs());
 		
-
+		showTeacher(model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "teacher/teacher";
 	}
 	
@@ -189,6 +195,7 @@ public class TeacherController {
 			session.close();
 		}
 		showTeacher(model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "teacher/teacher";
 	}
 				

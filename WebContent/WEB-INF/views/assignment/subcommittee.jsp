@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <base href="${pageContext.servletContext.contextPath}/">
+<link rel="shortcut icon" href="resources/img/logo-lite.png" />
 <script src="resources/script.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css.css">
         <link rel="stylesheet" type="text/css" href="resources/subcommittee.css">
@@ -14,6 +15,33 @@
 
 </head>
 <body>
+	<div class="div-login ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'fadeInDown':''}" style="visibility: ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'visible':'hidden'}" id="div-login">
+            <div id="div-login-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/logo-lite.png">
+	            <form action="Home/login.htm" method="POST">
+	                <input type="text" spellcheck="false" name="username" placeholder="Tên đăng nhập" required="required"><br>
+	                <input type="password" name="password" placeholder="Mật khẩu" required="required"><br>
+	                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
+	                <button type="submit">Đăng nhập</button>
+	            </form>
+	            <div class="div-login-bottom">
+	                <a href="javascript:void(0)" onClick="openForgotPass();">Quên mật khẩu</a>
+	            </div>
+            </div>
+            <div id="div-forgot-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+            	<a href="javascript:void(0)" class="a-login-back" onclick="closeForgotPass();">&#8592</a>
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/forgot-pass.jpg" style="width:150px; height: 130px;">
+	            <p class="error" ${forgotFlag=='have'?'':'hidden'}>${forgotError}</p>
+	            <p class="text-success" ${forgotFlag=='done'?'':'hidden'}>Vui lòng kiểm tra gmail để nhận mật khẩu</p>
+	            <form action="forgotpass.htm" method="POST">
+		            <input name="ma" id="Ma" type="text" spellcheck="false" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
+		            <input type="email" name="email" id="email" placeholder="Nhập Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
+	                <button type="submit">Lấy lại mật khẩu</button>
+	            </form>
+            </div>
+        </div>
 	<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
 			<a href="javascript:void(0)" class="a-login-quit" onclick="closeProfile();" style="margin-top: -12px;">&times</a>
 			<div class="div-profile-info">
@@ -39,7 +67,7 @@
 								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nữ</option>
 							</select>
 						<p id="p-phone" ${giangVienPro == null?'hidden':''} style="border-bottom: 1px gray solid">SĐT: ${giangVienPro.getSDT()} <a href="javascript:void()" onClick="editPhone('${giangVienPro.getSDT()}')">Sửa</a></p>
-						<input value="${giangVienPro.getSDT()}" name="edit-phone" style="width: 100%; margin-bottom:10px; margin-top: 0px; " type="text" spellcheck="false" id="input-phone" spellcheck="false" hidden>
+						<input value="${giangVienPro.getSDT()}" name="edit-phone" style="width: 100%; margin-bottom: 10px; margin-top: 0px;"  type="text" spellcheck="false" id="input-phone" spellcheck="false" hidden>
 						<p id="p-address" style="border-bottom: 1px gray solid">Địa chỉ: ${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}<a href="javascript:void()" onClick="editAddress('${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}')">Sửa</a></p>
 						<input value="${giangVienPro.getDiaChi()}${sinhVienPro.getDiaChi()}"name="edit-address" style="width: 100%; margin-top: 10px;" type="text" spellcheck="false" id="input-address" spellcheck="false" hidden>
 					</div>
@@ -133,7 +161,7 @@
         		<button class="btn-cancel btn btn-danger" ${lock=='have'?'hidden':''}> Hủy bỏ</button>	
         	</form>
         	<p style="color: #6692e3; font-weight: bold; margin-left: 50px">Kỳ bảo vệ đồ án tốt nghiệp năm ${year}</p>
-            <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Quản lý tiểu ban<code> Riêng trang này bấm thêm hoặc cập nhật sẽ reload lại page và tải lại danh sách tiểu ban</code></p>
+            <p style="color: #6692e3; font-weight: bold; margin-left: 50px">Quản lý tiểu ban</p>
             <a href="javascript:void(0)" style="margin-left: 50px" onclick="showAddSubcommittee();">Thêm tiểu ban</a>
             <ul class="ul-subcommittee">
                 <h6 style="color: blue; font-weight: bold; margin-top: 20px;">An toàn thông tin</h6>
@@ -219,8 +247,8 @@
                 <c:forEach items="${tieuBanCNTTs}" var="tieuBanCNTT">
                 	<li>
 	                    <a href="javascript:void(0)" onclick="showSubcommittee('${tieuBanCNTT.getMaTB()}');" id="name-subcommittee1">${tieuBanCNTT.getTenTB()}</a>
-	                    <a href="javascript:void(0)" onclick="showEditSubcommittee('${tieuBanCNTT.getMaTB()}');" id="edit-subcommittee1">Sửa</a>
-	                    <a href="javascript:void(0)" onclick="showDeleteSubcommittee('${tieuBanCNTT.getMaTB()}');" id="delete-subcommittee1">Xóa</a>
+	                    <a ${lock=='have'?'hidden':''} href="javascript:void(0)" onclick="showEditSubcommittee('${tieuBanCNTT.getMaTB()}');" id="edit-subcommittee1">Sửa</a>
+	                    <a ${lock=='have'?'hidden':''} href="javascript:void(0)" onclick="showDeleteSubcommittee('${tieuBanCNTT.getMaTB()}');" id="delete-subcommittee1">Xóa</a>
                 	</li>
                 	<div class="div-subcommittee-show"  id="show${tieuBanCNTT.getMaTB()}">
 			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'show${tieuBanCNTT.getMaTB()}');">&times</a>
@@ -298,8 +326,8 @@
                 <c:forEach items="${tieuBanCNDPTs}" var="tieuBanCNDPT">
                 	<li>
 	                    <a href="javascript:void(0)" onclick="showSubcommittee('${tieuBanCNDPT.getMaTB()}');" id="name-subcommittee1">${tieuBanCNDPT.getTenTB()}</a>
-	                    <a href="javascript:void(0)" onclick="showEditSubcommittee('${tieuBanCNDPT.getMaTB()}');" id="edit-subcommittee1">Sửa</a>
-	                    <a href="javascript:void(0)" onclick="showDeleteSubcommittee('${tieuBanCNDPT.getMaTB()}');" id="delete-subcommittee1">Xóa</a>
+	                    <a ${lock=='have'?'hidden':''} href="javascript:void(0)" onclick="showEditSubcommittee('${tieuBanCNDPT.getMaTB()}');" id="edit-subcommittee1">Sửa</a>
+	                    <a ${lock=='have'?'hidden':''} href="javascript:void(0)" onclick="showDeleteSubcommittee('${tieuBanCNDPT.getMaTB()}');" id="delete-subcommittee1">Xóa</a>
                 	</li>
                 	<div class="div-subcommittee-show"  id="show${tieuBanCNDPT.getMaTB()}">
 			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'show${tieuBanCNDPT.getMaTB()}');">&times</a>

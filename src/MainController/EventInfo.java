@@ -28,16 +28,8 @@ public class EventInfo {
 	
 	@RequestMapping("event-info/{year}")
 	public String openEventInfo(ModelMap model, @PathVariable("year") Integer year, HttpSession ss) {
-		if(ss.getAttribute("user") != null) {
-			System.out.println("user ko null");
-			model.addAttribute("username", ss.getAttribute("user"));
-		}
-		else {
-			System.out.println("username = 0");
-			model.addAttribute("username", "");
-		}
 		Session session = factory.getCurrentSession();
-		String hql = "from TieuBan where YEAR(ngay) = "+year;
+		String hql = "from TieuBan where YEAR(ngay) = "+year+" order by ngay ASC";
 		Query q = session.createQuery(hql);
 		List<TieuBan> tieuBans = q.list();
 		for(TieuBan i: tieuBans) {

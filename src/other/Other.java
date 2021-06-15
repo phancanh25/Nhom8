@@ -8,6 +8,7 @@ import java.util.Base64;
 
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.ui.ModelMap;
 
@@ -20,6 +21,10 @@ import MainBean.SinhVien;
 public class Other {
 	public void checkLogin(HttpSession ss, ModelMap model, Session session) {
 		if(ss.getAttribute("user") != null) {
+			//account: ten tai khoan
+			//user: ho va ten sinh vien hoac giang vien
+			//code: ma giang vien hoac ma sinh vien
+			//role: role 1: admin , role 2: giang vien binh thuong, role 3: sinh vien
 			model.addAttribute("account", ss.getAttribute("account"));
 			model.addAttribute("user", ss.getAttribute("user"));
 			model.addAttribute("code", ss.getAttribute("code"));
@@ -70,6 +75,30 @@ public class Other {
 	        byte[] randomBytes = new byte[24];
 	        secureRandom.nextBytes(randomBytes);
 	        return base64Encoder.encodeToString(randomBytes);
+	    }
+	    
+	    //type 0: gv, 1: sv
+	    public String createMaxCode(boolean type, Session session) {
+	    	String maxCode = "";
+	    	String table = type?"SinhVien":"GiangVien";
+	    	String column = type?"maSV":"maGV";
+	    	String hql = "select max("+column+") FROM "+table;
+	    	System.out.println("hql: "+hql);
+	    	Query query = session.createQuery(hql);
+	    	String currentCode = (String)query.list().get(0);
+	    	System.out.println("Ma hien tai: "+currentCode);
+	    	
+	    	currentCode = currentCode.substring(6,currentCode.length());
+			int tam = Integer.parseInt(currentCode);
+			tam +=1;
+			if(tam<10) maxCode = "PTITGV0000" + Integer.toString(tam);
+			else if(tam<100) maxCode = "PTITGV000" + Integer.toString(tam);
+			else if(tam<1000) maxCode = "PTITGV00" + Integer.toString(tam);
+			else if(tam<10000) maxCode = "PTITGV0" + Integer.toString(tam);
+			else maxCode = "PTITGV" + Integer.toString(tam);
+			if(type) maxCode = maxCode.substring(0,4) + "S" + maxCode.substring(5);
+			System.out.println("Ma moi: "+maxCode);
+			return maxCode;
 	    }
 	
 	public Other() {}

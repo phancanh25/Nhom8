@@ -40,10 +40,11 @@
     left: 50%;
     transform: translate(-50%, -80%);
     width: 70%;
-    height: 500px;
+    min-height: 100px;
     background-color: white;
     border: 1px black solid;
     display: none;
+    padding-bottom: 50px;
 }
 
 .div-subcommittee-add{

@@ -6,7 +6,7 @@
 }
 .div-account-add{
 	width: 450px;
-    height: 400px;
+    height: 450px;
     background-color: white;
     position: fixed;
     left: 50%;
@@ -99,3 +99,4 @@
     animation-duration: 1s;
     animation-fill-mode: both;
 }
+

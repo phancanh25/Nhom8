@@ -34,6 +34,7 @@ public class HomeController {
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
 		showEvent(model);
+		other.createMaxCode(true, factory.getCurrentSession());
 		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "home/index";	
 	}

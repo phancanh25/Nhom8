@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <base href="${pageContext.servletContext.contextPath}/">
+<link rel="shortcut icon" href="resources/img/logo-lite.png" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="resources/script.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css.css">
@@ -16,6 +17,13 @@
 
 </head>
 <body>
+	<div class="div-cancel-release" id="div-cancel-release">
+	   	<form action="cancel-release.htm" method="POST">
+			<p style="text-align: center; color:teal; font-weight: bold;">Bạn có chắc muốn hủy công bố?</p>
+			<button type="submit" style="position: absolute; left:80px;" class="btn btn-success" >Đồng ý</button>
+			<button type="button" style="position: absolute; right:80px;" class="btn btn-danger" onclick="closeCancelRelease();">Hủy</button>
+ 		</form>
+ 	</div>
 	<div id="div-release">
 		<form action="release-event.htm" method="POST" enctype="multipart/form-data">
 			<a href="javascript:void(0)" class="a-login-quit" onclick="closeRelease();" style="margin-top: -12px; color: white;">&times</a>
@@ -83,16 +91,31 @@
 			            </form>
 			</div>
 		</div>
-       <div class="div-login" id="div-login">
-            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
-            <img src="resources/img/logo-lite.png">
-            <form action="./login.htm" method="POST">
-                <input type="text" name="username" placeholder="Tên đăng nhập"><br>
-                <input type="password" name="password" placeholder="Mật khẩu"><br>
-                <button type="submit">Đăng nhập</button>
-            </form>
-            <div class="div-login-bottom">
-                <a href="https://www.facebook.com/ptithcm.edu.vn">Đi tới trang web trên facebook</a>
+       <div class="div-login ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'fadeInDown':''}" style="visibility: ${error!=null || forgotFlag =='have' || forgotFlag =='done'?'visible':'hidden'}" id="div-login">
+            <div id="div-login-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/logo-lite.png">
+	            <form action="Home/login.htm" method="POST">
+	                <input type="text" spellcheck="false" name="username" placeholder="Tên đăng nhập" required="required"><br>
+	                <input type="password" name="password" placeholder="Mật khẩu" required="required"><br>
+	                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
+	                <button type="submit">Đăng nhập</button>
+	            </form>
+	            <div class="div-login-bottom">
+	                <a href="javascript:void(0)" onClick="openForgotPass();">Quên mật khẩu</a>
+	            </div>
+            </div>
+            <div id="div-forgot-form" class="${forgotFlag =='have' || forgotFlag =='done'?'leftIn':''}" style="width: 100%; height: 100%">
+            	<a href="javascript:void(0)" class="a-login-back" onclick="closeForgotPass();">&#8592</a>
+	            <a href="javascript:void(0)" class="a-login-quit" onclick="closeLogin();">&times</a>
+	            <img src="resources/img/forgot-pass.jpg" style="width:150px; height: 130px;">
+	            <p class="error" ${forgotFlag=='have'?'':'hidden'}>${forgotError}</p>
+	            <p class="text-success" ${forgotFlag=='done'?'':'hidden'}>Vui lòng kiểm tra gmail để nhận mật khẩu</p>
+	            <form action="forgotpass.htm" method="POST">
+		            <input name="ma" id="Ma" type="text" spellcheck="false" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
+		            <input type="email" name="email" id="email" placeholder="Nhập Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
+	                <button type="submit">Lấy lại mật khẩu</button>
+	            </form>
             </div>
         </div>
         <div class="div-top">
@@ -130,12 +153,13 @@
 			            <li>
 			                <p style="margin-right: 20px; color: blue;" id="current-exam">&#10095; Kỳ bảo vệ năm 2021 </p>
 			                <div class="div-assignment-roadmap">
-			                	<form action="subcommittee.htm" method="POST">
+			                	<form action="subcommittee.htm" method="POST" style="display: inline;">
 			                		<button ${release =='done'?'hidden':''} class="btn btn-primary" ${role==1?'':'hidden'} type="submit">Bổ sung tiểu ban</button>
 			                		<input type="checkbox" id="input-event-finish" ${lock==null?'checked':''} hidden/>
-			                		<button ${release =='done'?'hidden':''} class="btn btn-success" ${role==1?'':'hidden'} type="button" style="width: 146px;" onClick="checkOpenRelease();">Công bố kết quả</button>
-			                		<p ${release == 'done'?'':'hidden'} class="bg-success text-white" style="display: inline; padding: 5px 10px 5px 10px; border-radius: 10px;">Kết quả kỳ bảo vệ đồ án tốt nghiệp đã được công bố</p>
 			                	</form>
+			                	<button ${release =='done'?'hidden':''} class="btn btn-success" ${role==1?'':'hidden'} type="button" style="width: 146px; display: inline;" onClick="checkOpenRelease();">Công bố kết quả</button>
+		                		<p ${release == 'done'?'':'hidden'} class="bg-success text-white" style="display: inline; padding: 5px 10px 5px 10px; border-radius: 10px;">Kết quả kỳ bảo vệ đồ án tốt nghiệp đã được công bố</p>
+		                		<button  ${release =='done'?'':'hidden'} class="btn btn-danger" ${role==1?'':'hidden'} type="button" onClick="openCancelRelease();" style="display: inline; width: 170px; height: 35px; float: right; margin-top: -5px;">Hủy bỏ công bố ✖️</button>
 			                	<c:if test="${release == 'done'}">
 			                		<script>
 			                			$(function () {

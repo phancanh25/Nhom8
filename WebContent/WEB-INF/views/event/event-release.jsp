@@ -6,6 +6,7 @@
 <html>
 <head>
 <base href="${pageContext.servletContext.contextPath}/">
+<link rel="shortcut icon" href="resources/img/logo-lite.png" />
 <meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="resources/event-release.css">
         <link rel="stylesheet" type="text/css" href="resources/css.css">
