@@ -42,7 +42,9 @@
 	            </form>
             </div>
         </div>
-	<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
+        
+        
+		<div id="div-profile" class="div-profile ${changePassFlag != null || changeProfileFlag != null?'fadeInDown ':''}" style="visibility: ${changePassFlag != null || changeProfileFlag != null?'visible':'hidden'}">
 			<a href="javascript:void(0)" class="a-login-quit" onclick="closeProfile();" style="margin-top: -12px;">&times</a>
 			<div class="div-profile-info">
 				<h5 style="color: #2F79FF; margin-top: 20px;">Thông tin tài khoản</h5>
@@ -88,14 +90,16 @@
 			            </form>
 			</div>
 		</div>
-	<div class="div-subcommittee-add", id="div-subcommittee-add">
+		
+		
+		<div class="div-subcommittee-add", id="div-subcommittee-add">
             <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'div-subcommittee-add');">&times</a>
             <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Thêm tiểu ban</p>
             <form action="scmt-add.htm" method="POST">
             	<input type="checkbox" name="select" value="" checked hidden>
 	            <input name="tenTB" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <!-- step = 2 o duoi la gi??  -->
-	            <input name="gio" type="time" step="2" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+	            <input name="gio" type="time" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <input name="ngay" type="date" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <input name="diaDiem" type="text" placeholder="Địa điểm" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <input name="khoa" type="number" placeholder="Khóa" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
@@ -129,8 +133,9 @@
 	            </div>
             	<button type="submit" class="finish-btn btn btn-success" style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">Thêm tiểu ban</button>
             </form>
-                
         </div>
+        
+        
         <div class="div-top">
             <div class="div-top-wrapper">
             	<a href="javascript:void(0)">&#9743 0987-654-321</a>
@@ -154,6 +159,8 @@
                 <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
+        
+        
         <div class="div-subcommittee">
         	<form action="event-create.htm" method="POST">
         		<button class="btn-confirm btn btn-success" ${lock=='have'?'hidden':''}>Xác nhận tạo</button>
@@ -199,8 +206,9 @@
            				 <button onclick="hideSubcommitte('show${tieuBanATTT.getMaTB()}');" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
         			</div>
         			<div class="div-subcommittee-edit" id="edit${tieuBanATTT.getMaTB()}">
-			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'edit${tieuBanATTT.getMaTB()}');">&times</a>
+			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideEditSubcommitte('${tieuBanATTT.getMaTB()}')">&times</a>
 			            <form action="scmt-edit.htm" method="POST">
+			            	<input type="checkbox" name="select" value="" checked hidden>
 			            	<input name="maTB" type="number" value="${tieuBanATTT.getMaTB()}" hidden>
 				            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Sửa ${tieuBanATTT.getTenTB()}</p>
 				            <div class="div-subcommittee-wrapper">
@@ -252,7 +260,7 @@
 	                    <a ${lock=='have'?'hidden':''} href="javascript:void(0)" onclick="showDeleteSubcommittee('${tieuBanCNTT.getMaTB()}');" id="delete-subcommittee1">Xóa</a>
                 	</li>
                 	<div class="div-subcommittee-show"  id="show${tieuBanCNTT.getMaTB()}">
-			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'show${tieuBanCNTT.getMaTB()}');">&times</a>
+			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideSubcommitte('show${tieuBanCNTT.getMaTB()}');">&times</a>
 			            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">${tieuBanCNTT.getTenTB()}</p>
 			            <div class="div-subcommittee-wrapper">
 			                <table class="table table-striped table-bordered table-subcommittee">
@@ -275,11 +283,12 @@
 			                    
 			                </table>
             			</div>
-           				 <button onclick="hideSubcommitte();" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+           				 <button onclick="hideSubcommitte('show${tieuBanCNTT.getMaTB()}');" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
         			</div>
         			<div class="div-subcommittee-edit" id="edit${tieuBanCNTT.getMaTB()}">
-			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'edit${tieuBanCNTT.getMaTB()}');">&times</a>
+			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideEditSubcommitte('${tieuBanCNTT.getMaTB()}');">&times</a>
 			            <form action="scmt-edit.htm" method="POST">
+			            	<input type="checkbox" name="select" value="" checked hidden>
 			            	<input name="maTB" type="number" value="${tieuBanCNTT.getMaTB()}" hidden>
 				            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Sửa ${tieuBanCNTT.getTenTB()}</p>
 				            <div class="div-subcommittee-wrapper">
@@ -331,7 +340,7 @@
 	                    <a ${lock=='have'?'hidden':''} href="javascript:void(0)" onclick="showDeleteSubcommittee('${tieuBanCNDPT.getMaTB()}');" id="delete-subcommittee1">Xóa</a>
                 	</li>
                 	<div class="div-subcommittee-show"  id="show${tieuBanCNDPT.getMaTB()}">
-			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'show${tieuBanCNDPT.getMaTB()}');">&times</a>
+			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideSubcommitte('show${tieuBanCNDPT.getMaTB()}');">&times</a>
 			            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">${tieuBanCNDPT.getTenTB()}</p>
 			            <div class="div-subcommittee-wrapper">
 			                <table class="table table-striped table-bordered table-subcommittee">
@@ -354,11 +363,12 @@
 			                    
 			                </table>
             			</div>
-           				 <button onclick="hideSubcommitte();" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
+           				 <button onclick="hideSubcommitte('show${tieuBanCNDPT.getMaTB()}');" class="finish-btn btn btn-success"  style="margin-top: 10px; position: relative; left: 50%; transform: translate(-50%,0);">OK</button>    
         			</div>
         			<div class="div-subcommittee-edit" id="edit${tieuBanCNDPT.getMaTB()}">
-			            <a href="javascript:void(0)" class="a-login-quit" onclick="closeDiv(this,'edit${tieuBanCNDPT.getMaTB()}');">&times</a>
+			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideEditSubcommitte('${tieuBanCNDPT.getMaTB()}');">&times</a>
 			            <form action="scmt-edit.htm" method="POST">
+			            	<input type="checkbox" name="select" value="" checked hidden>
 			            	<input name="maTB" type="number" value="${tieuBanCNDPT.getMaTB()}" hidden>
 				            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Sửa ${tieuBanCNDPT.getTenTB()}</p>
 				            <div class="div-subcommittee-wrapper">
