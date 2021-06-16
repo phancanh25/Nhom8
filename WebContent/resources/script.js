@@ -189,9 +189,18 @@ function hideSubcommitte(id){
 }
 
 function showEditSubcommittee(id){
-    document.getElementsByClassName("div-subcommittee-edit")[0].classList.remove("fadeOut");
-    document.getElementsByClassName("div-subcommittee-edit")[0].style.display = "block";
-    document.getElementsByClassName("div-subcommittee-edit")[0].classList.add("fadeIn");
+	id = "edit"+id;
+    document.getElementById(id).classList.remove("fadeOut");
+	document.getElementById(id).style.display = "block";
+	document.getElementById(id).classList.add("fadeIn");
+}
+function hideEditSubcommitte(id){
+	id = "edit"+id;
+	document.getElementById(id).classList.remove("fadeIn");
+    document.getElementById(id).classList.add("fadeOut");
+    setTimeout(function(){
+        document.getElementById(id).style.display = "none";
+    }, 500)   
 }
 
 

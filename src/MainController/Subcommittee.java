@@ -85,10 +85,6 @@ public class Subcommittee {
 		Transaction transaction = session.beginTransaction();
 		List<DoAn> doAns = null;
 		
-		for(int i = 0; i<select.length; i++) {
-			System.out.println("Select "+i+": "+select[i]);
-		}
-		
 		//Tao danh sach giang vien cua tieu ban
 		List<GiangVien> giangViens = new ArrayList<>();
 		for(String i: select) {
@@ -119,7 +115,7 @@ public class Subcommittee {
 		List<GiangVien> giangViens = new ArrayList<>();
 		for(String i: select) {
 			GiangVien giangVien = (GiangVien)(session.get(GiangVien.class, i));
-			giangViens.add(giangVien);
+			if(giangVien != null) giangViens.add(giangVien);
 		}
 		tieuBan.setGiangViens(giangViens);
 		
@@ -187,7 +183,30 @@ public class Subcommittee {
 	}
 	
 	@RequestMapping("event-cancel")
-	public String cancelAddEvent(){
+	public String cancelAddEvent(ModelMap model){
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		//Xoa het cac tieu ban & xoa lock
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		Lock lock = (Lock)(session.get(Lock.class, year));
+		String hql = "FROM TieuBan where YEAR(ngay) = "+year;
+		Query query = session.createQuery(hql);
+		List<TieuBan> tieuBans = query.list();
+		try {
+			if(lock!=null) session.delete(lock);
+			for(TieuBan tieuBan: tieuBans) {
+				session.delete(tieuBan);
+			}
+			transaction.commit();
+		}
+		catch(HibernateException e){
+			transaction.rollback();
+			model.addAttribute("message", "Đã có lỗi xảy ra: "+e.getMessage());
+			return "error/error";
+		}
+		finally {
+			session.close();
+		}
 		return "redirect:assignment.htm";
 	}
 	

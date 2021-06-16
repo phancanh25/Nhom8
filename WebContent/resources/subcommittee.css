@@ -8,15 +8,7 @@
     padding-bottom: 100px;
     position: relative;
 }
-.div-subcommittee-wrapper{
-    width: 90%;
-    height: 360px;
-    margin: 0 auto;
-    margin-top: 10px;
-    border: 1px black solid;
-    overflow: scroll;
-    display: block;
-}
+
 .table-subcommittee{
     width: 80%;
 }
@@ -36,11 +28,12 @@
 
 .div-subcommittee-show, .div-subcommittee-edit, .div-subcommittee-delete, .div-subcommittee-add{
     z-index: 1;
-    position: absolute;
+    position: fixed;
     left: 50%;
     transform: translate(-50%, -80%);
     width: 70%;
     min-height: 100px;
+    max-height: 650px;
     background-color: white;
     border: 1px black solid;
     display: none;
@@ -73,15 +66,15 @@
     margin-top: -200px;
 }
 
+
 .div-subcommittee-wrapper{
     position: relative;
+    margin: 0 auto;
+    margin-top: 10px;
     width: 90%;
-    height: 80%;
+    height: 360px;
     border: 1px aqua solid;
-}
-
-.div-subcommittee-add .div-subcommittee-wrapper{
-    height: 70%;
+    overflow: scroll;
 }
 
 @keyframes fadeIn{
