@@ -42,7 +42,7 @@ public class NewPass {
 			model.addAttribute("accountRole", 2);
 		}
 		else if(accountSV != null){	
-			model.addAttribute("account", accountGV.getUsername());
+			model.addAttribute("account", accountSV.getUsername());
 			model.addAttribute("accountRole", 3);
 		}
 		else{

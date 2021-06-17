@@ -164,10 +164,10 @@
         		<font style="margin-left: 110px; font-family: Tahoma; font-size: 25; color: black;">Chọn năm </font> &nbsp;
 			    <select class="form-control" id="nowtime" style="width: 200px; display: inline;">
 			    	<c:forEach items="${listnam}" var="listnam">
-			        	<option value="${listnam}">${listnam}</option>
+			        	<option value="${listnam}" ${nam==listnam?'selected':''}>${listnam}</option>
 			        </c:forEach>
 			    </select> &nbsp;
-			    <button type="button" class="btn btn-primary" onclick="submitValue()" style="margin-top: -5px;">submit </button>
+			    <button type="button" class="btn btn-primary" onclick="submitValue()" style="margin-top: -5px;">Tìm kiếm</button>
 			    <a style="margin: 5px 110px 0 0; float: right; font-weight: bold" href="./statistic/barchart.htm" class="text-success">Chuyển sang biểu đồ cột</a>
 			</form>
 			<hr style="background: #139CD5; width: 80%">
