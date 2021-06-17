@@ -1,6 +1,7 @@
 package MainController;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Query;
@@ -8,11 +9,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import MainBean.AccountGV;
@@ -34,7 +38,6 @@ public class HomeController {
 	@RequestMapping("index")
 	public String index(ModelMap model, HttpSession ss) {
 		showEvent(model);
-		other.createMaxCode(true, factory.getCurrentSession());
 		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "home/index";	
 	}
@@ -66,6 +69,67 @@ public class HomeController {
 		return "redirect:/Home/index.htm";
 	}
 	
+		//Quen mat khau
+		@Autowired
+		JavaMailSender mailer;
+		
+		@RequestMapping("forgotpass")
+		public String send(HttpSession ss, ModelMap model,@RequestParam("ma") String maSo,@RequestParam("email")String to){
+			Session session = factory.openSession();
+			final Transaction transaction = session.beginTransaction();
+				ForgotPass: try {
+					String token = other.generateToken();
+					
+					String hql = "FROM AccountGV WHERE maGV = '"+maSo+"' and email = '"+to+"'";
+					Query q = session.createQuery(hql);
+					AccountGV accountGV = (AccountGV)q.uniqueResult();
+					
+					hql = "FROM AccountSV WHERE maSV = '"+maSo+"' and email = '"+to+"'";
+					q = session.createQuery(hql);
+					AccountSV accountSV = (AccountSV)q.uniqueResult();
+					if(accountGV != null) {
+						accountGV.setToken(other.getMd5(token));
+						session.update(accountGV);
+					}
+					else if(accountSV != null){
+						accountSV.setToken(other.getMd5(token));
+						session.update(accountSV);
+					}
+					else{
+						model.addAttribute("forgotError","Tài khoản không tồn tại");
+						model.addAttribute("forgotFlag", "have");
+						break ForgotPass;
+					}				
+						String from = "nguoideptrai001wer@gmail.com";			
+						String subject="PTITHCM - Nhận mật khẩu";
+						String body="Click vào đường link sau để tạo mật khẩu mới: <a href=\"http://localhost:4545/Nhom8/create-new-pass/"+token+".htm\">Tạo mật khẩu mới</a>";
+						MimeMessage mail = mailer.createMimeMessage();
+						// su dung lop tro giup
+						MimeMessageHelper helper = new MimeMessageHelper(mail);
+						helper.setFrom(from,from);
+						helper.setTo(to);
+						helper.setReplyTo(from, from);
+						helper.setSubject(subject);
+						helper.setText(body,true);
+						
+						//gui mai
+						mailer.send(mail);
+						model.addAttribute("forgotFlag","done");
+						transaction.commit();
+				} 
+				catch (Exception e) {
+					transaction.rollback();
+					model.addAttribute("forgotError","Đã có lỗi xảy ra: "+e.getMessage());
+					model.addAttribute("forgotFlag", "have");
+				}			
+				finally {
+					session.close();
+				}
+			showEvent(model);
+			other.checkLogin(ss, model, factory.getCurrentSession());
+			return "home/index";
+		}
+		
 	//kiem tra tai khoan
 	public boolean checkLogin(String username, String password, HttpSession ss, ModelMap model) {
 		boolean flag = true;

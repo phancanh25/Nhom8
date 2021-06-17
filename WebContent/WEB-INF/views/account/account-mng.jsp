@@ -172,7 +172,7 @@
 		            		<th>${accountGV.getEmail()} </th>
 		            		<th>${accountGV.getRole().getMaRole() == 1?'Người quản trị':'Giảng viên'}</th>
 		            		<th ${account == 'admin'?'':'hidden'}>
-		            			<form action="">
+		            			<form action="change-role.htm">
 			            			<input type="text" name="username" value="${accountGV.getUsername()}" hidden>
 			            			<button ${accountGV.getRole().getMaRole() == 1?'hidden':''} style="font-size: 13px; width: 97px;" class="btn btn-success">Nâng quyền</button>
 			            			<button ${accountGV.getRole().getMaRole() == 1?'':'hidden'} style="font-size: 13px; width: 97px;" class="btn btn-danger">Hạ quyền</button>

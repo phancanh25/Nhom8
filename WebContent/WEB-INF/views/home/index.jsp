@@ -80,8 +80,8 @@
 	            <img src="resources/img/forgot-pass.jpg" style="width:150px; height: 130px;">
 	            <p class="error" ${forgotFlag=='have'?'':'hidden'}>${forgotError}</p>
 	            <p class="text-success" ${forgotFlag=='done'?'':'hidden'}>Vui lòng kiểm tra gmail để nhận mật khẩu</p>
-	            <form action="forgotpass.htm" method="POST">
-		            <input name="ma" id="Ma" type="text" spellcheck="false" placeholder="Nhập MSSV/MSGV"  pattern="^n\d{2}dc[a-z]{2}\d{3} |PTITGV\d{2}" title="Format nhập vào chưa đúng!!!" size="10" required>
+	            <form action="Home/forgotpass.htm" method="POST">
+		            <input name="ma" id="Ma" type="text" spellcheck="false" placeholder="Nhập MSSV/MSGV" size="10" required>
 		            <input type="email" name="email" id="email" placeholder="Nhập Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required>
 	                <button type="submit">Lấy lại mật khẩu</button>
 	            </form>
