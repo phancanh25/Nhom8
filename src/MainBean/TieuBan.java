@@ -50,9 +50,6 @@ public class TieuBan<ChiTietTieuBan> {
 	
 	@Column(name="DiaDiem")
 	private String diaDiem;
-	
-	@Column(name="Khoa")
-	private int khoa;
 
 	@OneToMany(mappedBy = "tieuBan", fetch=FetchType.EAGER)
 	private List<DoAn> doAn;
@@ -127,16 +124,6 @@ public class TieuBan<ChiTietTieuBan> {
 	}
 
 
-	public int getKhoa() {
-		return khoa;
-	}
-
-
-	public void setKhoa(int khoa) {
-		this.khoa = khoa;
-	}
-
-
 	public List<DoAn> getDoAn() {
 		return doAn;
 	}
@@ -156,7 +143,7 @@ public class TieuBan<ChiTietTieuBan> {
 		this.giangViens = giangViens;
 	}
 
-	public TieuBan(String tenTB, String chuyenNganh, Date ngay, Date gio, String diaDiem, int khoa, List<DoAn> doAn,
+	public TieuBan(String tenTB, String chuyenNganh, Date ngay, Date gio, String diaDiem, List<DoAn> doAn,
 			List<GiangVien> giangViens) {
 		super();
 		this.tenTB = tenTB;
@@ -164,7 +151,6 @@ public class TieuBan<ChiTietTieuBan> {
 		this.ngay = ngay;
 		this.gio = gio;
 		this.diaDiem = diaDiem;
-		this.khoa = khoa;
 		this.doAn = doAn;
 		this.giangViens = giangViens;
 	}

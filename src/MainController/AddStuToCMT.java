@@ -50,12 +50,17 @@ public class AddStuToCMT {
 		try {
 			int year = Calendar.getInstance().get(Calendar.YEAR);
 			Session session = factory.getCurrentSession();
-			//Loc ra nhung sinh vien du diem tich luy va chua co do an hoac nhung sinh vien da co do an trong nam nay (de chinh sua)
+			//Loc ra nhung sinh vien du diem tich luy va chua co do an va tu` nam 4 tro len hoac nhung sinh vien da co do an trong nam nay (de chinh sua)
 			String hql = "FROM SinhVien where diemTBTL >= 2.5 ORDER BY diemTBTL DESC";
 			Query q = session.createQuery(hql);
 			List<SinhVien> sinhViens = q.list();
 			for(int i = 0 ; i<sinhViens.size(); i++) {
 				if(sinhViens.get(i).getDoAn() != null && sinhViens.get(i).getDoAn().getNam() != year) {
+					sinhViens.remove(i);
+					i -= 1;
+					continue;
+				}
+				if(year - sinhViens.get(i).getKhoa() < 4) {
 					sinhViens.remove(i);
 					i -= 1;
 				}

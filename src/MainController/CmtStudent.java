@@ -43,6 +43,7 @@ public class CmtStudent {
 		for(DoAn i: doAns) {
 			sinhViens.add(i.getSinhVien());
 		}
+		model.addAttribute("tenTB", tieuBan.getTenTB());
 		model.addAttribute("sinhViens", sinhViens);
 		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "tieuban/show-student";

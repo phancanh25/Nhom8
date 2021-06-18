@@ -42,8 +42,8 @@
 						<hr>
 						<p>Giới tính:
 							<select name="edit-gender" value="${giangVienPro.isPhai()}${sinhVienPro.isPhai()}">
-								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nam</option>
-								<option value="${0}" ${giangVienPro.isPhai() == false || sinhVienPro.isPhai() == false?'selected':''}>Nữ</option>
+								<option value="${0}" ${giangVienPro.isPhai() == false || sinhVienPro.isPhai() == false?'selected':''}>Nam</option>
+								<option value="${1}" ${giangVienPro.isPhai() == true || sinhVienPro.isPhai() == true?'selected':''}>Nữ</option>
 							</select>
 						<p id="p-phone" ${giangVienPro == null?'hidden':''} style="border-bottom: 1px gray solid">SĐT: ${giangVienPro.getSDT()} <a href="javascript:void()" onClick="editPhone('${giangVienPro.getSDT()}')">Sửa</a></p>
 						<input value="${giangVienPro.getSDT()}" name="edit-phone" style="width: 100%; margin-bottom:10px; margin-top: 0px; " type="text" spellcheck="false" id="input-phone" spellcheck="false" hidden>
@@ -102,13 +102,15 @@
 		<form action="teacher/add-teacher.htm" method="POST">
 			<input name="ho" type="text" placeholder="Họ"  pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
 			<input name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br> 
-			<label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label>&nbsp&nbsp&nbsp
-			<label>Nữ&nbsp&nbsp<input checked="checked" type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label>&nbsp&nbsp&nbsp 
+			<label>Nam&nbsp&nbsp<input checked="checked" type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label>&nbsp&nbsp&nbsp
+			<label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label>&nbsp&nbsp&nbsp 
 			<input name="sDT" type="text" placeholder="Số điện thoại" size="10" pattern="^0\d{9}" title="Format SDT chưa đúng !!!" required="required"><br>
 			<input name="diaChi" type="text" placeholder="Địa chỉ" size="200" required="required"><br>
 			<button type="submit">Thêm</button>
 		</form>
 	</div>
+	
+	
 	<div class="div-edit-teacher ${check==false?'fadeInDown':''}" id="div-edit-teacher"
 		style="height: 590px; margin-top: 50px; visibility: ${check==false?'visible':'hidden' }">
 		<a href="javascript:void(0)" class="a-login-quit"
@@ -119,8 +121,8 @@
                	<br><input id="input-edit-maGV" name="maGV" type="text" placeholder="Mã Giảng Viên" readonly="readonly"><br>              
                 <input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input id="input-edit-ten" name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
-                <label>Nam&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"checked required="required"></label> &nbsp&nbsp&nbsp
+                <label>Nam&nbsp&nbsp<input id="input-edit-male" type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input id="input-edit-female" type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
            		<input id="input-edit-sDT" name="sDT" type="text" placeholder="Số Điện Thoại" size="10" pattern="^0\d{9}" title="Format SDT chưa đúng !!!" required="required"><br>
            	    <input id="input-edit-diaChi" name="diaChi" type="text" placeholder="Địa chỉ" size="200" required="required"><br>
                 <button type="submit">Sửa</button>
@@ -141,7 +143,7 @@
 				<a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-               	<a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+               	<a href="${role == 1 || role==2?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
                 <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
@@ -153,7 +155,7 @@
 
 		<div class="div-teacher-left">
 			<div class="div-department">
-				<a href="javascript:void(0)" onclick="openAddTeacher();"
+				<a ${role==1?'':'hidden'} href="javascript:void(0)" onclick="openAddTeacher();"
 				style="text-decoration: underline; color: white; text-align: center; position: absolute; top: 8px; right: 20px">Thêm giảng viên</a>
 				<label>
           			Tìm kiếm &nbsp;
@@ -172,8 +174,8 @@
 								<li style="width: 100%">
 									<div class="div-teacher-li">
 											
-				                            <a href="javascript:void()" onclick="openEditTeacher('${t.getMaGV()}','${t.getHo()}','${t.getTen()}',${t.isPhai()},'${t.getSDT()}','${t.getDiaChi()}');" name="${t.getMaGV()}">Sửa</a>
-				                            <a href="javascript:void()" role="button" onClick="openDeleteTeacherConfirm('${t.getMaGV()}');">Xóa</a>
+				                            <a ${role==1?'':'hidden'} href="javascript:void()" onclick="openEditTeacher('${t.getMaGV()}','${t.getHo()}','${t.getTen()}',${t.isPhai()},'${t.getSDT()}','${t.getDiaChi()}');" name="${t.getMaGV()}">Sửa</a>
+				                            <a ${role==1?'':'hidden'} href="javascript:void()" onClick="openDeleteTeacherConfirm('${t.getMaGV()}');">Xóa</a>
 				                            <img src="resources/img/user1.png">
 				                            <div class="div-teacher-info">
 				                                <ul class="ul-teacher-info">
@@ -187,7 +189,7 @@
 				                                    </li>
 				                                    <li>
 				                                        <div class="div-patern-info">Giới tính</div>
-				                                        <div class="div-data">${t.isPhai()?'Nam':'Nữ'}</div>
+				                                        <div class="div-data">${t.isPhai()?'Nữ':'Nam'}</div>
 				                                    </li>
 				                                    <li>
 				                                        <div class="div-patern-info">SĐT</div>

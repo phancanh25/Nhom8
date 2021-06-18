@@ -102,7 +102,7 @@
                 <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+                <a href="${role == 1 || role==2 ?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
                 <a href="${role == 1 || role==2 ?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
@@ -114,7 +114,7 @@
             <ul class="ul-home">
             	<c:forEach items="${events}" var="event">
             		<li>
-            			<a href="./event/${event.getYear()}.htm" target="_blank"><h4>Danh sách sinh viên tốt nghiệp năm ${event.getYear()}</h4></a>
+            			<a href="./event/${event.getYear()}.htm" target="_blank"><h4>Kết quả kỳ bảo vệ đồ án tốt nghiệp năm ${event.getYear()}</h4></a>
             			<div class="div-content">
 	                        <img src="data:image/png;base64,${event.getBase64Photo()}" alt="thongbao" />
 	                        <p>${event.getDetail()}</p>

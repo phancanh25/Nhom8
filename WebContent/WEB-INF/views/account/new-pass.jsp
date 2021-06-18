@@ -104,7 +104,7 @@
                 <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+                <a href="${role == 1 || role==2?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
                 <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
@@ -119,7 +119,7 @@
             	<form action="set-new-pass.htm" method="POST">
             		<input type="text" name="account" value="${account}" hidden/>
             		<input type="number" name="accountRole" value="${accountRole}" hidden/>
-            		<input type="password" name="newpass1" placeholder="Nhập mật khẩu mới" required="required"/>
+            		<input type="password" name="newpass1" placeholder="Nhập mật khẩu mới" pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8}$" title="Mật khẩu bạn nhập vào chưa đủ mạnh" required="required"/>
             		<input type="password" name="newpass2" placeholder="Nhập lại mật khẩu mới" required="required"/>
             		<br/>
             		<button class="btn-primary" type="submit">Xác nhận</button>

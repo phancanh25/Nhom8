@@ -98,11 +98,9 @@
             <form action="scmt-add.htm" method="POST">
             	<input type="checkbox" name="select" value="" checked hidden>
 	            <input name="tenTB" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
-	            <!-- step = 2 o duoi la gi??  -->
 	            <input name="gio" type="time" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <input name="ngay" type="date" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <input name="diaDiem" type="text" placeholder="Địa điểm" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
-	            <input name="khoa" type="number" placeholder="Khóa" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
 	            <select name="chuyenNganh" class="form-control" style="width: 300px; margin-left: 50px; display: inline;">
 	                <option value="ATTT">An toàn thông tin</option>
 	                <option value="CNTT">Công nghệ thông tin</option>
@@ -151,7 +149,7 @@
                 <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+                <a href="${role == 1 || role==2?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
                 <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
@@ -182,6 +180,8 @@
                 	<div class="div-subcommittee-show"  id="show${tieuBanATTT.getMaTB()}">
 			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideSubcommitte('show${tieuBanATTT.getMaTB()}');">&times</a>
 			            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">${tieuBanATTT.getTenTB()}</p>
+			            <span class="scmt-info">Thời gian: ${tieuBanATTT.getGio()} ${tieuBanATTT.getNgay()}</span>
+			            <span class="scmt-info">Địa điểm: ${tieuBanATTT.getDiaDiem()}</span>
 			            <div class="div-subcommittee-wrapper">
 			                <table class="table table-striped table-bordered table-subcommittee">
 			                    <tr>
@@ -211,6 +211,15 @@
 			            	<input type="checkbox" name="select" value="" checked hidden>
 			            	<input name="maTB" type="number" value="${tieuBanATTT.getMaTB()}" hidden>
 				            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Sửa ${tieuBanATTT.getTenTB()}</p>
+							<input name="tenTB" value="${tieuBanATTT.getTenTB()}" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+							<input name="gio" value="${tieuBanATTT.getGio()}" type="time" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				            <input name="ngay" value="${tieuBanATTT.getNgay()}" type="date" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				            <input name="diaDiem" value="${tieuBanATTT.getDiaDiem()}" type="text" placeholder="Địa điểm" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				        	<select name="chuyenNganh" class="form-control" style="width: 300px; margin-left: 50px; display: inline;">
+				                <option value="ATTT" ${tieuBanATTT.getChuyenNganh() == 'ATTT'?'selected':''}>An toàn thông tin</option>
+				                <option value="CNTT" ${tieuBanATTT.getChuyenNganh() == 'CNTT'?'selected':''}>Công nghệ thông tin</option>
+				                <option value="CNDPT" ${tieuBanATTT.getChuyenNganh() == 'CNDPT'?'selected':''}>Công nghệ đa phương tiện</option>
+				            </select>
 				            <div class="div-subcommittee-wrapper">
 				                <table class="table table-striped table-bordered table-subcommittee">
 				                    <tr>
@@ -262,6 +271,8 @@
                 	<div class="div-subcommittee-show"  id="show${tieuBanCNTT.getMaTB()}">
 			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideSubcommitte('show${tieuBanCNTT.getMaTB()}');">&times</a>
 			            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">${tieuBanCNTT.getTenTB()}</p>
+			            <span class="scmt-info">Thời gian: ${tieuBanCNTT.getGio()} ${tieuBanCNTT.getNgay()}</span>
+				        <span class="scmt-info">Địa điểm: ${tieuBanCNTT.getDiaDiem()}</span>
 			            <div class="div-subcommittee-wrapper">
 			                <table class="table table-striped table-bordered table-subcommittee">
 			                    <tr>
@@ -291,6 +302,15 @@
 			            	<input type="checkbox" name="select" value="" checked hidden>
 			            	<input name="maTB" type="number" value="${tieuBanCNTT.getMaTB()}" hidden>
 				            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Sửa ${tieuBanCNTT.getTenTB()}</p>
+				            <input name="tenTB" value="${tieuBanCNTT.getTenTB()}" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+							<input name="gio" value="${tieuBanCNTT.getGio()}" type="time" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				            <input name="ngay" value="${tieuBanCNTT.getNgay()}" type="date" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				            <input name="diaDiem" value="${tieuBanCNTT.getDiaDiem()}" type="text" placeholder="Địa điểm" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				        	<select name="chuyenNganh" class="form-control" style="width: 300px; margin-left: 50px; display: inline;">
+				                <option value="ATTT" ${tieuBanCNTT.getChuyenNganh() == 'ATTT'?'selected':''}>An toàn thông tin</option>
+				                <option value="CNTT" ${tieuBanCNTT.getChuyenNganh() == 'CNTT'?'selected':''}>Công nghệ thông tin</option>
+				                <option value="CNDPT" ${tieuBanCNTT.getChuyenNganh() == 'CNDPT'?'selected':''}>Công nghệ đa phương tiện</option>
+				            </select>
 				            <div class="div-subcommittee-wrapper">
 				                <table class="table table-striped table-bordered table-subcommittee">
 				                    <tr>
@@ -342,6 +362,8 @@
                 	<div class="div-subcommittee-show"  id="show${tieuBanCNDPT.getMaTB()}">
 			            <a href="javascript:void(0)" class="a-login-quit" onclick="hideSubcommitte('show${tieuBanCNDPT.getMaTB()}');">&times</a>
 			            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">${tieuBanCNDPT.getTenTB()}</p>
+			            <span class="scmt-info">Thời gian: ${tieuBanCNDPT.getGio()} ${tieuBanCNDPT.getNgay()}</span>
+			            <span class="scmt-info">Địa điểm: ${tieuBanCNDPT.getDiaDiem()}</span>
 			            <div class="div-subcommittee-wrapper">
 			                <table class="table table-striped table-bordered table-subcommittee">
 			                    <tr>
@@ -371,6 +393,15 @@
 			            	<input type="checkbox" name="select" value="" checked hidden>
 			            	<input name="maTB" type="number" value="${tieuBanCNDPT.getMaTB()}" hidden>
 				            <p style="margin-top: 10px; margin-left: 50px; color: #6692e3; font-weight: bold;">Sửa ${tieuBanCNDPT.getTenTB()}</p>
+				            <input name="tenTB" value="${tieuBanCNDPT.getTenTB()}" type="text" placeholder="Tên tiểu ban" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+							<input name="gio" value="${tieuBanCNDPT.getGio()}" type="time" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				            <input name="ngay" value="${tieuBanCNDPT.getNgay()}" type="date" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				            <input name="diaDiem" value="${tieuBanCNDPT.getDiaDiem()}" type="text" placeholder="Địa điểm" class="form-control" style="width: 200px; margin-left: 50px; display: inline;" required="required">
+				        	<select name="chuyenNganh" class="form-control" style="width: 300px; margin-left: 50px; display: inline;">
+				                <option value="ATTT" ${tieuBanCNDPT.getChuyenNganh() == 'ATTT'?'selected':''}>An toàn thông tin</option>
+				                <option value="CNTT" ${tieuBanCNDPT.getChuyenNganh() == 'CNTT'?'selected':''}>Công nghệ thông tin</option>
+				                <option value="CNDPT" ${tieuBanCNDPT.getChuyenNganh() == 'CNDPT'?'selected':''}>Công nghệ đa phương tiện</option>
+				            </select>
 				            <div class="div-subcommittee-wrapper">
 				                <table class="table table-striped table-bordered table-subcommittee">
 				                    <tr>

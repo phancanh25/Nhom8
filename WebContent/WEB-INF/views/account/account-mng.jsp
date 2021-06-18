@@ -107,10 +107,10 @@
 	        		<option value="sv" ${type=='sv'?'selected':''}>Sinh viên</option>
 	        	</select>
 	        	<br/>
-	        	<input name="username" type="text" placeholder="Tên tài khoản">
-	        	<input name="password" type="password" placeholder="Mật khẩu">
-	        	<input name="email" type="text" placeholder="Email">
-	        	<input name="ma" type="text" placeholder="MSSV/MSGV">
+	        	<input name="username" type="text" placeholder="Tên tài khoản" required="required">
+	        	<input name="password" type="password" placeholder="Mật khẩu" required="required">
+	        	<input name="email" type="text" placeholder="Email" pattern="\w+@\w+(\.\w+)+" title="Format email chưa đúng!!!" required="required">
+	        	<input name="ma" type="text" placeholder="MSSV/MSGV" required="required">
 	        	<p class="p-error-add" ${type==''?'hidden':''}>${accountError}</p>
 	        	<button type="submit">Tạo tài khoản</button>
         	</form>
@@ -130,7 +130,7 @@
                 <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-               	<a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+               	<a href="${role == 1 || role==2?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
                 <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>

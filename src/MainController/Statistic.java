@@ -2,6 +2,7 @@ package MainController;
 
 
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -31,18 +32,12 @@ public class Statistic {
 	Other other = new Other();
 	@Autowired
 	SessionFactory factory;
-	//file cua Tien
+
 	@RequestMapping("piechart")
 	public String piechart(ModelMap model, HttpSession ss) {
 		showPie(model);
 		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "Statistic/pie-chart";	
-	}
-	//file cua Canh
-	@RequestMapping("piechart1")
-	public String piechart1(ModelMap md) {
-		showPie(md);
-		return "Statistic/pie-chart1";	
 	}
 	
 	@RequestMapping("barchart")
@@ -51,14 +46,8 @@ public class Statistic {
 		other.checkLogin(ss, model, factory.getCurrentSession());
 		return "Statistic/bar-chart";	
 	}
-
-	@RequestMapping("barchart1")
-	public String barchart1(ModelMap md) {
-		showBar(md);
-		return "Statistic/bar-chart1";	
-	}
 	
-	private void showBar(ModelMap md) {
+	private void showBar(ModelMap model) {
 		try {
 			Session session = factory.getCurrentSession();
 			String hql = "SELECT COUNT(maDA) FROM DoAn GROUP BY nam ORDER BY nam";
@@ -75,8 +64,8 @@ public class Statistic {
 			for(Integer u : namofSLDA) {
 				System.out.println(u);
 			}
-			md.addAttribute("SLDAperYear", SLDAperYear);
-			md.addAttribute("namofSLDA", namofSLDA);
+			model.addAttribute("SLDAperYear", SLDAperYear);
+			model.addAttribute("namofSLDA", namofSLDA);
 			
 		}
 		catch (Exception e) {
@@ -84,7 +73,8 @@ public class Statistic {
 		}	
 	}
 	
-	private void showPie(ModelMap md) {
+	private void showPie(ModelMap model) {
+		int year = Calendar.getInstance().get(Calendar.YEAR);
 		try {
 			Session session = factory.getCurrentSession();
 			String hql = "from DoAn where diemHD >= 5 and (diemHD + diemPB)/2 >= 5 and nam = 2021";
@@ -99,9 +89,10 @@ public class Statistic {
 			Query q1 = session.createQuery(hql1);
 			List<DoAn> doAn1s = q1.list();
 			
-			md.addAttribute("listnam", listnam);
-			md.addAttribute("DADat", doAns.size());
-			md.addAttribute("DAKDat", doAn1s.size());
+			model.addAttribute("listnam", listnam);
+			model.addAttribute("DADat", doAns.size());
+			model.addAttribute("DAKDat", doAn1s.size());
+			model.addAttribute("nam", year);
 		}
 		catch (Exception e) {
 			System.out.println("loi: "+e.getMessage());

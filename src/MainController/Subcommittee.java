@@ -76,7 +76,7 @@ public class Subcommittee {
 	@RequestMapping("scmt-add")
 	public String scmtAdd(@RequestParam("select") String[] select, 
 			@RequestParam("tenTB") String tenTB, 
-			@RequestParam("khoa") int khoa, @RequestParam("diaDiem") String diaDiem,
+			@RequestParam("diaDiem") String diaDiem,
 			@RequestParam("ngay") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngay, 
 			@RequestParam("gio") @DateTimeFormat(pattern="hh:mm") Date gio, 
 			@RequestParam("chuyenNganh") String chuyenNganh) {
@@ -91,7 +91,7 @@ public class Subcommittee {
 			GiangVien giangVien = (GiangVien)(session.get(GiangVien.class, i));
 			if(giangVien != null) giangViens.add(giangVien);
 		}
-		TieuBan tieuBan = new TieuBan<>(tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
+		TieuBan tieuBan = new TieuBan<>(tenTB, chuyenNganh, ngay, gio, diaDiem, doAns, giangViens);
 		try {
 			session.save(tieuBan);
 			transaction.commit();
@@ -108,7 +108,11 @@ public class Subcommittee {
 	}
 	
 	@RequestMapping("scmt-edit")
-	public String scmtEdit(@RequestParam("select") String[] select, @RequestParam("maTB") int maTB) {
+	public String scmtEdit(@RequestParam("select") String[] select, @RequestParam("maTB") int maTB,
+			@RequestParam("diaDiem") String diaDiem,
+			@RequestParam("ngay") @DateTimeFormat(pattern="yyyy-MM-dd") Date ngay, 
+			@RequestParam("gio") @DateTimeFormat(pattern="hh:mm") Date gio, 
+			@RequestParam("chuyenNganh") String chuyenNganh) {
 		Session session = factory.openSession();
 		Transaction transaction = session.beginTransaction();
 		TieuBan tieuBan = (TieuBan)(session.get(TieuBan.class, maTB));
@@ -118,7 +122,10 @@ public class Subcommittee {
 			if(giangVien != null) giangViens.add(giangVien);
 		}
 		tieuBan.setGiangViens(giangViens);
-		
+		tieuBan.setGio(gio);
+		tieuBan.setNgay(ngay);
+		tieuBan.setDiaDiem(diaDiem);
+		tieuBan.setChuyenNganh(chuyenNganh);
 		try {
 			session.update(tieuBan);
 			transaction.commit();
