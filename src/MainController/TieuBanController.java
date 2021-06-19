@@ -101,7 +101,7 @@ public class TieuBanController {
 		List<DoAn> doAns = null;
 		List<GiangVien> giangViens = null;
 
-		TieuBan tieuBan = new TieuBan(tenTB, chuyenNganh, ngay, gio, diaDiem, khoa, doAns, giangViens);
+		TieuBan tieuBan = new TieuBan(tenTB, chuyenNganh, ngay, gio, diaDiem, doAns, giangViens);
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {

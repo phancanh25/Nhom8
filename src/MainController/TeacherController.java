@@ -143,9 +143,9 @@ public class TeacherController {
 		Integer temp = this.DeleteGV(gv);
 		System.out.println(temp);
 		if (temp != 0) {
-			model.addAttribute("message", "Delete thành công");
+			model.addAttribute("message", "Xóa thành công");
 		} else {
-			model.addAttribute("message", "Delete th?t b?i!");
+			model.addAttribute("message", "Xóa thất bại");
 		}
 		
 		model.addAttribute("giangViens", this.getMaGVs());

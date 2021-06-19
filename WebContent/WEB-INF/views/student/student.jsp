@@ -102,8 +102,8 @@
                 <input name="khoa" type="number" placeholder="Khóa" path="khoa" min="1900" max="2900" required><br>
                 <input name="ho" type="text" placeholder="Họ" path="ho" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input name="ten" type="text" placeholder="Tên" path="ten" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
-                <label>Nam&nbsp&nbsp<input checked type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nam&nbsp&nbsp<input checked type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;"></label> &nbsp&nbsp&nbsp
                 <input name="lop" type="text" placeholder="Lớp" path="lop" pattern="^D\d{2}CQ[A-Z]{2}\d{2}-N$" title="Format lớp chưa đúng" size="11" required><br>
                 <text>Ngày sinh</text>
                 <input name="ngaySinh" type="date" placeholder="Ngày sinh" style="width: 64%;" path="ngaySinh" required="required">
@@ -120,8 +120,8 @@
             <p>Sửa sinh viên</p>
             <form action="student/edit-student.htm" method="POST">
             	<input id="input-edit-maSV" type="text" name="maSV" hidden/>
-                <label>Nam&nbsp&nbsp<input id="input-edit-male" type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
-                <label>Nữ&nbsp&nbsp<input id="input-edit-female" type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
+                <label>Nam&nbsp&nbsp<input id="input-edit-male" type="radio" value="0" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
+                <label>Nữ&nbsp&nbsp<input id="input-edit-female" type="radio" value="1" name="phai" style="width: 15px; height: 15px; color: black;" required="required"></label> &nbsp&nbsp&nbsp
                 <input id="input-edit-khoa" name="khoa" type="number" min="1900" max="2900" required ${role==1?'':'readonly style="background: #DEE0E1"'} required><br>
                 <input id="input-edit-ho" name="ho" type="text" placeholder="Họ" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-30 ký tự !!!" maxlength="30" size="30" minlength="2" required><br>
                 <input id="input-edit-ten" name="ten" type="text" placeholder="Tên" pattern="[^1-9]{2,30}" title="Không nhập số và nhập từ 2-50 ký tự !!!" maxlength="50" size="50" minlength="2" required><br>
@@ -148,7 +148,7 @@
                 <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+                <a href="${role == 1 || role==2?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
                 <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
@@ -164,7 +164,7 @@
           		Tìm kiếm &nbsp;
           		<input id="myInput" type="text" placeholder="Search..">
           	</label>
-              <button class="btn-primary" onclick="openAddStudent();" style="margin-left: 40px; width: 150px; height: 30px;">Thêm sinh viên</button>
+              <button ${role!=1?'hidden':''} class="btn-primary" onclick="openAddStudent();" style="margin-left: 40px; width: 150px; height: 30px;">Thêm sinh viên</button>
           </div>
           <div class="div-student-table-border">
 	          	<table class="table table-striped table-bordered" style="font-size: 16px; border: 1px #41A2FF solid; ">
@@ -178,7 +178,7 @@
 			                    <th>Địa chỉ</th>
 			                    <th>Khóa</th>
 			                    <th>Điểm TBTL</th>
-			                    <th> ${role==3?'hidden':''}Đồ án</th>
+			                    <th>Đồ án</th>
 			                    <th ${role==1?'':'hidden'}>Action</th>
 			                    <th ${role==1?'':'hidden'}>Action</th>
 		            </tr>
@@ -194,7 +194,7 @@
 		                    <th>${sinhVien.getDiaChi()}</th>
 		                    <th>${sinhVien.getKhoa()}</th>
 		                    <th>${sinhVien.getDiemTBTL()}</th>
-		                    <td ${role == 3 ?'hidden':''}><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" >Click</a></td>
+		                    <td ${role != 3  || sinhVien.getMaSV()== code?'':'hidden'}><a target="__blank" href="student/student/${sinhVien.getMaSV()}.htm" >Click</a></td>
 		                    <td ${role == 1 ?'':'hidden'}><a href="javascript:void()" onclick="openEditStudent('${sinhVien.getMaSV()}','${sinhVien.getHo()}','${sinhVien.getTen()}','${sinhVien.getLop()}', '${sinhVien.getNgaySinh()}', '${sinhVien.isPhai()}','${sinhVien.getDiaChi()}','${sinhVien.getKhoa()}','${sinhVien.getDiemTBTL()}');" name="${sinhVien.getMaSV()}">Sửa</a></td>
 		                    <th ${role == 1 ?'':'hidden'}><a role="button" href="javascript:void(0)" onClick="openDeleteStudentConfirm('${sinhVien.getMaSV()}');">Xóa</a></th>
 	            		</tr>

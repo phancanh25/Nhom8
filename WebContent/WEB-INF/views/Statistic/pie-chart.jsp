@@ -150,7 +150,7 @@
                 <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+                <a href="${role == 1 || role==2?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
                 <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
@@ -164,7 +164,7 @@
         		<font style="margin-left: 110px; font-family: Tahoma; font-size: 25; color: black;">Chọn năm </font> &nbsp;
 			    <select class="form-control" id="nowtime" style="width: 200px; display: inline;">
 			    	<c:forEach items="${listnam}" var="listnam">
-			        	<option value="${listnam}" ${nam==listnam?'selected':''}>${listnam}</option>
+			        	<option value="${listnam}" ${String.valueOf(nam)==listnam?'selected':''}>${listnam}</option>
 			        </c:forEach>
 			    </select> &nbsp;
 			    <button type="button" class="btn btn-primary" onclick="submitValue()" style="margin-top: -5px;">Tìm kiếm</button>

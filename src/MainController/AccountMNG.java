@@ -44,7 +44,7 @@ public class AccountMNG {
 	
 	public void showAccount(ModelMap model) {
 		Session session = factory.getCurrentSession();
-		String hql = "FROM AccountGV";
+		String hql = "FROM AccountGV ORDER BY giangVien.maGV ASC";
 		Query query = session.createQuery(hql);
 		List<AccountGV> accountGVs = query.list();
 		model.addAttribute("type", "gv");
@@ -57,14 +57,14 @@ public class AccountMNG {
 		Session session = factory.getCurrentSession();
 		String hql = "";
 		if(type.equals("gv")) {
-			hql = "FROM AccountGV accountGV where 1=1";
+			hql = "FROM AccountGV accountGV where 1=1 ORDER BY giangVien.maGV ASC";
 			Query query = session.createQuery(hql);
 			List<AccountGV> accountGVs = query.list();
 			model.addAttribute("type", "gv");
 			model.addAttribute("accountGVs", accountGVs);
 		}
 		else {
-			hql = "FROM AccountSV accountSV where 1=1";
+			hql = "FROM AccountSV accountSV where 1=1 ORDER BY sinhVien.maSV ASC";
 			Query query = session.createQuery(hql);
 			List<AccountSV> accountSVs = query.list();
 			model.addAttribute("type", "sv");

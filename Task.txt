@@ -1,7 +1,0 @@
-Cảnh:
-+Chưa có nút quản lý tài khoản sinhv viên, chỉ mới giáo viên
-ở cái url: http://localhost:8090/Nhom8/cmt-student/1.htm  bị hiện lỗi khi click vào đồ án, trong khí sinh viên bị xóa hết và không còn nữa. 
-Với cả hôm trước t còn thấy cái này chưa check role.
-Nói chung là cái DS kỳ bảo vệ chưa ổn.
-Còn mấy cái kia test thấy chạy bth rồi.
-

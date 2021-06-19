@@ -52,6 +52,8 @@ function closeAddTeacher(){
 }
 
 function openEditTeacher(maGV, ho, ten, phai, sDT, diaChi){
+	if(phai==true) document.getElementById("input-edit-female").checked= true;
+	else document.getElementById("input-edit-male").checked= true;
 	document.getElementById("input-edit-maGV").value = maGV;
 	document.getElementById("input-edit-ho").value = ho;
 	document.getElementById("input-edit-ten").value = ten;

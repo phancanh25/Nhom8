@@ -47,7 +47,7 @@ public class ProjectToCMT {
 			List<TieuBan> tieuBans = query.list();
 			
 			//Lay tieu ban
-			String hql1 = "FROM SinhVien sinhVien where sinhVien.diemTBTL >= 2.5 and sinhVien.doAn.nam= "+year+" and sinhVien.doAn.diemHD >= 5 and (diemHD + diemPB)/2 >= 5 order by diemTBTL DESC";
+			String hql1 = "FROM SinhVien where doAn.nam= "+year+" and (diemHD + diemPB)/2 >= 5 order by diemTBTL DESC";
 			Query q = session.createQuery(hql1);
 			List<SinhVien> sinhViens = q.list();
 			model.addAttribute("tieuBans", tieuBans);

@@ -103,7 +103,7 @@
                 <a href="">
                     <img src="resources/img/logo.png" class="img-logo">
                 </a>
-                <a href="${role == 1?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
+                <a href="${role == 1 || role==2?'./statistic/piechart.htm':'error.htm'}">Thống kê</a>
                 <a href="${role == 1 || role == 2?'event.htm':'error.htm'}">DS kỳ bảo vệ</a>
                 <a href="${role == 1 || role == 2?'assignment.htm':'error.htm'}">Phân công đồ án</a>
                 <a href="${role == 1 || role == 2 || role == 3 ?'student/student.htm':'error.htm'}">DSSV</a>
@@ -145,7 +145,7 @@
 	                            <input type="text" value="${sinhVien.getDoAn().getGVHD().getHo()} ${sinhVien.getDoAn().getGVHD().getTen()}" readonly style="opacity: 0.8;"><!-- giaovien.ho.ten -->
 	                        </td>
 	                        <td><input style="color: blue; font-weight: bold" name="tenDA" value="${sinhVien.getDoAn().getTenDA()}" type="text" placeholder="Tên đồ án" required="required"></td>
-	                        <td><textarea style="color: blue; font-weight: bold"name="chiTietDA" cols="20" rows="3" placeholder="Chi tiết" required="required">${sinhVien.getDoAn().getChiTiet()}</textarea></td>
+	                        <td><textarea style="color: blue; font-weight: bold"name="chiTietDA" cols="20" rows="3" maxlength="300" placeholder="Chi tiết" required="required">${sinhVien.getDoAn().getChiTiet()}</textarea></td>
 	                        <input name="maDA" type="text" value="${sinhVien.getDoAn().getMaDA()}" hidden>
 	                    </tr>
 					</c:forEach>
