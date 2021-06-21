@@ -58,7 +58,7 @@
 				<span ${changePassMsg ==null?'hidden':''} style="color: ${changePassFlag=='wrong'?'red':'#00A213'}">${changePassMsg}</span>
 			            <form action="change-pass.htm" method="POST">
 			                <input type="password" name="oldpass" placeholder="Mật khẩu hiện tại"><br>
-			                <input type="password"  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8}$" title="Mật khẩu bạn nhập vào chưa đủ mạnh" name="newpass1" placeholder="Mật khẩu mới"><br>
+			                <input type="password"  pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,30}$" title="Mật khẩu phải có ít nhất 8 ký tự, tối khiểu 1 ký tự thường, 1 ký tự hoa, 1 ký tự số và 1 ký tự đặc biệt (!,@,#,$,&,*)" name="newpass1" placeholder="Mật khẩu mới"><br>
 			                <input type="password" name="newpass2" placeholder="Nhập lại mật khẩu mới"><br>
 			                <p class="error" ${error!=null?'':'hidden'}>Tài khoản hoặc mật khẩu không chính xác</p>
 			                <button class="btn-primary" type="submit">Đổi mật khẩu</button>
@@ -115,6 +115,7 @@
                 <a href="Home/index.htm">Trang chủ</a>
             </div>
         </div>
+        <p class="p-dssv">Kết quả kỳ bảo vệ năm ${event.getYear()}</p>
         <div class="div-event-release">
         	<label style="margin-top: 10px;">
         		Tìm kiếm &nbsp;

@@ -4,6 +4,7 @@ import java.util.List;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -195,6 +196,79 @@ public class HomeController {
 		}
 		finally {
 			session.close();
+		}
+		showEvent(model);
+		other.checkLogin(ss, model, factory.getCurrentSession());
+		return "home/index";	
+	}
+	
+	//Doi mat khau
+	@RequestMapping("change-pass")
+	public String changePass(@RequestParam("oldpass") String oldPass,
+			@RequestParam("newpass1") String newPass1,
+			@RequestParam("newpass2") String newPass2,
+			ModelMap model, HttpSession ss) {
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		if((int)(ss.getAttribute("role")) != 3) {
+			AccountGV accountGV = (AccountGV)(session.get(AccountGV.class, (String)(ss.getAttribute("account"))));
+			if(!other.getMd5(oldPass).equals(accountGV.getPassword())) {
+				System.out.println("Mật khẩu cũ không chính xác");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Mật khẩu cũ không chính xác");
+			}
+			else if(!newPass1.equals(newPass2)) {
+				System.out.println("Nhập lại mật khẩu chưa chính xác");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Nhập lại mật khẩu không khớp");
+			}
+			else {
+				try {
+					accountGV.setPassword(other.getMd5(newPass1));
+					session.update(accountGV);
+					transaction.commit();
+					model.addAttribute("changePassFlag", "done");
+					model.addAttribute("changePassMsg", "Đổi mật khẩu thành công");
+				}
+				catch (HibernateException e) {
+					System.out.println("Co loi xay ra khi cap nhat mau khau");
+					model.addAttribute("changePassFlag", "done");
+					model.addAttribute("changePassMsg", "Đã xảy ra lỗi: "+e.getMessage());
+				}
+				finally {
+					session.close();
+				}
+			}
+		}
+		else {
+			AccountSV accountSV = (AccountSV)(session.get(AccountSV.class, (String)(ss.getAttribute("account"))));
+			if(!other.getMd5(oldPass).equals(accountSV.getPassword())) {
+				System.out.println("Mật khẩu cũ không chính xác");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Mật khẩu cũ không chính xác");
+			}
+			else if(!newPass1.equals(newPass2)) {
+				System.out.println("Nhap lai mat khau chua chinh xac");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Nhập lại mật khẩu không khớp");
+			}
+			else {
+				try {
+					accountSV.setPassword(other.getMd5(newPass1));
+					session.update(accountSV);
+					transaction.commit();
+					model.addAttribute("changePassFlag", "done");
+					model.addAttribute("changePassMsg", "Đổi mật khẩu thành công");
+				}
+				catch (HibernateException e) {
+					System.out.println("Co loi xay ra khi cap nhat mau khau");
+					model.addAttribute("changePassFlag", "wrong");
+					model.addAttribute("changePassMsg", "Đã xảy ra lỗi: "+e.getMessage());
+				}
+				finally {
+					session.close();
+				}
+			}
 		}
 		showEvent(model);
 		other.checkLogin(ss, model, factory.getCurrentSession());

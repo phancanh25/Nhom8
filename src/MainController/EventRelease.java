@@ -27,14 +27,11 @@ public class EventRelease {
 	public String openEventRelease(@PathVariable("year") int year, ModelMap model) {
 		Session session = factory.getCurrentSession();
 		Lock event = (Lock)(session.get(Lock.class, year));
-		String hql = "FROM DoAn where nam = "+year;
+		String hql = "FROM DoAn where nam = "+year+" ORDER BY sinhVien.maSV";
 		Query query = session.createQuery(hql);
 		List<DoAn> doAns = query.list();
 		model.addAttribute("doAns", doAns);
 		model.addAttribute("event", event);
-		for(DoAn i : doAns) {
-			System.out.println("ma do an: "+i.getMaDA());
-		}
 		return "event/event-release";
 	}
 }
