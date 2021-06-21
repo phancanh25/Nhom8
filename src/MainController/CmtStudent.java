@@ -41,7 +41,7 @@ public class CmtStudent {
 		List<DoAn> doAns = tieuBan.getDoAn();
 		List<SinhVien> sinhViens = new ArrayList<>();
 		for(DoAn i: doAns) {
-			sinhViens.add(i.getSinhVien());
+			if(i.getSinhVien() != null)sinhViens.add(i.getSinhVien());
 		}
 		model.addAttribute("tenTB", tieuBan.getTenTB());
 		model.addAttribute("sinhViens", sinhViens);

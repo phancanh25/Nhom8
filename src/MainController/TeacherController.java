@@ -123,12 +123,41 @@ public class TeacherController {
 
 	public Integer DeleteGV(GiangVien gv) {
 		Session session = factory.openSession();
-		Transaction t = session.beginTransaction();
+		Transaction transaction = session.beginTransaction();
+		
+		//Tim do an nao ma giang vien nay huong dan hoac phan bien va set null cho no
+		String hql = "FROM DoAn";
+		Query query = session.createQuery(hql);
+		List<DoAn> doAnSuaGV = query.list();
 		try {
-			session.delete(gv);
-			t.commit();
+			for(DoAn i: doAnSuaGV) {
+				if(i.getGVHD()!=null && i.getGVHD().getMaGV().equals(gv.getMaGV())) {
+					GiangVien gvhd = null;
+					i.setGVHD(gvhd);
+				}
+				if(i.getGVPB()!=null && i.getGVPB().getMaGV().equals(gv.getMaGV())) {
+					GiangVien gvpb = null;
+					i.setGVPB(gvpb);
+				}
+				session.update(i);
+			}
+			transaction.commit();
 		} catch (Exception e) {
-			t.rollback();
+			System.out.println("Loi: "+e.getMessage());
+			transaction.rollback();
+			session.close();
+			return 0;
+		}
+		
+		//Xoa giang vien do
+		try {
+			session = factory.openSession();
+			transaction = session.beginTransaction();
+			session.delete(gv);
+			transaction.commit();
+		} catch (Exception e) {
+			System.out.println("Loi: "+e.getMessage());
+			transaction.rollback();
 			return 0;
 		} finally {
 			session.close();
