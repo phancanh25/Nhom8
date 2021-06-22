@@ -217,6 +217,11 @@ public class HomeController {
 				model.addAttribute("changePassFlag", "wrong");
 				model.addAttribute("changePassMsg", "Mật khẩu cũ không chính xác");
 			}
+			else if(oldPass.equals(newPass1)) {
+				System.out.println("Mật khẩu mới không được giống mật khẩu cũ");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Mật khẩu mới không được giống mật khẩu cũ");
+			}
 			else if(!newPass1.equals(newPass2)) {
 				System.out.println("Nhập lại mật khẩu chưa chính xác");
 				model.addAttribute("changePassFlag", "wrong");
@@ -246,6 +251,11 @@ public class HomeController {
 				System.out.println("Mật khẩu cũ không chính xác");
 				model.addAttribute("changePassFlag", "wrong");
 				model.addAttribute("changePassMsg", "Mật khẩu cũ không chính xác");
+			}
+			else if(oldPass.equals(newPass1)) {
+				System.out.println("Mật khẩu mới không được giống mật khẩu cũ");
+				model.addAttribute("changePassFlag", "wrong");
+				model.addAttribute("changePassMsg", "Mật khẩu mới không được giống mật khẩu cũ");
 			}
 			else if(!newPass1.equals(newPass2)) {
 				System.out.println("Nhap lai mat khau chua chinh xac");
